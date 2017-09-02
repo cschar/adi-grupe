@@ -11,4 +11,5 @@ export const updateName = (text) => ({
 export const updatePos = (direction) => ({
     type: MOVE_UPDATE,
     direction: direction
-})
+});
+

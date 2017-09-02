@@ -10,7 +10,8 @@ const initState = {
 };
 
 const myRed = (state = initState, action) => {
-    console.log('state is' + state);
+    console.log('state is');
+    console.log(state);
 
     switch (action.type) {
         case HELLO_WORLD_NAME_UPDATE:
@@ -19,7 +20,7 @@ const myRed = (state = initState, action) => {
                 name: action.text
             }
         case MOVE_UPDATE:
-            console.log('move action reducing')
+            console.log('RED: move action reducing')
             console.log(state)
             let pos = state.position
             console.log(pos)
@@ -44,7 +45,7 @@ const position = (state = initState, action) => {
 
     switch (action.type) {
         case MOVE_UPDATE:
-            console.log('move action reducing')
+            console.log('POSITION: move action reducing')
             console.log(state)
             let pos = state.position
             console.log(pos)
@@ -65,6 +66,5 @@ const position = (state = initState, action) => {
 };
 
 // const helloWorldReducer = combineReducers({myRed, position});
-
 const helloWorldReducer = combineReducers({myRed});
 export default helloWorldReducer;
