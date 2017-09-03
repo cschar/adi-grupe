@@ -40,31 +40,6 @@ const myRed = (state = initState, action) => {
     }
 };
 
-const position = (state = initState, action) => {
-    console.log('state is' + state);
-
-    switch (action.type) {
-        case MOVE_UPDATE:
-            console.log('POSITION: move action reducing')
-            console.log(state)
-            let pos = state.position
-            console.log(pos)
-            console.log(action.direction)
-            if (action.direction == 'up') {
-                pos[0] = pos[0] + 1
-            } else if (action.direction == 'down') {
-                pos[0] = pos[0] - 1
-            }
-            return {
-                ...state,
-                position: pos
-            }
-
-        default:
-            return state;
-    }
-};
-
 // const helloWorldReducer = combineReducers({myRed, position});
 const helloWorldReducer = combineReducers({myRed});
 export default helloWorldReducer;

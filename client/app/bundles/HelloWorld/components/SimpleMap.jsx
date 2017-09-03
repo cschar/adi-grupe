@@ -5,6 +5,28 @@ import {updatePos} from '../actions/helloWorldActionCreators';
 
 // const position = [51.505, -0.09];
 class SimpleMap extends React.Component {
+    state = {
+        hasLocation: false,
+        latlng: {
+            lat: 51.505,
+            lng: -0.09,
+        },
+        markers: []
+    };
+
+
+
+    handleLocationFound = e => {
+        this.setState({
+            hasLocation: true,
+            latlng: e.latlng,
+        })
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            markers: nextProps.markers,
+        })
+    }
 
     constructor(props){
         super()
@@ -28,16 +50,72 @@ class SimpleMap extends React.Component {
         this.props.update('up')
     };
 
+    handleClick = (evt) => {
+        // this.refs.map.leafletElement.locate()
+        console.log('clicked')
+        console.log(evt)
+        console.log(this.refs.map)
+
+        this.setState(function(prevState, props){
+            console.log(prevState)
+            // markers: prevState.markers.push(evt.latlng)
+            let newMarkers = prevState.markers;
+
+            newMarkers.push(evt.latlng)
+
+            return {
+                markers: newMarkers
+            }
+        })
+        console.log('state');
+        console.log(this.state);
+    }
+
     render() {
+        // let setMarkers = [];
+        let setMarkers = this.state.markers.map(function (marker, index){
+            console.log(marker);
+            let position = [marker.lat, marker.lng]
+            return (
+                <Marker key={index + '-setMarker'} position={position}>
+                    <Popup key={index + '-setMarkerPop'} className="popup">
+                        <span>custom popup
+                        hey ho hey
+
+                        </span>
+
+                    </Popup>
+                </Marker>
+            )
+        }.bind(this));
+
+        let markers = this.props.markers.map(function (marker){
+            // console.log(marker);
+            let position = [parseFloat(marker.lat), parseFloat(marker.lng)]
+
+            return (
+                <Marker key={marker.id} position={position}>
+                    <Popup>
+                        A popup
+                    </Popup>
+                </Marker>
+            )
+        }.bind(this));
+
         return (
             <div>
 
-            <Map center={this.props.position} zoom={6} className="mapBox">
+            <Map  className="mapBox"
+                  center={this.props.position}
+                 onClick={this.handleClick}
+                 zoom={12}
+                 ref="map">
                 <TileLayer
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
-
+                {markers}
+                {setMarkers}
                 <Marker position={this.props.position}>
                     <Popup>
                         <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
@@ -55,8 +133,9 @@ import { connect } from 'react-redux';
 import { MOVE_UPDATE } from '../constants/helloWorldConstants';
 
 const mapStateToProps = (state) => (
-    {   name: state.name,
-        position: state.position
+    {   name: state.myRed.name,
+        position: state.myRed.position,
+        markers: state.myRed.markers
     });
 
 const mapDispatchToProps = (dispatch) => {
