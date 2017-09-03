@@ -72,12 +72,24 @@ class SimpleMap extends React.Component {
     }
 
     render() {
+        let greenIcon = L.icon({
+            iconUrl: 'kerm.png',
+            shadowUrl: 'kerm.png',
+
+            iconSize:     [28, 55], // size of the icon
+            shadowSize:   [10, 24], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
         // let setMarkers = [];
         let setMarkers = this.state.markers.map(function (marker, index){
-            console.log(marker);
+
             let position = [marker.lat, marker.lng]
             return (
-                <Marker key={index + '-setMarker'} position={position}>
+                <Marker key={index + '-setMarker'} icon={greenIcon}
+                        position={position}>
                     <Popup key={index + '-setMarkerPop'} className="popup">
                         <span>custom popup
                         hey ho hey
