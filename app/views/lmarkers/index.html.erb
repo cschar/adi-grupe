@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lmarkers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lat</th>
+      <th>Lng</th>
+      <th>User</th>
+      <th>Ltype</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lmarkers.each do |lmarker| %>
+      <tr>
+        <td><%= lmarker.lat %></td>
+        <td><%= lmarker.lng %></td>
+        <td><%= lmarker.user_id %></td>
+        <td><%= lmarker.ltype %></td>
+        <td><%= link_to 'Show', lmarker %></td>
+        <td><%= link_to 'Edit', edit_lmarker_path(lmarker) %></td>
+        <td><%= link_to 'Destroy', lmarker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lmarker', new_lmarker_path %>

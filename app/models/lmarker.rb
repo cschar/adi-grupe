@@ -1,0 +1,2 @@
+class Lmarker < ApplicationRecord
+end

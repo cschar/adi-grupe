@@ -1,0 +1,37 @@
+<%= form_with(model: lmarker, local: true) do |form| %>
+  <% if lmarker.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lmarker.errors.count, "error") %> prohibited this lmarker from being saved:</h2>
+
+      <ul>
+      <% lmarker.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :lat %>
+    <%= form.text_field :lat, id: :lmarker_lat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lng %>
+    <%= form.text_field :lng, id: :lmarker_lng %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :lmarker_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ltype %>
+    <%= form.text_field :ltype, id: :lmarker_ltype %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @lmarker.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @lmarker.lng %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @lmarker.user_id %>
+</p>
+
+<p>
+  <strong>Ltype:</strong>
+  <%= @lmarker.ltype %>
+</p>
+
+<%= link_to 'Edit', edit_lmarker_path(@lmarker) %> |
+<%= link_to 'Back', lmarkers_path %>
