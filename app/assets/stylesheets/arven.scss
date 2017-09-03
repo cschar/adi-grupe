@@ -1,3 +1,34 @@
 // Place all the styles related to the arven controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#arvenMap{
+  width:100vw;
+  height:50vh;
+}
+
+#status-container {
+  display: grid;
+  grid-template-columns: auto 40vw;
+  grid-template-rows: 25vw 25vw;
+  grid-template-areas:
+          "status feed"
+          "feed2 feed2";
+  background:#eaeaea;
+  min-height:35vh;
+}
+#status{
+  grid-area: status;
+  background: goldenrod;
+  /*height:60px;*/
+}
+
+#feed {
+  grid-area: feed;
+  background: #cec;
+}
+#feed2 {
+  grid-area: feed2;
+  background: #aea;
+}
