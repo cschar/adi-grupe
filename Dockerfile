@@ -1,35 +1,24 @@
 FROM ruby:2.3.3
 
-RUN apt-get update -qq && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  nodejs
 
-# for postgres
-RUN apt-get install -y libpq-dev
-
-# for nokogiri
-RUN apt-get install -y libxml2-dev libxslt1-dev
-
-# for capybara-webkit
-RUN apt-get install -y libqt4-webkit libqt4-dev xvfb
-
-# for a JS runtime
-RUN apt-get install -y nodejs
-
-ENV APP_HOME /myapp
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-
-#Gemfile/Gemfile.lock
-ADD Gemfile* $APP_HOME/
-RUN bundle install
-
-ADD . $APP_HOME
+RUN mkdir -p /app
+WORKDIR /app
 
 
+# Copy the Gemfile as well as the Gemfile.lock and install
+# the RubyGems. This is a separate step so the dependencies
+# will be cached unless changes to one of those two files
+# are made.
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler && bundle install --jobs 20 --retry 5
+# Copy the main application.
+COPY . ./
 
-#
-#RUN mkdir /myapp
-#WORKDIR /myapp
-#ADD Gemfile /myapp/Gemfile
-#ADD Gemfile.lock /myapp/Gemfile.lock
-#RUN bundle install
-#ADD . /myapp
+EXPOSE 3003
+#dont need to specify it each time...
+ENTRYPOINT ["bundle", "exec"]
+CMD ["rails", "server", "-b", "0.0.0.0", "--port", "3003"]
+
