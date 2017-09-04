@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/login', to: 'static_pages#index'
   get '/logout', to: 'static_pages#index'
 
+  # get '/markers', to ''
+
   get '/arven', to: 'arven#index'
   root 'static_pages#index'
 

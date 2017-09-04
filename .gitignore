@@ -27,3 +27,7 @@ node_modules
 
 # Generated js bundles
 /app/assets/webpack/*
+
+
+#custom
+devnotes.txt

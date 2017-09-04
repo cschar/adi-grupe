@@ -11,6 +11,18 @@ $col2: #9cd;
 .box {
   background: $light-green;
 }
+
+/* jquery prototype */
+.button.active {
+  background: #ea0000;
+  color: #fff;
+}
+
+.rpsImage{
+  width:60px;
+  height:60px;
+  background: #f0f0f0;
+}
 /* boostrap */
 
 .btn:visited{ color: #FFF}

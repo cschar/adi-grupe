@@ -1,5 +1,6 @@
 class LmarkersController < ApplicationController
   before_action :set_lmarker, only: [:show, :edit, :update, :destroy]
+  # skip_before_action(:verify_authenticity_token)
 
   # GET /lmarkers
   # GET /lmarkers.json
@@ -25,6 +26,10 @@ class LmarkersController < ApplicationController
   # POST /lmarkers.json
   def create
     @lmarker = Lmarker.new(lmarker_params)
+
+    if current_user
+      @lmarker.user_id = current_user.id
+    end
 
     respond_to do |format|
       if @lmarker.save

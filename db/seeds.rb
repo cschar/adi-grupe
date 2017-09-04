@@ -13,6 +13,15 @@ u = User.new(
 )
 u.save
 
+u2 = User.new(
+    :email=>'d@d.com',
+    :password=>'horahora',
+    :password_confirmation=>'horahora'
+)
+u2.save
+
+
+
 10.times do |n|
   m = Marker.new(
                 :lat=>51.505 + rand(12)*0.001,
