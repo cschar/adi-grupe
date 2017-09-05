@@ -1,8 +1,14 @@
-before_script:
-  - ruby -v
-  - which ruby
+#image: ruby:2.3
+image:
+  name: cclay/adi:push3
+
+#before_script:
+#  - ruby -v
+#  - which ruby
+
 
 testjob:
   script:
-    - which ruby
-
+    - cd client && yarn
+    - yarn run build:test
+    - cd /app && bundle exec rails test
