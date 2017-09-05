@@ -151,7 +151,8 @@ var rockIcon = L.icon({
 });
 
 var scissorsIcon = L.icon({
-    iconUrl: 'scissors.png',
+    // iconUrl: 'scissors.png',
+    iconUrl: 'scissors2.png',
     // shadowUrl: 'kerm.png',
 
     iconSize:     [40, 40], // size of the icon
@@ -162,7 +163,8 @@ var scissorsIcon = L.icon({
 });
 
 var paperIcon = L.icon({
-    iconUrl: 'paper.png',
+    iconUrl: 'paper2.gif',
+    // iconUrl: 'paper2.png',
     // shadowUrl: 'white_square.png',
 
     iconSize:     [40, 40], // size of the icon
@@ -183,17 +185,17 @@ function createCurrentUserMarker(latlng, user_id){
     linkR = linkR.click(function() {
         rpsImg.attr("src", "rock.png")
         marker.setIcon(rockIcon)
-        selection = 'Rock'
+        selection = 'rock'
     })
     linkP = linkP.click(function() {
         marker.setIcon(paperIcon)
         rpsImg.attr("src", "paper.png")
-        selection = 'Paper'
+        selection = 'paper'
     })
     linkS = linkS.click(function() {
         marker.setIcon(scissorsIcon)
         rpsImg.attr("src", "scissors.png")
-        selection = 'Scissors'
+        selection = 'scissors'
     })
 
     linkSave = linkSave.click(function() {

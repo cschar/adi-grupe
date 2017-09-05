@@ -3,6 +3,8 @@ require 'test_helper'
 class LmarkersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @lmarker = lmarkers(:one)
+    @user = users(:one)
+    @lmarker.user_id = @user.id
   end
 
   test "should get index" do
@@ -34,7 +36,8 @@ class LmarkersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update lmarker" do
-    patch lmarker_url(@lmarker), params: { lmarker: { lat: @lmarker.lat, lng: @lmarker.lng, ltype: @lmarker.ltype, user_id: @lmarker.user_id } }
+    patch lmarker_url(@lmarker),
+          params: { lmarker: { lat: @lmarker.lat, lng: @lmarker.lng, ltype: @lmarker.ltype, user_id: @lmarker.user_id } }
     assert_redirected_to lmarker_url(@lmarker)
   end
 
