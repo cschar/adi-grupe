@@ -1,0 +1,8 @@
+before_script:
+  - ruby -v
+  - which ruby
+
+testjob:
+  script:
+    - which ruby
+
