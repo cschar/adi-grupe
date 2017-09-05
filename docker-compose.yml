@@ -11,6 +11,6 @@ services:
     ports:
       - "3003:3000"
     links:
-      - db
+      - db-za
     volumes:
       - .:/myapp

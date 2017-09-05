@@ -1,24 +1,37 @@
-FROM ruby:2.3.3
+FROM ruby:2.4
 
-RUN apt-get update && apt-get install -y \
-  build-essential \
-  nodejs
+RUN apt-get update 
+
+# Node.js
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - \
+    && apt-get install -y nodejs
+
+# yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update \
+    && apt-get install -y yarn
 
 RUN mkdir -p /app
 WORKDIR /app
-
-
-# Copy the Gemfile as well as the Gemfile.lock and install
-# the RubyGems. This is a separate step so the dependencies
-# will be cached unless changes to one of those two files
-# are made.
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --jobs 20 --retry 5
-# Copy the main application.
-COPY . ./
+RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5
 
-EXPOSE 3003
-#dont need to specify it each time...
-ENTRYPOINT ["bundle", "exec"]
-CMD ["rails", "server", "-b", "0.0.0.0", "--port", "3003"]
+
+COPY . /app
+
+RUN bundle exec rails db:migrate 
+
+#react_on_rails
+WORKDIR /app/client
+RUN yarn 
+
+
+EXPOSE 3000
+WORKDIR /app
+CMD foreman start -f Procfile.dev
+#ENTRYPOINT ["bundle", "exec"]
+#CMD ["rails","server", "-b", "0.0.0.0", "--port", "3000"]
+#CMD [ "bash" ]
+
 
