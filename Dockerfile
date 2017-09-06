@@ -15,7 +15,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
 RUN mkdir -p /app
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5
+RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5 
 
 
 COPY . /app
@@ -26,12 +26,7 @@ RUN bundle exec rails db:migrate
 WORKDIR /app/client
 RUN yarn 
 
-
 EXPOSE 3000
 WORKDIR /app
 CMD foreman start -f Procfile.dev
-#ENTRYPOINT ["bundle", "exec"]
-#CMD ["rails","server", "-b", "0.0.0.0", "--port", "3000"]
-#CMD [ "bash" ]
-
 

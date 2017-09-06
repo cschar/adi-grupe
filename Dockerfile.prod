@@ -1,0 +1,49 @@
+FROM ruby:2.4
+
+RUN apt-get update 
+
+# Node.js
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - \
+    && apt-get install -y nodejs
+
+# yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update \
+    && apt-get install -y yarn
+
+RUN mkdir -p /app
+WORKDIR /app
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5 --without development test
+
+
+COPY . /app
+
+#RUN bundle exec rails db:migrate
+
+#react_on_rails
+WORKDIR /app/client
+RUN yarn
+
+# Done by precompile
+#RUN yarn run build:production
+
+# Set Rails to run in production
+ENV RAILS_ENV production
+ENV RACK_ENV production
+
+# Precompile Rails assets
+RUN bundle exec rake assets:precompile
+
+EXPOSE 3000
+WORKDIR /app
+CMD bundle exec puma -C config/puma.rb
+#CMD foreman start -f Procfile.dev
+
+
+#ENTRYPOINT ["bundle", "exec"]
+#CMD ["rails","server", "-b", "0.0.0.0", "--port", "3000"]
+#CMD [ "bash" ]
+
+

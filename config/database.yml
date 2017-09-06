@@ -26,9 +26,9 @@ test:
 
 production:
   adapter: postgresql
-  database: backbone_data_bootstrap_development
+  database: adi_rails_production
   min_messages: WARNING
   pool: 5
   username: postgres
-  host: localhost
-#  host: db-za
+#  host: localhost
+  host: db-za

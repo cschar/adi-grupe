@@ -220,7 +220,8 @@ function createCurrentUserMarker(latlng, user_id){
         })
     });
 
-    var div = $(`<div style='bacground:#aca'> lmarker @ ${latlng} <br/> </div>`)
+    var name = 'lmarker @ ' + latlng.toString();
+    var div = $("<div style='bacground:#aca'>" + name+" <br/> </div>")
     div.append(rpsImg[0])
     div.append(linkR[0])
     div.append(linkP[0])
@@ -248,7 +249,8 @@ function createOtherUserMarker(lmarker){
         }
         var Fireball = $('<button class="btn btn-default btn-sm"> Cast fireball</button>')
 
-        var rpsImg = $(`<img class="rpsImage" src="${lmarker.ltype}.png"/>`)
+        var imgName = lmarker.ltype.toString() +'.png'
+        var rpsImg = $('<img class="rpsImage" src="' + imgName + '"/>')
 
     //  Fireball.click(function() {  // works ? without reassign?
         Fireball = Fireball.click(function() {
@@ -273,8 +275,8 @@ function createOtherUserMarker(lmarker){
             //     })
         });
 
-
-        var div = $(`<div style='background:#aca'>${[lmarker.lat,lmarker.lng]} <br/> ${lmarker.user_id} -- ${lmarker.ltype} lmarker </div>`)
+    var info = [lmarker.lat,lmarker.lng].toString() + "<br/>" + lmarker.user_id+ " --" + lmarker.ltype +" lmarker"
+        var div = $("<div style='background:#aca'>" + info +" </div>")
         div.append(rpsImg[0])
         div.append(Fireball[0])
 
