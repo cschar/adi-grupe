@@ -8,9 +8,15 @@ class ArvenController < ApplicationController
 
     @markers = Marker.all
 
+    if request.port
+      #localhost:3000
+      protocol_and_host = request.protocol + request.host_with_port
+    else
+      protocol_and_host = request.protocol + request.host
+    end
 
     gon.push({:user_id => current_user.id,
-               :protocol_and_host => request.protocol + request.host_with_port})
+               :protocol_and_host => protocol_and_host})
 
   end
 end

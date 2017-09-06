@@ -18,7 +18,8 @@ build
 pass in secret key 
 ```
 export SECRET_KEY_BASE=<your_key>
-docker-compose up -e SECRET_KEY_BASE
+docker-compose up  #dont need to pass in, will take environment from shell
+#or detached 
 ```
 test its working
 > curl localhost:3003
@@ -30,7 +31,12 @@ rails db:create
 rails db:migrate
 ```
 
-
+monitor detached mode
+```
+docker-compose up -d
+docker-compose logs --follow
+docker-compose stop
+```
 
 
 #### Testing locally w/ Docker
