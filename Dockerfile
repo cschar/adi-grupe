@@ -15,7 +15,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
 RUN mkdir -p /app
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5 
+RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5 --without production
 
 
 COPY . /app
