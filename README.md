@@ -16,18 +16,19 @@ build
 > docker build -t adiprod --file '<PATH_TO_DIR>/Dockerfile.prod' .
 
 pass in secret key 
-> export SECRET_KEY_BASE=<your_key>
-
-> docker-compose up -e SECRET_KEY_BASE
-
+```
+export SECRET_KEY_BASE=<your_key>
+docker-compose up -e SECRET_KEY_BASE
+```
 test its working
 > curl localhost:3003
 
 set up db in new postgres container
-> docker-compose exec web bash
-> rails db:create
-> rails db:migrate
-
+```
+docker-compose exec web bash
+rails db:create
+rails db:migrate
+```
 
 
 

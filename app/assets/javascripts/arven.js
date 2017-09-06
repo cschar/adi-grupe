@@ -7,7 +7,8 @@ var dumps = '';
 var clickSpot = '';
 var map2 = null;
 var lmarkers = [];
-var baseURL = 'http://localhost:3000';
+// var baseURL = 'http://localhost:3000';
+var baseURL = gon.protocol_and_host;
 var selection = 'None'
 var recentMarker = null;  //for changing icon image
 
@@ -86,8 +87,8 @@ function setArven(){
         console.log('clicked:')
         console.log(e)
         clickSpot = e.latlng.toString();
-        var user_id = 1; // replace with gon js
-        marker = createCurrentUserMarker(e.latlng, user_id)
+
+        marker = createCurrentUserMarker(e.latlng, gon.user_id)
         marker.addTo(map2)
 
     }
@@ -115,21 +116,17 @@ function setMarkersOnMap(){
     console.log('setting markers')
     console.log(lmarkers)
 
-    var div = $("<div style='background:#aca'> a test dive that is very long <br/> </div>")
-
     for( var i =0; i < lmarkers.length; i++){
         var lmarker = lmarkers[i];
         var latlng = new L.LatLng(lmarker.lat, lmarker.lng)
-
         var marker = null;
-        //gon js
-        if ( lmarker.user_id == 1){
-            marker = createCurrentUserMarker(latlng, 1)
+
+        if ( lmarker.user_id == gon.user_id){
+            marker = createCurrentUserMarker(latlng, gon.user_id)
         }else{
             marker = createOtherUserMarker(lmarker)
         }
-        // var marker = L.marker(latlng);
-        // marker.bindPopup(div[0]);
+
         allMarkers.push(marker)
         marker.addTo(map2)
     }
