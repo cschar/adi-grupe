@@ -64,3 +64,9 @@ git add <changeed_file>
 git commit -m 'run pipeline!'
 git push gitlab_remote
 ``` 
+
+
+###Background Tasks
+
+apply rps game logic on lmarkers
+> rake rps_game_logic_on_lmarkers

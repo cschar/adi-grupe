@@ -37,6 +37,8 @@ gem 'devise'
 gem 'bootstrap-sass', '3.3.7'
 gem 'jquery-rails'
 gem 'gon'
+gem 'sidekiq'
+
 
 
 

@@ -45,8 +45,11 @@ class LmarkersController < ApplicationController
   # PATCH/PUT /lmarkers/1
   # PATCH/PUT /lmarkers/1.json
   def update
+    @lmarker.is_new = true
+
     respond_to do |format|
       if @lmarker.update(lmarker_params)
+
         format.html { redirect_to @lmarker, notice: 'Lmarker was successfully updated.' }
         format.json { render :show, status: :ok, location: @lmarker }
       else

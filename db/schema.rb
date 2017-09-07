@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903021745) do
+ActiveRecord::Schema.define(version: 20170907210439) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170903021745) do
     t.string "ltype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_new", default: true
   end
 
   create_table "markers", force: :cascade do |t|

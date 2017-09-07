@@ -52,6 +52,12 @@ function setArven(){
             map2.removeLayer(otherMarkers[j])
         }
         otherDrawnLayer.clearLayers();
+
+        for ( key in myMarkersObj){
+            map2.removeLayer(myMarkersObj[key])
+        }
+        myDrawnLayer.clearLayers();
+        myMarkersObj = {}
     }
     $('#removeMarkers').click(function(){ removeMarkers()})
 
@@ -177,23 +183,16 @@ function setMarkersOnMap(){
 
     for( var i =0; i < lmarkers.length; i++){
         var lmarker = lmarkers[i];
-        var latlng = new L.LatLng(lmarker.lat, lmarker.lng)
         var marker = null;
-
-        //only set current user markers if they arent already loaded
-        //complicated with maintaining internal state
-        //always reset other user markers, simpler, less state
-        if(myMarkersObj.hasOwnProperty(parseInt(lmarker.id))){
-            continue
-        }
+        //case of new marker being loaded in
         if ( lmarker.user_id == gon.user_id){
+            var latlng = new L.LatLng(lmarker.lat, lmarker.lng)
             marker = createCurrentUserMarker(latlng, gon.user_id, lmarker.ltype, lmarker.id)
             marker.addTo(map2)
         }else{
             marker = createOtherUserMarker(lmarker)
             marker.addTo(map2)
         }
-
     }
 
 }
