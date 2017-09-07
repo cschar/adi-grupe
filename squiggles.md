@@ -10,8 +10,9 @@ map2.setView(new L.LatLng(x, y), 12);
     //     enableHighAccuracy: false});
 
 var drawnItems = new L.FeatureGroup();
-var circle = L.circle(latlng, {radius: 200, color: "orange"})
+var circle = L.circle([50,50], {radius: 200, color: "orange"})
 circle.addTo(drawnItems);
+drawnItems.addLayer(circle);
 
 map2.addLayer(drawnItems);
 

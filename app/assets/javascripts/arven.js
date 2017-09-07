@@ -1,10 +1,5 @@
 console.log('arvenmap init');
 
-function distanceTo(currentPostion, target) {
-    var dx = currentPostion.lng - target.lng;
-    var dy = currentPostion.lat - target.lat;
-    return Math.sqrt(dx*dx + dy*dy);
-}
 
 var count = 0;
 var output = ''
@@ -12,26 +7,22 @@ var dumps = '';
 var clickSpot = '';
 
 //marker data
-var allMarkers = [];
-var myMarkers = [];
+var otherMarkers = [];
+// int --> marker
 var myMarkersObj = {};
 var markerLookup = {};
 
 //map data
 var map2 = null;
 var mapWatch = false;
-var myLocation = null;
-var drawnItems = new L.FeatureGroup();
+var myLocation = [];
+var myDrawnLayer = new L.FeatureGroup();
 var otherDrawnLayer = new L.FeatureGroup();
 
 //api data
 var baseURL = gon.protocol_and_host;
 var lmarkers = [];
 var selection = 'None'
-
-
-
-
 
 $(document).on('turbolinks:load', function(){
     console.log("turbolink loaded ===")
@@ -45,60 +36,46 @@ $(document).on('turbolinks:load', function(){
                 lmarkers = data;
             })
         })
-
-
     }
 });
-
-function refreshPosition(){
-    console.log("refreshing position")
-    map2.locate({setView: true,
-        maxZoom: 16,
-        watch: mapWatch,
-        enableHighAccuracy: false});
-
-    console.log("refreshed with mapwatch :")
-    console.log(mapWatch)
-}
-
-$('#refreshPosition').click(function(){ refreshPosition() });
-
-function setPosition(){
-    var lat = $('#lat').val()
-    var lng = $('#lng').val()
-
-    map2.setView(new L.LatLng(lat, lng), 12);
-    myLocation = new L.LatLng(lat, lng)
-    console.log("set position" + lat + ' ' + lng)
-}
-$('#setPosition').click(function(){ setPosition() })
-
-$('#toggleWatch').click(function(){
-    mapWatch = !mapWatch; })
-
 
 function setArven(){
     console.log('setting map in arven')
     map2 = L.map('arvenMap').fitWorld();
-    map2.addLayer(drawnItems);
+    map2.addLayer(myDrawnLayer);
+    map2.addLayer(otherDrawnLayer)
 
-    $('#removeMarkers').click(function(){
+    var removeMarkers = function(){
         //TODO use layergroup
         // https://gis.stackexchange.com/questions/201958/remove-leaflet-markers-leaflet-id
-        for ( var j =0; j < allMarkers.length; j++){
-            map2.removeLayer(allMarkers[j])
+        for ( var j =0; j < otherMarkers.length; j++){
+            map2.removeLayer(otherMarkers[j])
         }
-    })
+        otherDrawnLayer.clearLayers();
+    }
+    $('#removeMarkers').click(function(){ removeMarkers()})
+
+    var refreshMap = function(){
+        console.log("fetching data")
+        $.get(baseURL+'/lmarkers.json',function(data){
+            lmarkers = data;
+            console.log("clearing and polling for new marker data")
+            removeMarkers()
+            setMarkersOnMap()
+        })
+
+    }
+    $('#refreshMap').click(function() { refreshMap() })
+    // setInterval(clearAndSet, 5000)
+
 
     $('#debugPrint').click(function(){
-        console.log(drawnItems)
+        console.log(myDrawnLayer)
         console.log('watched ' )
         console.log(mapWatch)
-        console.log("my markers:")
+        console.log("myMarkersObj")
+        console.log(myMarkersObj)
 
-        for ( key in myMarkersObj){
-                console.log(distanceTo(myMarkersObj[key]._latlng, myLocation))
-        }
     })
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -186,7 +163,7 @@ function getDumpsHtml(){
 function getFeedText(){
     var feedtext = ''
     for ( key in myMarkersObj){
-        var dist = distanceTo(myMarkersObj[key]._latlng, myLocation).toString().slice(0,5)
+        var dist = distanceTo(myMarkersObj[key]._latlng, myLocation).toString().slice(0,7)
         feedtext += '<li> marker ' + key + ', distance: ' + dist + '</li>'
     }
 
@@ -203,15 +180,20 @@ function setMarkersOnMap(){
         var latlng = new L.LatLng(lmarker.lat, lmarker.lng)
         var marker = null;
 
+        //only set current user markers if they arent already loaded
+        //complicated with maintaining internal state
+        //always reset other user markers, simpler, less state
+        if(myMarkersObj.hasOwnProperty(parseInt(lmarker.id))){
+            continue
+        }
         if ( lmarker.user_id == gon.user_id){
             marker = createCurrentUserMarker(latlng, gon.user_id, lmarker.ltype, lmarker.id)
-
+            marker.addTo(map2)
         }else{
             marker = createOtherUserMarker(lmarker)
+            marker.addTo(map2)
         }
 
-        allMarkers.push(marker)
-        marker.addTo(map2)
     }
 
 }
@@ -220,18 +202,19 @@ function setMarkersOnMap(){
 // var marker = L.marker(e.latlng, { icon: dIcon});
 
 function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
-    //put uid in markerlOokup so when intial delete jquery binding is made
+    //put uid in markerlookup so when intial delete jquery binding is made
     // it can go back and lookup w/ uid to get later-set marker_id
+    // jquery stuff haha
     var uid =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     var marker = L.marker(latlng);
     setMarkerImage(marker, ltype)
-    var marker_perimeter = L.circle(latlng, {radius: 200, color: "orange"}).addTo(drawnItems);
+    var marker_perimeter = L.circle(latlng, {radius: 200, color: "lightblue"}).addTo(myDrawnLayer);
 
     var linkR = $('<button class="btn btn-default btn-sm"> Set Rock</button>')
     var linkP = $('<button class="btn btn-default btn-sm"> Set Paper</button>')
     var linkS = $('<button class="btn btn-default btn-sm"> Set Scissors</button>')
-    var linkSave = $('<button class="btn btn-default btn-sm"><h6>save marker</h6></button>')
+    var linkSave = $('<button class="btn btn-default btn-xs"><h5>save marker</h5></button>')
     var linkDelete = $('<button class="btn btn-default btn-xs"><h5>remove</h5></button>')
     var rpsImg = $('<img class="rpsImage" src= "'+ltype +'.png"/>')
     selection = ltype
@@ -295,7 +278,7 @@ function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
                 dumpsf('deleted marker')
                 map2.removeLayer(myMarkersObj[markerLookup[uid]])
                 delete myMarkersObj[markerLookup[uid]];
-                drawnItems.removeLayer(marker_perimeter)
+                myDrawnLayer.removeLayer(marker_perimeter)
             })
         .error(function(){ dumpsf("error deleting marker")
         })
@@ -322,15 +305,16 @@ function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
 function createOtherUserMarker(lmarker){
 
         var marker = L.marker([lmarker.lat, lmarker.lng]);
+        otherMarkers.push(marker)
         setMarkerImage(marker, lmarker.ltype)
-        var Fireball = $('<button class="btn btn-default btn-sm"> Cast fireball</button>')
+        L.circle(marker._latlng, {radius: 200, color: "orange"}).addTo(otherDrawnLayer);
 
+        var Fireball = $('<button class="btn btn-default btn-sm"> Cast fireball</button>')
         var imgName = lmarker.ltype.toString() +'.png'
         var rpsImg = $('<img class="rpsImage" src="' + imgName + '"/>')
 
-    //  Fireball.click(function() {  // works ? without reassign?
-        Fireball = Fireball.click(function() {
-
+        Fireball.click(function() {
+            console.log('fireball @' + lmarker.user_id)
             var csrf = document.getElementsByName('csrf-token')[0].getAttribute('content')
             //     $.ajax({
             //         url: baseURL+'/control/fireball',
@@ -351,16 +335,16 @@ function createOtherUserMarker(lmarker){
             //     })
         });
 
-    var info = [lmarker.lat,lmarker.lng].toString() + "<br/>" + lmarker.user_id+ " --" + lmarker.ltype +" lmarker"
+        var info = [lmarker.lat,lmarker.lng].toString() +
+            "<br/> player: " + lmarker.user_id+
+            " <br/>marker "+lmarker.id +" --" + lmarker.ltype +" lmarker";
         var div = $("<div style='background:#aca'>" + info +" </div>")
         div.append(rpsImg[0])
         div.append(Fireball[0])
 
 
         marker.bindPopup(div[0]);
-
         return marker
-
 }
 
 function setMarkerImage(marker, ltype){
@@ -415,3 +399,39 @@ var paperIcon = L.icon({
     // shadowAnchor: [10, 50],  // the same for the shadow
     popupAnchor:  [20, -40] // point from which the popup should open relative to the iconAnchor
 });
+
+
+function refreshPosition(){
+    console.log("refreshing position")
+    map2.locate({setView: true,
+        maxZoom: 16,
+        watch: mapWatch,
+        enableHighAccuracy: false});
+
+    console.log("refreshed with mapwatch :")
+    console.log(mapWatch)
+}
+
+$('#refreshPosition').click(function(){ refreshPosition() });
+
+function setPosition(){
+    var lat = $('#lat').val()
+    var lng = $('#lng').val()
+
+    map2.setView(new L.LatLng(lat, lng), 12);
+    myLocation = new L.LatLng(lat, lng)
+    console.log("set position" + lat + ' ' + lng)
+}
+$('#setPosition').click(function(){ setPosition() })
+
+$('#toggleWatch').click(function(){
+    mapWatch = !mapWatch; })
+
+
+
+
+function distanceTo(currentPostion, target) {
+    var dx = currentPostion.lng - target.lng;
+    var dy = currentPostion.lat - target.lat;
+    return Math.sqrt(dx*dx + dy*dy);
+}
