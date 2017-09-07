@@ -1,52 +1,103 @@
 console.log('arvenmap init');
 
+function distanceTo(currentPostion, target) {
+    var dx = currentPostion.lng - target.lng;
+    var dy = currentPostion.lat - target.lat;
+    return Math.sqrt(dx*dx + dy*dy);
+}
+
 var count = 0;
 var output = ''
-var allMarkers = [];
 var dumps = '';
 var clickSpot = '';
+
+//marker data
+var allMarkers = [];
+var myMarkers = [];
+var myMarkersObj = {};
+var markerLookup = {};
+
+//map data
 var map2 = null;
-var lmarkers = [];
-// var baseURL = 'http://localhost:3000';
+var mapWatch = false;
+var myLocation = null;
+var drawnItems = new L.FeatureGroup();
+var otherDrawnLayer = new L.FeatureGroup();
+
+//api data
 var baseURL = gon.protocol_and_host;
+var lmarkers = [];
 var selection = 'None'
-var recentMarker = null;  //for changing icon image
+
+
+
+
 
 $(document).on('turbolinks:load', function(){
     console.log("turbolink loaded ===")
     if($('#arven').length) {
-        console.log('on arven page');
         setArven()
-        console.log('token')
-        console.log(document.getElementsByName('csrf-token')[0].getAttribute('content'))
+        $('#setMarkers').click(function(){setMarkersOnMap()})
         $('#getMarkers').click(function(){
+            console.log(baseURL)
             $.get(baseURL+'/lmarkers.json',function(data){
                 console.log(data);
                 lmarkers = data;
-            }).success(function(data){
-
-
             })
         })
-
-        $('#setMarkers').click(function(){
-            setMarkersOnMap()
-        })
-
 
 
     }
 });
 
+function refreshPosition(){
+    console.log("refreshing position")
+    map2.locate({setView: true,
+        maxZoom: 16,
+        watch: mapWatch,
+        enableHighAccuracy: false});
+
+    console.log("refreshed with mapwatch :")
+    console.log(mapWatch)
+}
+
+$('#refreshPosition').click(function(){ refreshPosition() });
+
+function setPosition(){
+    var lat = $('#lat').val()
+    var lng = $('#lng').val()
+
+    map2.setView(new L.LatLng(lat, lng), 12);
+    myLocation = new L.LatLng(lat, lng)
+    console.log("set position" + lat + ' ' + lng)
+}
+$('#setPosition').click(function(){ setPosition() })
+
+$('#toggleWatch').click(function(){
+    mapWatch = !mapWatch; })
+
 
 function setArven(){
     console.log('setting map in arven')
     map2 = L.map('arvenMap').fitWorld();
+    map2.addLayer(drawnItems);
+
     $('#removeMarkers').click(function(){
         //TODO use layergroup
         // https://gis.stackexchange.com/questions/201958/remove-leaflet-markers-leaflet-id
         for ( var j =0; j < allMarkers.length; j++){
             map2.removeLayer(allMarkers[j])
+        }
+    })
+
+    $('#debugPrint').click(function(){
+        console.log(drawnItems)
+        console.log('watched ' )
+        console.log(mapWatch)
+        console.log("my markers:")
+
+        for ( key in myMarkersObj){
+                console.log(distanceTo(myMarkersObj[key]._latlng, myLocation))
         }
     })
 
@@ -60,57 +111,88 @@ function setArven(){
 
     function onLocationFound(e) {
         var radius = e.accuracy / 2;
+        myLocation = e.latlng;
 
         L.marker(e.latlng).addTo(map2)
             .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
         L.circle(e.latlng, radius).addTo(map2);
+
+        L.circle(e.latlng, {radius:200, color:'green', 'fillOpacity':0.1}).addTo(map2);
+
     }
 
-    function onLocationError(e) {
-        alert(e.message);
-    }
-
+    function onLocationError(e) { alert(e.message);}
 
     map2.on('locationfound', onLocationFound);
     map2.on('locationerror', onLocationError);
+    refreshPosition()
 
-    //
-    map2.locate({setView: true,
-        maxZoom: 16,
-        watch: false,
-        enableHighAccuracy: false});
-    // map2.panTo(new L.LatLng(46.0122, -75.986));
-    // map2.setView(new L.LatLng(45.56618, -75.782), 12);
 
-    function onClick(e){
+    function userClick(e){
         console.log('clicked:')
         console.log(e)
         clickSpot = e.latlng.toString();
 
-        marker = createCurrentUserMarker(e.latlng, gon.user_id)
-        marker.addTo(map2)
+
+        if (Object.keys(myMarkersObj).length <= 5
+            //  && distanceTo(e.latlng, myLocation) <= 0.0027
+        ){
+            //by default set new ones as rock
+            marker = createCurrentUserMarker(e.latlng, gon.user_id, 'rock', null)
+
+            marker.addTo(map2)
+
+
+            dumpsf("placed marker")
+
+        }else{
+            dumps += '<div class="dump-error""> out of bounds </div>'
+        }
+
 
     }
 
-    map2.on('click', onClick)
+    map2.on('click', userClick)
 
-    var mapCallback = function(){
+    var feedCallback = function(){
         var center = map2.getCenter()
         count = count + 1;
-        output = [count.toString() + center.toString(),
-            'markers : ' + allMarkers.length.toString()
-        ]
-        var feedText = clickSpot.toString()
-        feedText += '\n  '+ selection;
-        $('#status').text(output)
-        $('#feed').text()
-        $('#feed2').text(dumps)
+        output = '<ul>'
+        // output += '<li>' + '</li>'
+        // output += '<li>' + '</li>'
+        output += '<li>' +count.toString() + center.toString() + '</li>'
+        output += '<li>' + 'myLocation :' + myLocation.toString() + '</li>'
+        output += '<li>' + 'points: 0' + '</li>'
+        output += '</ul>'
+
+
+        $('#status').html(output)
+        $('#feed1').html(getFeedText())
+
+        $("#feed2").animate({ scrollTop: $('#feed2')[0].scrollHeight}, 1000);
+        $('#feed2').html(getDumpsHtml())
     }
-    setInterval(mapCallback, 2000);
+    setInterval(feedCallback, 2000);
 
 }
+function dumpsf(text){
+    dumps += '<div class="dump-success">' + text + '</div>'
 
+}
+function getDumpsHtml(){
+    return dumps
+}
+function getFeedText(){
+    var feedtext = ''
+    for ( key in myMarkersObj){
+        var dist = distanceTo(myMarkersObj[key]._latlng, myLocation).toString().slice(0,5)
+        feedtext += '<li> marker ' + key + ', distance: ' + dist + '</li>'
+    }
+
+    feedtext = '<ul>' + feedtext + '</ul>'
+    return feedtext
+}
 
 function setMarkersOnMap(){
     console.log('setting markers')
@@ -122,7 +204,8 @@ function setMarkersOnMap(){
         var marker = null;
 
         if ( lmarker.user_id == gon.user_id){
-            marker = createCurrentUserMarker(latlng, gon.user_id)
+            marker = createCurrentUserMarker(latlng, gon.user_id, lmarker.ltype, lmarker.id)
+
         }else{
             marker = createOtherUserMarker(lmarker)
         }
@@ -134,51 +217,25 @@ function setMarkersOnMap(){
 }
 
 
-
-/* icons */
-var rockIcon = L.icon({
-    iconUrl: 'rock.png',
-    // shadowUrl: 'kerm.png',
-
-    iconSize:     [40, 40], // size of the icon
-    // shadowSize:   [10, 24], // size of the shadow
-    iconAnchor:   [0, 40], // point of the icon which will correspond to marker's location
-    // shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [10, -40] // point from which the popup should open relative to the iconAnchor
-});
-
-var scissorsIcon = L.icon({
-    // iconUrl: 'scissors.png',
-    iconUrl: 'scissors2.png',
-    // shadowUrl: 'kerm.png',
-
-    iconSize:     [40, 40], // size of the icon
-    // shadowSize:   [10, 24], // size of the shadow
-    iconAnchor:   [0, 40], // point of the icon which will correspond to marker's location
-    // shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [10, -40] // point from which the popup should open relative to the iconAnchor
-});
-
-var paperIcon = L.icon({
-    iconUrl: 'paper2.gif',
-    // iconUrl: 'paper2.png',
-    // shadowUrl: 'white_square.png',
-
-    iconSize:     [40, 40], // size of the icon
-    // shadowSize:   [50, 50], // size of the shadow
-    iconAnchor:   [0, 40], // point of the icon which will correspond to marker's location
-    // shadowAnchor: [10, 50],  // the same for the shadow
-    popupAnchor:  [10, -40] // point from which the popup should open relative to the iconAnchor
-});
 // var marker = L.marker(e.latlng, { icon: dIcon});
 
-function createCurrentUserMarker(latlng, user_id){
+function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
+    //put uid in markerlOokup so when intial delete jquery binding is made
+    // it can go back and lookup w/ uid to get later-set marker_id
+    var uid =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
     var marker = L.marker(latlng);
+    setMarkerImage(marker, ltype)
+    var marker_perimeter = L.circle(latlng, {radius: 200, color: "orange"}).addTo(drawnItems);
+
     var linkR = $('<button class="btn btn-default btn-sm"> Set Rock</button>')
     var linkP = $('<button class="btn btn-default btn-sm"> Set Paper</button>')
     var linkS = $('<button class="btn btn-default btn-sm"> Set Scissors</button>')
-    var linkSave = $('<button class="btn btn-default btn-sm"><h4>Save Location</h4></button>')
-    var rpsImg = $('<img class="rpsImage" src="kerm.png"/>')
+    var linkSave = $('<button class="btn btn-default btn-sm"><h6>save marker</h6></button>')
+    var linkDelete = $('<button class="btn btn-default btn-xs"><h5>remove</h5></button>')
+    var rpsImg = $('<img class="rpsImage" src= "'+ltype +'.png"/>')
+    selection = ltype
+
     linkR = linkR.click(function() {
         rpsImg.attr("src", "rock.png")
         marker.setIcon(rockIcon)
@@ -186,7 +243,7 @@ function createCurrentUserMarker(latlng, user_id){
     })
     linkP = linkP.click(function() {
         marker.setIcon(paperIcon)
-        rpsImg.attr("src", "paper.png")
+        rpsImg.attr("src", "paper2.gif")
         selection = 'paper'
     })
     linkS = linkS.click(function() {
@@ -212,8 +269,35 @@ function createCurrentUserMarker(latlng, user_id){
             function(data){
                 console.log('post click success w')
                 console.log(data);
+                myMarkersObj[data.id] = marker
+                markerLookup[uid] = data.id
+
             }).error(function(){
             console.log('error')
+        })
+    });
+
+    linkDelete = linkDelete.click(function() {
+
+        if (!markerLookup.hasOwnProperty(uid)){
+            console.log(' not deleting no key set')
+            return
+        }
+        var csrf = document.getElementsByName('csrf-token')[0].getAttribute('content')
+        $.ajax({
+            url: baseURL+'/lmarkers/' + markerLookup[uid] + '.json',
+            type: 'DELETE',
+            headers: {
+                "X-CSRF-TOKEN": csrf
+            }
+        }).done(
+            function(data){
+                dumpsf('deleted marker')
+                map2.removeLayer(myMarkersObj[markerLookup[uid]])
+                delete myMarkersObj[markerLookup[uid]];
+                drawnItems.removeLayer(marker_perimeter)
+            })
+        .error(function(){ dumpsf("error deleting marker")
         })
     });
 
@@ -224,9 +308,13 @@ function createCurrentUserMarker(latlng, user_id){
     div.append(linkP[0])
     div.append(linkS[0])
     div.append(linkSave[0])
+    div.append(linkDelete[0])
 
 
-
+    if(marker_id != null){
+        myMarkersObj[marker_id] = marker;
+        markerLookup[uid] = marker_id
+    }
     marker.bindPopup(div[0]);
     return marker
 }
@@ -234,16 +322,7 @@ function createCurrentUserMarker(latlng, user_id){
 function createOtherUserMarker(lmarker){
 
         var marker = L.marker([lmarker.lat, lmarker.lng]);
-        if(lmarker.ltype == 'paper') {
-
-            marker.setIcon(paperIcon)
-        }
-        if(lmarker.ltype == 'rock') {
-            marker.setIcon(rockIcon)
-        }
-        if(lmarker.ltype == 'scissors') {
-                marker.setIcon(scissorsIcon)
-        }
+        setMarkerImage(marker, lmarker.ltype)
         var Fireball = $('<button class="btn btn-default btn-sm"> Cast fireball</button>')
 
         var imgName = lmarker.ltype.toString() +'.png'
@@ -283,3 +362,56 @@ function createOtherUserMarker(lmarker){
         return marker
 
 }
+
+function setMarkerImage(marker, ltype){
+    if(ltype == 'paper') {
+        marker.setIcon(paperIcon)
+    }
+    if(ltype == 'rock') {
+        marker.setIcon(rockIcon)
+    }
+    if(ltype == 'scissors') {
+        marker.setIcon(scissorsIcon)
+    }
+}
+
+
+
+/* icons */
+// [ x , y ]
+// -40y ---> higher on y axis
+// 20x --> left on x axis
+var rockIcon = L.icon({
+    iconUrl: 'rock.png',
+    // shadowUrl: 'kerm.png',
+
+    iconSize:     [40, 40], // size of the icon
+    // shadowSize:   [10, 24], // size of the shadow
+    iconAnchor:   [20, 10], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [10, -20] // point from which the popup should open relative to the iconAnchor
+});
+
+var scissorsIcon = L.icon({
+    // iconUrl: 'scissors.png',
+    iconUrl: 'scissors2.png',
+    // shadowUrl: 'kerm.png',
+
+    iconSize:     [40, 40], // size of the icon
+    // shadowSize:   [10, 24], // size of the shadow
+    iconAnchor:   [20, 10], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [10, -40] // point from which the popup should open relative to the iconAnchor
+});
+
+var paperIcon = L.icon({
+    iconUrl: 'paper2.png',
+    // iconUrl: 'paper2.png',
+    // shadowUrl: 'white_square.png',
+
+    iconSize:     [40, 40], // size of the icon
+    // shadowSize:   [50, 50], // size of the shadow
+    iconAnchor:   [20, 10], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [10, 50],  // the same for the shadow
+    popupAnchor:  [20, -40] // point from which the popup should open relative to the iconAnchor
+});

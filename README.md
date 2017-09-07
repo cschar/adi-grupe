@@ -36,6 +36,7 @@ monitor detached mode
 docker-compose up -d
 docker-compose logs --follow
 docker-compose stop
+docker-compose start
 ```
 
 

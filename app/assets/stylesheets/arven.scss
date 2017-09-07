@@ -13,7 +13,7 @@
   grid-template-columns: auto 40vw;
   grid-template-rows: 25vw 25vw;
   grid-template-areas:
-          "status feed"
+          "status feed1"
           "feed2 feed2";
   background:#eaeaea;
   min-height:35vh;
@@ -24,11 +24,16 @@
   /*height:60px;*/
 }
 
-#feed {
-  grid-area: feed;
+#feed1 {
+  grid-area: feed1;
   background: #cec;
 }
 #feed2 {
   grid-area: feed2;
   background: #aea;
+  overflow: auto;
+
+  /* could remove autoscroll w jquery and thist would still work */
+  //display: flex;
+  //flex-direction: column-reverse;
 }

@@ -23,6 +23,7 @@ COPY . /app
 
 #RUN bundle exec rails db:migrate
 
+##possible TODO: build node_modules locally, copy, let yarn diff
 #react_on_rails
 WORKDIR /app/client
 RUN yarn
