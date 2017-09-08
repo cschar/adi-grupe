@@ -62,39 +62,56 @@ class RpsWorker
     d = 0.0027  # lng/lat distance...
     fn = '/var/tmp/foop'
     open(fn, 'a') { |f|
-      f.puts Time.now.strftime("%d/%m/%Y %H:%M")
-      f.puts("total unproccessed " + String(unprocessed_lmarkers.size))
+      f.puts "#{Time.now.strftime("%d/%m/%Y %H:%M")} [unprocessed: #{unprocessed_lmarkers.size}"
 
       unprocessed_lmarkers.each do |lm|
 
       # simple box region
       #TODO: acutal circle
       nearby_lmarkers = Lmarker.where("
-       id != :current_lmarker
+       id != :current_lmarker AND user_id != :current_lmarker_user_id
        AND lat <= :north AND lat >= :south
        AND lng >= :west AND lng <= :east",
-          {current_lmarker: lm.id,
+          {current_lmarker: lm.id, current_lmarker_user_id: lm.user_id,
            north: lm.lat + d, south:lm.lat - d,
            west:lm.lng - d, east:lm.lng + d} )
 
-      f.puts("Nearby markers for #{lm.id} #{lm.ltype}")
+      f.puts("Nearby markers for #{lm.id}[user #{lm.user_id}] #{lm.ltype}")
+      lm_deleted = false
       nearby_lmarkers.each do |nearby_lm|
 
         rps_result = wins_rps2(lm, nearby_lm)
 
         if rps_result == 2
-          f.puts "id: #{nearby_lm.id} -- Loses -- #{nearby_lm.ltype}"
+          #TODO add index user to lmarker
+          user = User.find(lm.user_id)
+          user.points = user.points + 1
+          user.save
+
+          f.puts "#{nearby_lm.id} [user #{nearby_lm.user_id}] -- #{nearby_lm.ltype} -- Loses "
+
+          #BUG ,
+          #if nearby_lm, later iterated over in unprocessed_lmarkers?
           nearby_lm.delete
         elsif rps_result == 1
-          f.puts "id: #{nearby_lm.id} -- Tie -- #{nearby_lm.ltype}"
+          f.puts "#{nearby_lm.id} [user #{nearby_lm.user_id}] -- #{nearby_lm.ltype} -- Tie "
         else
-          f.puts "id: #{nearby_lm.id} -- Wins -- #{nearby_lm.ltype}"
-          lm.delete
+          user = User.find(nearby_lm.user_id)
+          user.points = user.points + 1
+          user.save
+
+          f.puts "#{nearby_lm.id} [user #{nearby_lm.user_id}] -- #{nearby_lm.ltype} -- Wins "
+          lm_deleted = true
         end
       end
 
-      lm.is_new = false
-      lm.save
+      if lm_deleted
+        lm.delete
+      else
+        lm.is_new = false
+        lm.save
+      end
+
     end
     }
   end

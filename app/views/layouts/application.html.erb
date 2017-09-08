@@ -7,12 +7,14 @@
           integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
           crossorigin=""/>
 
-    <%= Gon::Base.render_data %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body id="<%= params[:controller]%>">
+  <%= Gon::Base.render_data %>
+
   <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
   <% end %>

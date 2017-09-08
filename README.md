@@ -1,12 +1,13 @@
-# README
-
-#adi
+# Adi <span style="color:blue"> geo game.</span>
 
 experiments w/ maps and rails
 
 
 
 
+TODOS:
+
+- graphql: acces user_info and lmarkers... __at the same time__
 
 
 

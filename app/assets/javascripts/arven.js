@@ -4,7 +4,7 @@ console.log('arvenmap init');
 var count = 0;
 var output = ''
 var dumps = '';
-var clickSpot = '';
+var myPoints = 0;
 
 //marker data
 var otherMarkers = [];
@@ -20,13 +20,15 @@ var myDrawnLayer = new L.FeatureGroup();
 var otherDrawnLayer = new L.FeatureGroup();
 
 //api data
-var baseURL = gon.protocol_and_host;
+var baseURL = '';
 var lmarkers = [];
 var selection = 'None'
 
 $(document).on('turbolinks:load', function(){
     console.log("turbolink loaded ===")
     if($('#arven').length) {
+        baseURL = gon.protocol_and_host;
+
         setArven()
         $('#setMarkers').click(function(){setMarkersOnMap()})
         $('#getMarkers').click(function(){
@@ -68,6 +70,12 @@ function setArven(){
             console.log("clearing and polling for new marker data")
             removeMarkers()
             setMarkersOnMap()
+        })
+
+        $.get(baseURL+'/users/info.json', function(data){
+            console.log("points")
+            console.log(data);
+            myPoints = data.points
         })
 
     }
@@ -115,8 +123,6 @@ function setArven(){
     function userClick(e){
         console.log('clicked:')
         console.log(e)
-        clickSpot = e.latlng.toString();
-
 
         if (Object.keys(myMarkersObj).length <= 5
             //  && distanceTo(e.latlng, myLocation) <= 0.0027
@@ -139,14 +145,14 @@ function setArven(){
     map2.on('click', userClick)
 
     var feedCallback = function(){
-        var center = map2.getCenter()
+
         count = count + 1;
         output = '<ul>'
         // output += '<li>' + '</li>'
-        // output += '<li>' + '</li>'
-        output += '<li>' +count.toString() + center.toString() + '</li>'
+        output += '<li>' +count.toString() + '</li>'
+        //var center = map2.getCenter()
         output += '<li>' + 'myLocation :' + myLocation.toString() + '</li>'
-        output += '<li>' + 'points: 0' + '</li>'
+        output += '<li>' + 'points: ' + myPoints + '</li>'
         output += '</ul>'
 
 
