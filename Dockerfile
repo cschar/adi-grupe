@@ -12,21 +12,21 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
     && apt-get update \
     && apt-get install -y yarn
 
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /adiapp
+WORKDIR /adiapp
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && gem install foreman && bundle install --jobs 20 --retry 5 --without production
 
 
-COPY . /app
+COPY . /adiapp
 
 RUN bundle exec rails db:migrate 
 
 #react_on_rails
-WORKDIR /app/client
+WORKDIR /adiapp/client
 RUN yarn 
 
 EXPOSE 3000
-WORKDIR /app
+WORKDIR /adiapp
 CMD foreman start -f Procfile.dev
 

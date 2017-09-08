@@ -12,20 +12,20 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
     && apt-get update \
     && apt-get install -y yarn
 
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /adiapp
+WORKDIR /adiapp
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && gem install foreman \
 && bundle install --jobs 20 --retry 5 --without development test
 
 
-COPY . /app
+COPY . /adiapp
 
 #RUN bundle exec rails db:migrate
 
 ##possible TODO: build node_modules locally, copy, let yarn diff
 #react_on_rails
-WORKDIR /app/client
+WORKDIR /adiapp/client
 RUN yarn
 
 # Done by precompile
@@ -39,7 +39,7 @@ ENV RACK_ENV production
 RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
-WORKDIR /app
+WORKDIR /adiapp
 CMD bundle exec puma -C config/puma.rb
 #CMD foreman start -f Procfile.dev
 
