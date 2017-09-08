@@ -205,8 +205,12 @@ function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
     // it can go back and lookup w/ uid to get later-set marker_id
     // jquery stuff haha
     var uid =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-
     var marker = L.marker(latlng);
+    if(marker_id != null){
+        myMarkersObj[marker_id] = marker;
+        markerLookup[uid] = marker_id
+    }
+
     setMarkerImage(marker, ltype)
     var marker_perimeter = L.circle(latlng, {radius: 200, color: "lightblue"}).addTo(myDrawnLayer);
 
@@ -293,10 +297,7 @@ function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
     div.append(linkDelete[0])
 
 
-    if(marker_id != null){
-        myMarkersObj[marker_id] = marker;
-        markerLookup[uid] = marker_id
-    }
+
     marker.bindPopup(div[0]);
     return marker
 }

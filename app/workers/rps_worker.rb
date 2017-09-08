@@ -69,21 +69,27 @@ class RpsWorker
 
       # simple box region
       #TODO: acutal circle
-      nearby_lmarkers = Lmarker.where(
-          "lat <= :north AND lat >= :south
+      nearby_lmarkers = Lmarker.where("
+       id != :current_lmarker
+       AND lat <= :north AND lat >= :south
        AND lng >= :west AND lng <= :east",
-          {north: lm.lat + d, south:lm.lat - d,
+          {current_lmarker: lm.id,
+           north: lm.lat + d, south:lm.lat - d,
            west:lm.lng - d, east:lm.lng + d} )
 
       f.puts("Nearby markers for #{lm.id} #{lm.ltype}")
       nearby_lmarkers.each do |nearby_lm|
 
+        rps_result = wins_rps2(lm, nearby_lm)
 
-        if wins_rps(lm, nearby_lm)
-          f.puts "id: #{nearby_lm.id} -- Delete -- #{nearby_lm.ltype}"
+        if rps_result == 2
+          f.puts "id: #{nearby_lm.id} -- Loses -- #{nearby_lm.ltype}"
           nearby_lm.delete
-        else
+        elsif rps_result == 1
           f.puts "id: #{nearby_lm.id} -- Tie -- #{nearby_lm.ltype}"
+        else
+          f.puts "id: #{nearby_lm.id} -- Wins -- #{nearby_lm.ltype}"
+          lm.delete
         end
       end
 
