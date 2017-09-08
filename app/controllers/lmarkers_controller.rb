@@ -33,7 +33,8 @@ class LmarkersController < ApplicationController
 
     respond_to do |format|
       if @lmarker.save
-        RpsWorker.perform_async()
+        RpsWorker.new.perform
+        # RpsWorker.perform_async()
         format.html { redirect_to @lmarker, notice: 'Lmarker was successfully created.' }
         format.json { render :show, status: :created, location: @lmarker }
       else
@@ -50,7 +51,8 @@ class LmarkersController < ApplicationController
 
     respond_to do |format|
       if @lmarker.update(lmarker_params)
-        RpsWorker.perform_async()
+        RpsWorker.new.perform
+        #RpsWorker.perform_async()
 
         format.html { redirect_to @lmarker, notice: 'Lmarker was successfully updated.' }
         format.json { render :show, status: :ok, location: @lmarker }

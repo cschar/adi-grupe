@@ -21,5 +21,6 @@ services:
       - "3003:3000"
     links:
       - db-za
-    volumes:
-      - .:/adiapp
+      - redis-za
+#    volumes:
+#      - .:/adiapp
