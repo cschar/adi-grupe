@@ -2,12 +2,12 @@ class UserInfoController < ApplicationController
   before_action :authenticate_user!
   # before_action :correct_user,   only: [:show, :edit, :update]
 
+  # GET /user/info.json
   def show
 
     respond_to do |format|
       format.json { render json: current_user}
     end
-
   end
 
 
