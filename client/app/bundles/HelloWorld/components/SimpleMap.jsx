@@ -67,11 +67,6 @@ class SimpleMap extends React.Component {
             query: gql`
     query {
       testField
-      lmarker (id:39){
-        id
-        lat
-        lng
-      }
       lmarkers {
         id
         lat
