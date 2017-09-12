@@ -11,7 +11,7 @@
 #status-container {
   display: grid;
   grid-template-columns: auto 40vw;
-  grid-template-rows: 25vw 25vw;
+  grid-template-rows: 25vw 20vw;
   grid-template-areas:
           "status feed1"
           "feed2 feed2";

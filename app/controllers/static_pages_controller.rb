@@ -5,9 +5,4 @@ class StaticPagesController < ApplicationController
 
   end
 
-  def inven
-      @pods = [{:time => 23},
-               {:time => 30},
-               {:time => 31}]
-  end
 end

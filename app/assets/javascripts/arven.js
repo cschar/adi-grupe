@@ -14,8 +14,8 @@ var markerLookup = {};
 
 //map data
 var map2 = null;
-var mapWatch = false;
 var myLocation = [];
+var myTrackingLayer = new L.FeatureGroup();
 var myDrawnLayer = new L.FeatureGroup();
 var otherDrawnLayer = new L.FeatureGroup();
 
@@ -44,8 +44,10 @@ $(document).on('turbolinks:load', function(){
 function setArven(){
     console.log('setting map in arven')
     map2 = L.map('arvenMap').fitWorld();
+    window.m = map2;
     map2.addLayer(myDrawnLayer);
-    map2.addLayer(otherDrawnLayer)
+    map2.addLayer(otherDrawnLayer);
+    map2.addLayer(myTrackingLayer);
 
     var removeMarkers = function(){
         //TODO use layergroup
@@ -79,6 +81,7 @@ function setArven(){
         })
 
     }
+
     $('#refreshMap').click(function() { refreshMap() })
     // setInterval(clearAndSet, 5000)
 
@@ -104,12 +107,14 @@ function setArven(){
         var radius = e.accuracy / 2;
         myLocation = e.latlng;
 
-        L.marker(e.latlng).addTo(map2)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
+        myTrackingLayer.clearLayers();
+        var myMarker = L.marker(e.latlng).bindPopup("You are within " + radius + " meters from this point").openPopup();
+        var myRadius = L.circle(e.latlng, radius)
+        var myRPSRadius = L.circle(e.latlng, {radius:200, color:'green', 'fillOpacity':0.1})
 
-        L.circle(e.latlng, radius).addTo(map2);
-
-        L.circle(e.latlng, {radius:200, color:'green', 'fillOpacity':0.1}).addTo(map2);
+        myTrackingLayer.addLayer(myMarker)
+        myTrackingLayer.addLayer(myRadius)
+        myTrackingLayer.addLayer(myRPSRadius)
 
     }
 
@@ -117,24 +122,29 @@ function setArven(){
 
     map2.on('locationfound', onLocationFound);
     map2.on('locationerror', onLocationError);
+
+    function refreshPosition(){
+        console.log("refreshing position")
+        map2.locate({setView: true,
+            maxZoom: 16,
+            watch: true,
+            enableHighAccuracy: false});
+
+    }
+
     refreshPosition()
 
 
     function userClick(e){
-        console.log('clicked:')
-        console.log(e)
+
 
         if (Object.keys(myMarkersObj).length <= 5
-            //  && distanceTo(e.latlng, myLocation) <= 0.0027
+             && distanceTo(e.latlng, myLocation) <= 0.0027
         ){
             //by default set new ones as rock
             marker = createCurrentUserMarker(e.latlng, gon.user_id, 'rock', null)
-
             marker.addTo(map2)
-
-
-            dumpsf("placed marker")
-
+            dumpsf('setting up: ' + e.latlng.toString())
         }else{
             dumps += '<div class="dump-error""> out of bounds </div>'
         }
@@ -218,12 +228,13 @@ function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
     }
 
     setMarkerImage(marker, ltype)
-    var marker_perimeter = L.circle(latlng, {radius: 200, color: "lightblue"}).addTo(myDrawnLayer);
+    var marker_perimeter = L.circle(latlng, {radius: 200, color: "lightblue"})
+    myDrawnLayer.addLayer(marker_perimeter)
 
     var linkR = $('<button class="btn btn-default btn-sm"> Set Rock</button>')
     var linkP = $('<button class="btn btn-default btn-sm"> Set Paper</button>')
     var linkS = $('<button class="btn btn-default btn-sm"> Set Scissors</button>')
-    var linkSave = $('<button class="btn btn-default btn-xs"><h5>save marker</h5></button>')
+    var linkSave = $('<button class="btn btn-default btn-xs"><h5>Set/Update </h5></button>')
     var linkDelete = $('<button class="btn btn-default btn-xs"><h5>remove</h5></button>')
     var rpsImg = $('<img class="rpsImage" src= "'+ltype +'.png"/>')
     selection = ltype
@@ -272,7 +283,11 @@ function createCurrentUserMarker(latlng, user_id, ltype, marker_id){
     linkDelete = linkDelete.click(function() {
 
         if (!markerLookup.hasOwnProperty(uid)){
-            console.log(' not deleting no key set')
+            console.log('no key set')
+            dumpsf('removing unset marker')
+            map2.removeLayer(marker);
+            // delete marker;
+            myDrawnLayer.removeLayer(marker_perimeter)
             return
         }
         var csrf = document.getElementsByName('csrf-token')[0].getAttribute('content')
@@ -407,32 +422,22 @@ var paperIcon = L.icon({
 });
 
 
-function refreshPosition(){
-    console.log("refreshing position")
-    map2.locate({setView: true,
-        maxZoom: 16,
-        watch: mapWatch,
-        enableHighAccuracy: false});
-
-    console.log("refreshed with mapwatch :")
-    console.log(mapWatch)
-}
-
-$('#refreshPosition').click(function(){ refreshPosition() });
-
-function setPosition(){
-    var lat = $('#lat').val()
-    var lng = $('#lng').val()
-
-    map2.setView(new L.LatLng(lat, lng), 12);
-    myLocation = new L.LatLng(lat, lng)
-    console.log("set position" + lat + ' ' + lng)
-}
-$('#setPosition').click(function(){ setPosition() })
-
-$('#toggleWatch').click(function(){
-    mapWatch = !mapWatch; })
-
+//
+// $('#refreshPosition').click(function(){ refreshPosition() });
+//
+// function setPosition(){
+//     var lat = $('#lat').val()
+//     var lng = $('#lng').val()
+//
+//     map2.setView(new L.LatLng(lat, lng), 12);
+//     myLocation = new L.LatLng(lat, lng)
+//     console.log("set position" + lat + ' ' + lng)
+// }
+// $('#setPosition').click(function(){ setPosition() })
+//
+// $('#toggleWatch').click(function(){
+//     mapWatch = !mapWatch; })
+//
 
 
 
