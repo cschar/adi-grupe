@@ -173,6 +173,9 @@ class SimpleMap extends React.Component {
             )
         }.bind(this));
 
+        let attr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>'
         return (
             <div>
             <button className="btn btn-default" onClick={this.props.updateLmarkersManually}>
@@ -184,8 +187,10 @@ class SimpleMap extends React.Component {
                  zoom={10}
                  ref="map">
                 <TileLayer
-                    url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+                    url='https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+                    attribution={attr}
+                    id="mapbox.streets"
                 />
                 {markers}
                 {setMarkers}
