@@ -10,7 +10,7 @@ const initState = {
 };
 
 const myRed = (state = initState, action) => {
-    console.log('state is');
+    console.log('RedReducer triggered, state is');
     console.log(state);
 
     switch (action.type) {

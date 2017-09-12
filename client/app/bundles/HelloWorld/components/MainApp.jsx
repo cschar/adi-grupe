@@ -3,6 +3,43 @@ import React from 'react';
 import SimpleMap from './SimpleMap'
 import keydown from 'react-keydown';
 import configureStore from '../store/helloWorldStore'
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import gql from 'graphql-tag';
+
+const csrf = document.head.querySelector("[name=csrf-token]").content;
+
+const railsNetworkInterface =  createNetworkInterface({
+    uri: '/graphql',
+    opts: {
+        credentials: 'same-origin',
+        headers: {
+            'X-CSRF-Token': csrf,
+        }
+    }
+});
+
+const client = new ApolloClient({
+    networkInterface: railsNetworkInterface});
+
+client.query({
+    query: gql`
+    query {
+      testField
+      lmarker (id:39){
+        id
+        lat
+        lng
+      }
+      lmarkers {
+        id
+        lat
+        lng
+      }
+    }
+  `,
+})
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
 
 class MainApp extends React.Component {
     constructor(props){
@@ -35,15 +72,15 @@ class MainApp extends React.Component {
             <div className="container">
 
                 <h3>
-                    Hello, {this.props.name}!
+                    Adi prop, {this.props.name}!
                 </h3>
                 <hr/>
-                <div>
+                <div className="mapBox">
                     <SimpleMap />
                 </div>
                 <form>
                     <label htmlFor="name">
-                        Say hello to:
+                        change prop to:
                     </label>
                     <input
                         id="name"
