@@ -12,7 +12,8 @@ services:
 
   web:
     image: adiprod
-    command: bin/rails server -e production --port 3000 --binding 0.0.0.0
+    #gem updates?
+    command: bash -c "bin/rails server -e production --port 3000 --binding 0.0.0.0"
     environment:
       - SECRET_KEY_BASE
       - RAILS_LOG_TO_STDOUT=1  #TODO setup logging

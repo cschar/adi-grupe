@@ -51,6 +51,20 @@ docker run -it --net=host mytag/adi
 docker exec -it bundle exec rails test
 ```
 
+##### (hackish) Develop locally w/ docker-compose
+
+uncomment out the volume.
+when a new component is needed:
+```
+# update code, add a gem etc..
+# modify docker-compose cmd for web service:
+git pull / git commit 
+docker-compose stop
+cmd: bash -c "bundle install; runserver etc.."
+outside container...
+bundle exec rake assets:precompile
+docker-compose up
+```
 
 #### docker hub for gitlab runner integration
 ```
