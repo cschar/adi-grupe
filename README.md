@@ -62,6 +62,7 @@ git pull / git commit
 docker-compose stop
 cmd: bash -c "bundle install; runserver etc.."
 outside container...
+cd client && yarn install && cd ..
 bundle exec rake assets:precompile
 docker-compose up
 ```

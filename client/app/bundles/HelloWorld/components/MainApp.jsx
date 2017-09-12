@@ -75,8 +75,9 @@ class MainApp extends React.Component {
                     Adi prop, {this.props.name}!
                 </h3>
                 <hr/>
+
                 <div className="mapBox">
-                    <SimpleMap />
+                    <SimpleMap watch={true}/>
                 </div>
                 <form>
                     <label htmlFor="name">
