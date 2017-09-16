@@ -7,6 +7,11 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :testField, types.String do
     description "An example field added by the generator"
     resolve ->(obj, args, ctx) {
+
+      if ctx[:current_user].blank?
+        raise GraphQL::ExecutionError.new("Authentication required")
+      end
+
       "Hello World!"
     }
   end

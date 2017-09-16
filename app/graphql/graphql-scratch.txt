@@ -1,0 +1,39 @@
+# query {
+#   testField
+#   lmarker  (id:39){
+#     id
+#     lat
+#     lng
+#   }
+#   lmarkers {
+#     id
+#     lng
+#     lat
+#   }
+# }
+
+# mutation{
+#   signInUser(email: {email: "c3@c.com", password:"horahora"}){
+#     token
+#     user{
+#       id
+#       email
+#     }
+#   }
+# }
+mutation {
+  createUser(input:
+    {email: "tom@toma.com", password:"horahora"}){
+    token
+  }
+}
+# mutation{
+#    placeLmarker(input:{
+#     lat: -73.5 , lng: 45.506, ltype:"rock"} ) {
+#     id
+#     user_id
+#     ltype
+#     lat
+#     lng
+#   }
+# }

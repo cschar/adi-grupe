@@ -39,6 +39,7 @@ gem 'jquery-rails'
 gem 'gon'
 gem 'sidekiq'
 gem 'graphql'
+gem 'json_web_token'
 
 
 
