@@ -37,12 +37,25 @@ class GraphqlController < ApplicationController
 
   # use this above and add :current_user to context
   def current_user
-    #puts request.headers['Authorization']
+    puts 'Authroization header sent ------->'
+    puts request.headers['Authorization']
 
     return nil if request.headers['Authorization'].blank?
     token = request.headers['Authorization'].split(' ').last
     return nil if token.blank?
-    AuthToken.verify(token)
+
+    begin
+      Base64.decode64(token) # decode data
+    rescue ArgumentError => e
+      if Rails.env.development?
+           puts 'Invalid base64 sent in token'
+      end
+      return nil
+    end
+
+    puts 'verifying authroization token'
+    result = AuthToken.verify(token)
+
   end
 
 end

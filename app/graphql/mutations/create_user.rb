@@ -6,7 +6,7 @@ class Mutations::CreateUser < GraphQL::Function
 
   def call(_obj, args, _ctx)
     user = User.create!(
-      email: args[:input][:email],
+      email: args[:input][:email].downcase,
       password: args[:input][:password]
     )
 

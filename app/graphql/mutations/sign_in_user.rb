@@ -7,7 +7,7 @@ class Mutations::SignInUser < GraphQL::Function
     input = args[:input]
     return unless input
 
-    user = User.find_by(email: input[:email])
+    user = User.find_by(email: input[:email].downcase)
     return unless user
     return unless user.valid_password?(input[:password])
 
