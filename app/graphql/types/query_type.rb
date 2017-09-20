@@ -48,10 +48,17 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :users, !types[Types::UserType] do
+    argument :byPoints, types.Boolean, default_value: false
+
     argument :limit, types.Int, default_value: 20,
              prepare: -> (limit, ctx) { [limit, 30].min }
     resolve -> (obj, args, ctx) {
-      User.limit(args[:limit]).order(id: :desc)
+
+      if args[:byPoints]
+        User.limit(args[:limit]).order(points: :desc)
+      else
+        User.limit(args[:limit]).order(id: :desc)
+      end
     }
   end
 
