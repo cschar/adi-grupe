@@ -32,14 +32,6 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  # query {
-  #   testField
-  #   lmarkers (id:39){
-  #     id
-  #     lat
-  #     lng
-  #   }
-  # }
 
 
 end

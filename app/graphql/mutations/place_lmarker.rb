@@ -1,8 +1,4 @@
 class Mutations::PlaceLmarker < GraphQL::Function
-  # argument :rental_id, !types.Int
-  # argument :lat, !types.Float
-  # argument :lng, !types.Float
-  # argument :ltype, !types.String
   #pass in a dict clientside instead
   argument :input, !Types::PlaceLmarkerInput
 
@@ -19,12 +15,12 @@ class Mutations::PlaceLmarker < GraphQL::Function
     user = ctx[:current_user]
 
     lmarker = Lmarker.create(user_id:user.id,
-    # lat: 45.52072157081463 + 0.03,
-    # lng: -73.57604026794435 + 0.03,
     lat: input[:lat],
     lng: input[:lng],
     ltype: input[:ltype])
 
+
+    RpsWorker.new.perform
 
     lmarker  #return
 
