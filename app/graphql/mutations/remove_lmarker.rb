@@ -14,7 +14,7 @@ class Mutations::RemoveLmarker < GraphQL::Function
 
     lmarker = Lmarker.find_by(user_id:user.id,
                              id: args[:id])
-    
+
     if lmarker == nil
       raise GraphQL::ExecutionError.new("No Lmarker with ID #{args[:id]} & user ID #{user.id} found.")
     else

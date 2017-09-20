@@ -16,6 +16,21 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :user do
+    type Types::UserType
+    argument :id, !types.ID
+    description "Find a user by id"
+    resolve ->(obj, args, ctx) {
+
+      begin
+        User.find(args[:id])
+      rescue ActiveRecord::RecordNotFound
+        raise GraphQL::ExecutionError.new("No User found with ID #{args[:id]}")
+      end
+
+    }
+  end
+
   field :lmarker do
     type Types::LmarkerType
     argument :id, !types.ID
@@ -32,6 +47,13 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :users, !types[Types::UserType] do
+    argument :limit, types.Int, default_value: 20,
+             prepare: -> (limit, ctx) { [limit, 30].min }
+    resolve -> (obj, args, ctx) {
+      User.limit(args[:limit]).order(id: :desc)
+    }
+  end
 
 
 end
