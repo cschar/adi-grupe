@@ -14,11 +14,22 @@ class Mutations::PlaceLmarker < GraphQL::Function
 
     user = ctx[:current_user]
 
-    lmarker = Lmarker.create(user_id:user.id,
-    lat: input[:lat],
-    lng: input[:lng],
-    ltype: input[:ltype])
 
+    #update if id given
+    if input[:id]
+      begin
+        lmarker = Lmarker.find_by!(id: input[:id], user_id: user.id)
+        lmarker.ltype = input[:ltype]
+        lmarker.save
+      rescue ActiveRecord::RecordNotFound => e
+        GraphQL::ExecutionError.new("No Lmarker with user ID #{1} found.")
+      end
+    else
+      lmarker = Lmarker.create(user_id:user.id,
+      lat: input[:lat],
+      lng: input[:lng],
+      ltype: input[:ltype])
+    end
 
     RpsWorker.new.perform
 
