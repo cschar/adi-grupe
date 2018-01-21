@@ -15,7 +15,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body id="<%= params[:controller]%>">
+  <body id="<%= params[:controller]%>" class="container">
   <%= Gon::Base.render_data %>
 
   <% if notice %>
