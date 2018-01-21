@@ -33,14 +33,30 @@ gem 'react_on_rails', '~> 7.0', '>= 7.0.4'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'devise'
+# Use Devise for authentication
+gem 'devise', '~> 4.2'
+# Use Omniauth Facebook plugin
+gem 'omniauth-facebook', '~> 4.0'
+# Use Omniauth Github plugin
+gem 'omniauth-github', '~> 1.1', '>= 1.1.2'
+# Use Omniauth Google plugin
+gem 'omniauth-google-oauth2', '~> 0.4.1'
+# Use Omniauth Twitter plugin
+gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
+# Use ActiveRecord Sessions
+gem 'activerecord-session_store', '~> 1.0'
+
+
 gem 'bootstrap-sass', '3.3.7'
 gem 'jquery-rails'
 gem 'gon'
+gem "font-awesome-rails"
+
 gem 'sidekiq'
 gem 'graphql'
 gem 'json_web_token'
 
+gem 'activeadmin', github: 'activeadmin'
 
 
 group :development, :test do
@@ -51,6 +67,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # Use Dotenv for environment variables
+  gem 'dotenv', '~> 2.2.1'
 end
 
 group :development do

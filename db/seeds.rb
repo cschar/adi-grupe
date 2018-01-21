@@ -29,4 +29,4 @@ u2.save
                 :user_id=>u.id
   )
   m.save
-end
+endAdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
