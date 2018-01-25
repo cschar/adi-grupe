@@ -47,10 +47,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
             <li><a href="/firetrees">firetrees</a></li>
             <li><a href="/items">Items</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="/readquest">readquest</a></li>
             <li><a href="#">Contact</a></li>
 
           </ul>
@@ -61,6 +60,21 @@
 
             <% if user_signed_in? %>
                 Logged in as <strong><%= current_user.email %></strong>.
+                <!--needs open class added on click-->
+                <div id="profileDropdown" class="btn-group ">
+                  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> User</a>
+                  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+                    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+                    <li><a href="#"><i class="fa fa-ban fa-fw"></i> Ban</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="fa fa-unlock"></i> Make admin</a></li>
+                  </ul>
+                </div>
+
 
                 <li> <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>
                 </li>
@@ -78,18 +92,13 @@
     </nav>
 
   <%= link_to "home", root_path, class: "btn btn-primary" %>
-  <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-  <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-  <% end %>
+
 
     <%= yield %>
 
   </div>
+
+
   </body>
 </html>
 

@@ -1,0 +1,28 @@
+
+<h1> readers </h1>
+
+<% @books.each do |book| %>
+
+    <div class="row">
+      <div class="col-md-7">
+
+        <% book.authors.each do |author| %>
+          <a class="btn btn-lg btn-success" href="#">
+            <i class="fa fa-user pull-left"></i>
+
+            Author:<br><%= author.name %></a>
+
+          <a href="#">
+            <!--<img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">-->
+          </a>
+        <% end %>
+      </div>
+      <div class="col-md-5">
+        <h1><%= book.title %></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, temporibus, dolores, at, praesentium ut unde repudiandae voluptatum sit ab debitis suscipit fugiat natus velit excepturi amet commodi deleniti alias possimus!</p>
+        <a class="btn btn-primary" href="#">View Project</a>
+      </div>
+    </div>
+
+<% end %>
+

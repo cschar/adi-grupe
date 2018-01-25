@@ -4,11 +4,12 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
 
-  post "/graphql", to: "graphql#execute"
+  # if Rails.env.development?
+  #   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  # end
+  # post "/graphql", to: "graphql#execute"
+
   resources :lmarkers
   # devise_for :users
    devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth' }
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   # get '/markers', to ''
 
   get '/arven', to: 'arven#index'
+  get '/readquest', to: 'static_pages#readquest'
   root 'static_pages#index'
 
 
