@@ -54,7 +54,7 @@ gem "font-awesome-rails"
 
 gem 'sidekiq'
 gem 'graphql'
-gem 'json_web_token'
+# gem 'json_web_token'
 
 gem 'activeadmin', github: 'activeadmin'
 gem 'ffaker'

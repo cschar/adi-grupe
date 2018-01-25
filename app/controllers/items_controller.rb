@@ -1,4 +1,3 @@
-
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
@@ -30,7 +29,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'item was successfully created.' }
+        format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -44,7 +43,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'item was successfully updated.' }
+        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
@@ -58,19 +57,19 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'item was successfully destroyed.' }
+      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_item
-    @item = Item.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_item
+      @item = Item.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def item_params
-    params.require(:item).permit(:name, :body, :user_id)
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def item_params
+      params.require(:item).permit(:name, :user_id)
+    end
 end
