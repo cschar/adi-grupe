@@ -5,9 +5,12 @@
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %>
+  <%= link_to new_registration_path(resource_name) do %>
+              <!--# ,class: "btn btn-lg btn-primary btn-block"-->
 
- <i class="fa fa-camera-retro fa-4x"></i> 
+
+    <i class="fa fa-user-o fa-2x"></i> Sign up
+    <% end %>
   <br />
 <% end -%>
 
@@ -35,9 +38,7 @@
         <%= link_to omniauth_authorize_path(resource_name, provider),
                     class: "btn btn-block btn-social btn-#{provider}" do %>
             <span class="fa fa-<%= provider %>"></span>
-            
-              <%= "Sign in with #{OmniAuth::Utils.camelize(provider)}" %>
-
+            <%= "Sign in with #{OmniAuth::Utils.camelize(provider)}" %>
         <% end %>
 
         <br />
