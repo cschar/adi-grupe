@@ -1,0 +1,2 @@
+module FiretreesHelper
+end

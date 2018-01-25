@@ -22,6 +22,28 @@ u2.save
 
 
 
+tree_type = [
+    'birch',
+    'maple',
+    'evergreen',
+    'ash',
+    'ironwood'
+]
+
+temp = [
+    'Hot',
+    'lukewarm',
+    'tepid',
+    'cold'
+]
+
+15.times do
+  Firetree.create(name: FFaker::Food.ingredient,
+                  body: tree_type.sample + temp.sample,
+                  user_id:1)
+end
+
+
 10.times do |n|
   m = Marker.new(
                 :lat=>51.505 + rand(12)*0.001,

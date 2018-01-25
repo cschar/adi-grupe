@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Firetrees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @firetrees.each do |firetree| %>
+      <tr>
+        <td><%= firetree.name %></td>
+        <td><%= firetree.body %></td>
+        <td><%= firetree.user_id %></td>
+        <td><%= link_to 'Show', firetree %></td>
+        <td><%= link_to 'Edit', edit_firetree_path(firetree) %></td>
+        <td><%= link_to 'Destroy', firetree, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Firetree', new_firetree_path %>

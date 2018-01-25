@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.3'
+gem 'rails', '~> 5.1.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
@@ -57,7 +57,7 @@ gem 'graphql'
 gem 'json_web_token'
 
 gem 'activeadmin', github: 'activeadmin'
-
+gem 'ffaker'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

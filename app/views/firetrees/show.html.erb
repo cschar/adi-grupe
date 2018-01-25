@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @firetree.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @firetree.body %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @firetree.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_firetree_path(@firetree) %> |
+<%= link_to 'Back', firetrees_path %>

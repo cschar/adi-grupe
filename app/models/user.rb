@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   has_many(:markers)
   has_many(:lmarkers)
+  has_many(:firetrees)
 
 
   def self.create_from_provider_data(provider_data)
