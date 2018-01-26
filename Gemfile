@@ -65,6 +65,11 @@ gem 'geocoder'
 gem 'tether-rails'
 gem 'sidekiq'
 gem 'foreman'
+gem 'bootstrap', '~> 4.0.0'
+
+gem 'bootstrap4-kaminari-views'  #gives kaminari (paginate)
+gem 'kaminari'
+# gem 'will_paginate-bootstrap'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

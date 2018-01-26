@@ -13,6 +13,8 @@
 
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_include_tag "//maps.google.com/maps/api/js?sensor=true", 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!--webpacker-->
@@ -95,8 +97,6 @@
         </div><!--/.nav-collapse -->
       </div><!--/.container-fluid -->
     </nav>
-
-  <%= link_to "home", root_path, class: "btn btn-primary" %>
 
 
     <%= yield %>

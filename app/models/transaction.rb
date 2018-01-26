@@ -12,4 +12,7 @@ class Transaction < ApplicationRecord
     street_changed? || city_changed? || zip_changed? || state_changed?
   end
 
+  def foo
+    "heyoheyo"
+  end
 end

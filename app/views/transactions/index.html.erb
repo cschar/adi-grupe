@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Transactions</h1>
+
+<div class="row">
+  <div class="col-xs-6">
+
+    <%= render partial: "list" %>
+
+    <br>
+
+    <%= link_to 'New Transaction', new_transaction_path %>
+
+  </div>
+
+  <div class="col-xs-6">
+    <div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="mapDragCheckbox">
+        <label class="form-check-label" for="defaultCheck1">
+          Search as I move the map
+        </label>
+      </div>
+
+    </div>
+    <%= tag.div nil, id: 'map',data: { checkedDrag: @checkedDrag}  %>
+  </div>
+</div>
+
+
