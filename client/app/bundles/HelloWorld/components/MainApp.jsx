@@ -18,28 +18,6 @@ const railsNetworkInterface =  createNetworkInterface({
     }
 });
 
-const client = new ApolloClient({
-    networkInterface: railsNetworkInterface});
-
-client.query({
-    query: gql`
-    query {
-      testField
-      lmarker (id:39){
-        id
-        lat
-        lng
-      }
-      lmarkers {
-        id
-        lat
-        lng
-      }
-    }
-  `,
-})
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
 
 class MainApp extends React.Component {
     constructor(props){

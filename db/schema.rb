@@ -10,15 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125021941) do
+ActiveRecord::Schema.define(version: 20180125175025) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20180125021941) do
   end
 
   create_table "authors_books", id: false, force: :cascade do |t|
-    t.integer "author_id", null: false
-    t.integer "book_id", null: false
+    t.bigint "author_id", null: false
+    t.bigint "book_id", null: false
   end
 
   create_table "books", force: :cascade do |t|
@@ -108,6 +111,22 @@ ActiveRecord::Schema.define(version: 20180125021941) do
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "street"
+    t.string "city"
+    t.string "zip"
+    t.string "state"
+    t.string "beds"
+    t.string "baths"
+    t.string "sq__ft"
+    t.datetime "sale_date"
+    t.integer "price"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

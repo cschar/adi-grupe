@@ -59,6 +59,11 @@ gem 'graphql'
 gem 'activeadmin', github: 'activeadmin'
 gem 'ffaker'
 
+gem 'webpacker', '~> 3.0'
+gem 'geocoder'
+
+gem 'tether-rails'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

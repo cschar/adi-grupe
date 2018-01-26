@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all
+Lmarker.destroy_all
+AdminUser.destroy_all
+
 u = User.new(
             :email=>'c3@c.com',
             :password=>'horahora',
@@ -44,14 +48,13 @@ temp = [
 end
 
 
-10.times do |n|
-  m = Marker.new(
-                :lat=>51.505 + rand(12)*0.001,
-                :lng=>-0.09,
-                :user_id=>u.id
-  )
-  m.save
-end
-
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
+
+require 'csv'
+
+Transaction.destroy_all
+
+CSV.foreach("db/Sacramentorealestatetransactions.csv", headers: true) do |line|
+  Transaction.create! line.to_hash.except(*%w{type latitude longitude})
+end
