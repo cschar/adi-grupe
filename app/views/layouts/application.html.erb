@@ -10,11 +10,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--webpacker-->
-    <%= javascript_pack_tag 'application' %>
+
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!--webpacker-->
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'  %>
+
   </head>
 
   <body id="<%= params[:controller]%>" >
@@ -61,11 +64,11 @@
           <ul class="nav navbar-nav navbar-right">
 
             <% if user_signed_in? %>
-                Logged in as <strong><%= current_user.email %></strong>.
+                <!--Logged in as <strong><%= current_user.email %></strong>.-->
                 <!--needs open class added on click-->
                 <div id="profileDropdown" class="btn-group ">
-                  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> User</a>
-                  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                  <a class="btn btn-primary" ><i class="fa fa-user fa-fw"></i> User</a>
+                  <a class="btn btn-primary dropdown-toggle" data-toggle="open" href="#">
                     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                   </a>
                   <ul class="dropdown-menu">

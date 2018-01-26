@@ -16,11 +16,8 @@ Rails.application.routes.draw do
    
   get '/users/info', to: 'user_info#show', constraints: lambda { |req| req.format == :json }
 
-  get 'hello_world', to: 'hello_world#index'
 
-  # get '/markers', to ''
 
-  get '/arven', to: 'arven#index'
   get '/readquest', to: 'static_pages#readquest'
   root 'static_pages#index'
 
