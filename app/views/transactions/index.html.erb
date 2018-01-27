@@ -2,8 +2,10 @@
 
 <h1>Transactions</h1>
 
+<%= paginate @transactions, theme: 'twitter-bootstrap-4', remote: true %>
 <div class="row">
-  <div class="col-xs-6">
+
+  <div class="col-6">
 
     <%= render partial: "list" %>
 
@@ -13,7 +15,7 @@
 
   </div>
 
-  <div class="col-xs-6">
+  <div class="col-6">
     <div>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="mapDragCheckbox">
@@ -24,6 +26,7 @@
 
     </div>
     <%= tag.div nil, id: 'map',data: { checkedDrag: @checkedDrag}  %>
+    <%= link_to "Redo search in this area", "#", id: "redo-search" %>
   </div>
 </div>
 

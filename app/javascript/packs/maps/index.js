@@ -5,7 +5,7 @@ var map;
 window.addMarkers = function addMarkers() {
     var element = document.querySelector("#transactions-list");
     var transactions = window.transactions = JSON.parse(element.dataset.transactions);
-    
+
     map.removeMarkers();
 
     transactions.forEach(function(transaction) {
@@ -38,6 +38,7 @@ function setSafeBounds(element) {
         map.fitBounds(bounds, 0);
 
     } else {
+        //fitZoom will make the map slightly shift on the same location
         map.fitZoom();
     }
 }
@@ -70,7 +71,15 @@ document.addEventListener("turbolinks:load", function() {
         }
     });
 
-    map.addListener("zoom_changed", function(){
-        console.log("map zoomed ")
-    })
+    //map.addListener("zoom_changed", function(){  console.log("map zoomed ")   })
+
+    document.querySelector("#redo-search").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        var bounds = map.getBounds();
+        var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
+
+        Turbolinks.visit(`/transactions?l=${location}`);
+    });
 });
+

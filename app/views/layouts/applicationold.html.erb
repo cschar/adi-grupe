@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adi </title>
+    <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+          crossorigin=""/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_include_tag "//maps.google.com/maps/api/js?sensor=true", 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!--webpacker-->
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'  %>
+
+  </head>
+
+  <body id="<%= params[:controller]%>" >
+
+  <div class="container">
+    <!--<% flash.each do |message_type, message| %>-->
+        <!--<div class="alert alert-<%= message_type %>"><%= message %></div>-->
+    <!--<% end %>-->
+
+    <!-- notices -->
+    <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+
+  <%= Gon::Base.render_data %>
+
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default custom-nav">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Adi Aayza</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/firetrees">firetrees</a></li>
+            <li><a href="/items">Items</a></li>
+            <li><a href="/readquest">readquest</a></li>
+            <li><a href="#">Contact</a></li>
+
+          </ul>
+
+
+
+          <ul class="nav navbar-nav navbar-right">
+
+            <% if user_signed_in? %>
+                <!--Logged in as <strong><%= current_user.email %></strong>.-->
+                <!--needs open class added on click-->
+                <div id="profileDropdown" class="btn-group ">
+                  <a class="btn btn-primary" ><i class="fa fa-user fa-fw"></i> User</a>
+                  <a class="btn btn-primary dropdown-toggle" data-toggle="open" href="#">
+                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+                    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+                    <li><a href="#"><i class="fa fa-ban fa-fw"></i> Ban</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#"><i class="fa fa-unlock"></i> Make admin</a></li>
+                  </ul>
+                </div>
+
+
+                <li> <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>
+                </li>
+                <li>
+                  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+                </li>
+            <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+            <% end %>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+
+
+    <%= yield %>
+
+  </div>
+
+
+  </body>
+</html>
+

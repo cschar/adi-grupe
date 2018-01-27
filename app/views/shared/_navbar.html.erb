@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-light bg-faded">
+  <div class="container">
+    <%= link_to "Spark", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <%= form_with(url: transactions_path, class: "form-inline my-2 my-lg-0 mr-auto", local: true, method: :get) do |f| %>
+          <%= f.text_field :near, class: "form-control mr-sm-2", placeholder: "Search" %>
+          <%= f.submit "Search", class: "btn btn-outline-secondary my-2 my-sm-0" %>
+      <% end %>
+
+      <ul class="navbar-nav">
+        <li class="nav-item"><%= link_to "Zup", firetrees_path, class: "nav-link" %></li>
+        <% if user_signed_in? %>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" data-uv-lightbox="classic_widget" data-uv-mode="full" data-uv-primary-color="#3aa2e3" data-uv-link-color="#56b68b" data-uv-default-mode="support" data-uv-forum-id="259979">Support</a>
+            </li>
+            <li class="nav-item"><%= link_to "Account", edit_user_registration_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+        <% else %>
+            <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

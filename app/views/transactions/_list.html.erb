@@ -3,7 +3,7 @@
                     l: params[:l],
                     current_page: @current_page} do %>
 
-    <%= paginate @transactions, theme: 'twitter-bootstrap-4', remote: true %>
+
     <% @transactions.each do |transaction| %>
         <div>
           <h6><%= link_to transaction.address, transaction %></h6>

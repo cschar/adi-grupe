@@ -4,6 +4,7 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
+
     puts params[:checkedDrag]
     puts 'checked drag'
     if params[:checkedDrag] != nil
@@ -15,6 +16,8 @@ class TransactionsController < ApplicationController
     # @transactions = Transaction.all
     @current_page = params[:page] ||= 1
     puts "current & page #{@current_page} #{params[:page]}"
+
+
     @transactions = if params[:l] && params[:page]
                       puts "=Using page and l"
                       # debugger
@@ -23,22 +26,26 @@ class TransactionsController < ApplicationController
                       # looking at a map
                       # longtiude across map  -180 -- right --> 180
                       # latitude north south 70 ---- down ---> -70
+                      # t2 = Transaction.where(
+                      #     "latitude < :ne_lat AND
+                      #      latitude > :sw_lat AND
+                      #      longitude > :sw_lng AND
+                      #      longitude < :ne_lng",
+                      #     {ne_lat: ne_lat, sw_lat: sw_lat, sw_lng: sw_lng, ne_lng: ne_lng})
+                      center   = Geocoder::Calculations.geographic_center([[sw_lat, sw_lng], [ne_lat, ne_lng]])
+                      distance = Geocoder::Calculations.distance_between(center, [sw_lat, sw_lng])
+                      box      = Geocoder::Calculations.bounding_box(center, distance)
+                      #geocoder bounding_box actually a circle
 
-                      t2 = Transaction.where(
-                          "latitude < :ne_lat AND
-                           latitude > :sw_lat AND
-                           longitude > :sw_lng AND
-                           longitude < :ne_lng",
-                          {ne_lat: ne_lat, sw_lat: sw_lat, sw_lng: sw_lng, ne_lng: ne_lng})
-                      puts "#{t2.count}  geo results"
+                      Transaction.within_bouding_box(box)
 
-                      t2.page(@current_page).per(100)
-
-
+                    elsif params[:near]   # search box
+                      Transaction.near(params[:near])
                     else
-                      puts "==== normal "
-                        Transaction.all.page(@current_page).per(100)
-                      end
+                        Transaction.all
+                    end
+    
+    @transactions = @transaction.page(@current_page).per(5)
   end
 
   # GET /transactions/1

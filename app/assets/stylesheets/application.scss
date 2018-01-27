@@ -10,12 +10,13 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *
  *= require font-awesome
  *= require tether
  *= require_self
 
  */
+//require_tree .  activeadmin messes this up and is put into other pages
 
 @import "bootstrap";
 

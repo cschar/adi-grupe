@@ -8,6 +8,12 @@ e.g. along canal, into
 5 consective cool spots
 etc.
 
+#TODO 
+text search using postgres
+for announcements
+
+http://rachbelaid.com/postgres-full-text-search-is-good-enough/
+
 #TODO DEVISE
 https://github.com/plataformatec/devise
 - user devise omniauthable for omniauth integration for google/twitter
