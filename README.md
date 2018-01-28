@@ -5,9 +5,17 @@ experiments w/ maps and rails
 
 
 
-TODOS:
+### Development
 
-- graphql: acces user_info and lmarkers... __at the same time__
+rails searchkick gem depends on elasticsearch: 
+```
+brew install elasticsearch
+brew install kibana (optional, opens http://localhost:5601/)
+
+elasticsearch
+kibana   
+```  
+
 
 
 

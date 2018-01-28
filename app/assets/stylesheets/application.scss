@@ -11,13 +11,12 @@
  * It is generally better to create a new file per style scope.
  *
  *
- *= require font-awesome
- *= require tether
- *= require_self
+
 
  */
 //require_tree .  activeadmin messes this up and is put into other pages
 
+@import "font-awesome";
 @import "bootstrap";
 
 

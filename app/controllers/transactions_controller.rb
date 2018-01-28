@@ -23,6 +23,7 @@ class TransactionsController < ApplicationController
                       # debugger
                       sw_lat, sw_lng, ne_lat, ne_lng = params[:l].split(",")
 
+                      # version 1 , plain SQL
                       # looking at a map
                       # longtiude across map  -180 -- right --> 180
                       # latitude north south 70 ---- down ---> -70
@@ -32,20 +33,53 @@ class TransactionsController < ApplicationController
                       #      longitude > :sw_lng AND
                       #      longitude < :ne_lng",
                       #     {ne_lat: ne_lat, sw_lat: sw_lat, sw_lng: sw_lng, ne_lng: ne_lng})
-                      center   = Geocoder::Calculations.geographic_center([[sw_lat, sw_lng], [ne_lat, ne_lng]])
-                      distance = Geocoder::Calculations.distance_between(center, [sw_lat, sw_lng])
-                      box      = Geocoder::Calculations.bounding_box(center, distance)
+
+                      # v2 using geocoder
+                      # center   = Geocoder::Calculations.geographic_center([[sw_lat, sw_lng], [ne_lat, ne_lng]])
+                      # distance = Geocoder::Calculations.distance_between(center, [sw_lat, sw_lng])
+                      # box      = Geocoder::Calculations.bounding_box(center, distance)
                       #geocoder bounding_box actually a circle
 
-                      Transaction.within_bouding_box(box)
+                      # Transaction.within_bouding_box(box)
 
-                    elsif params[:near]   # search box
-                      Transaction.near(params[:near])
+
+                      # v3, using sidekick elasticsearch
+                      Transaction.search("*", page: params[:page], per_page: 5, where: {
+                          location: {
+                              top_left: {
+                                  lat: ne_lat,
+                                  lon: sw_lng
+                              },
+                              bottom_right: {
+                                  lat: sw_lat,
+                                  lon: ne_lng
+                              }
+                          }
+                      })
+
+
+                    elsif params[:near] && params[:near].strip != ""  # search box
+
+
+                      location = Geocoder.search(params[:near]).first
+
+                      Transaction.search "*", page: params[:page], per_page: 5,
+                         boost_by_distance: {location: {origin: {lat: location.latitude, lon: location.longitude}}},
+                         where: {
+                             location: {
+                                 near: {
+                                     lat: location.latitude,
+                                     lon: location.longitude
+                                 },
+                                 within: "10km"
+                             }
+                         }
+
                     else
-                        Transaction.all
+                        Transaction.all.page(@current_page).per(5)
                     end
-    
-    @transactions = @transaction.page(@current_page).per(5)
+
+    # @transactions = @transaction.page(@current_page).per(5)
   end
 
   # GET /transactions/1

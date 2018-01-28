@@ -69,7 +69,10 @@ gem 'bootstrap', '~> 4.0.0'
 
 gem 'bootstrap4-kaminari-views'  #gives kaminari (paginate)
 gem 'kaminari'
-# gem 'will_paginate-bootstrap'
+
+
+# elasticsearch support
+gem 'searchkick'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

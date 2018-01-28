@@ -4,6 +4,10 @@ class Transaction < ApplicationRecord
   #and call geocode using above setting after validation step
   # after_validation(:geocode , if: :address_changed?)
 
+  # https://github.com/ankane/searchkick#geospatial-searches
+  searchkick(locations: [:location])
+  # Transaction.reindex to update elasticsearch
+
   def address
     [street, city, zip, state].compact.join(", ")
   end
@@ -14,5 +18,9 @@ class Transaction < ApplicationRecord
 
   def foo
     "heyoheyo"
+  end
+
+  def search_data
+    attributes.merge location: {lat: latitude, lon: longitude}
   end
 end
