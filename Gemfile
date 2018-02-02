@@ -50,6 +50,7 @@ gem 'activerecord-session_store', '~> 1.0'
 # gem 'bootstrap-sass', '3.3.7'
 gem 'jquery-rails'
 # gem 'gon'
+# https://fontawesome.com/v4.7.0/icons/
 gem "font-awesome-rails"
 
 gem 'sidekiq'
