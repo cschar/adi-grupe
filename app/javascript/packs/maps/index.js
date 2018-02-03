@@ -77,8 +77,34 @@ document.addEventListener("turbolinks:load", function() {
         lng: -121.4944
     });
 
+    if(window.location.pathname.indexOf('/grupes') >= 0){
+        console.log("grupes js")
+        var element = window.eee = document.querySelector("#grupe-location");
+        var grupelocation = JSON.parse(element.dataset.attr);
+
+        map.removeMarkers();
+
+                var marker = map.addMarker({
+                    lat: grupelocation.latitude,
+                    lng: grupelocation.longitude,
+                    title: grupelocation.name,
+                    infoWindow: {
+                        content: `<div>
+            <i class="fa fa-flask fa-4x pull-left"></i>
+<p><a href='/locations/${grupelocation.id}'>${grupelocation.name}</a></p>
+
+</div>`
+                    }
+                });
+
+
+        setSafeBounds(element);
+        // map.fitZoom()
+        map.zoomOut(8);
+
+    }
+
     if(window.location.pathname == '/locations') {
-        console.log("locationsosinsoisn")
         addLocationMarkers();
     }
     if(window.location.pathname == '/transactions') {

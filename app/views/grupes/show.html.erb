@@ -1,14 +1,87 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @grupe.name %>
-</p>
+<h3> Grupe: <%= @grupe.name %>  <%= @grupe.id %> @ locationClick
+  <a href="#InfoAnchor1" data-turbolinks="false"> <%= @grupe.location_id.to_s + " " + @grupe.location.name %></a>
+   setting out / venturing / questing with
+  <a href="#InfoAnchor2" data-turbolinks="false"> $quest_num quests </a>
+</h3>
 
-<p>
-  <strong>Location:</strong>
-  <%= @grupe.location_id %>
-</p>
+<%= tag.div id: "grupe-location", data: { attr: @grupe.location.to_json() } do %>
+
+<% end %>
+
+<%= tag.div class: "row" do %>
+
+  <% @grupe.users.all.each do |user|%>
+      <div class="col-sm-2 color3 offset-md-1">
+        <i class="fa fa-user-circle fa-2x"></i>
+        <ul>
+          <li>user <%= user.id %></li>
+          <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
+        </ul>
+
+      </div>
+
+  <% end %>
+  <!--5 max in grupe, show empty spots if less than 5-->
+  <% [*@grupe.users.all.count..4].each do |placeholder|%>
+      <div class="col color3 offset-sm-1">
+        <i class="fda fa-square-o fa-2x"></i>
+        nil
+      </div>
+  <% end %>
+
+<% end %>  <!-- end div -->
+
+<a name="InfoAnchor1"></a>
+<div class="row">
+  <div class="col ">
+    <div>
+      <h3> Details about location</h3>
+      <ul>
+        <li> <i class="fa fa-database" ></i> star level: <%= [*5..30].sample %>
+        </li>
+        <li> <i class="fa fa-bolt" aria-hidden="true"></i> Info 1
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col">
+    a map
+  <%= tag.div nil, id: 'map' %>
+  </div>
+</div>
+
+<a name="InfoAnchor2"></a>
+<div class="row">
+  <div class="col ">
+    <div id="chat" class="d-flex flex-column color2">
+      <div class="mb-auto p-2"> quest 1 : Talk about XYZ </div>
+      <div class="m-2"> quest 2 : Walk to nearby location < some location of interest OR other tavern> </div>
+      <div class="ml-5 mt-2"> <span class="color1">quest 3 </span> (user 1 - profession {song collector}): Sing a song / learn a verse / write a verse </div>
+
+    </div>
+  </div>
+  <div class="col">
+    <h2> Detail for each quest when mouse rolls over </h2>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="d-flex align-items-start flex-column" style="height: 200px;">
+    <div class="mb-auto p-2">Flex item</div>
+    <div class="p-2">Flex item</div>
+    <div class="p-2">Flex item</div>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 <%= link_to 'Edit', edit_grupe_path(@grupe) %> |
 <%= link_to 'Back', grupes_path %>

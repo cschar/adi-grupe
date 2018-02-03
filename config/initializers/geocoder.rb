@@ -1,8 +1,15 @@
 if ENV['GOOGLE_GEOCODER_API_KEY'] == nil
   puts "Warning: No geocoder google api key set"
 else
-  puts "geocoder api key set"
+  puts "[Success] geocoder api key set"
 end
+
+if ENV['GOOGLE_MAPS_JS_API_KEY'] == nil
+  puts "Warning: No google MAPS js api key set"
+else
+  puts "[Success] google maps js api key set"
+end
+
 
 Geocoder.configure(
   # Geocoding options

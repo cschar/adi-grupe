@@ -4,24 +4,28 @@
 <div class="row">
   <div class="col" >
 
-    <% 5.downto(rand(2..5)).each do |a1|%>
+    <% @location.grupes.all.each do |grupe|%>
         <!--Grupe list component-->
         <div class="row ">
-          <% [1,2,3].each do |a2|%>
+          <% grupe.users.all.each do |user|%>
               <div class="col-sm-2 color3 offset-md-1">
             <i class="fa fa-user-circle fa-2x"></i>
+                <ul>
+                  <li>user <%= user.id %></li>
+                  <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
+                </ul>
 
-
-                <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %>
               </div>
-              <% end %>
-          <% [1,2].each do |a3|%>
+
+          <% end %>
+          <!--5 max in grupe, show empty spots if less than 5-->
+          <% [*grupe.users.all.count..4].each do |placeholder|%>
               <div class="col">
                 <i class="fa fa-square-o fa-2x"></i>
                   nil
               </div>
           <% end %>
-           <a href="#"> Link to group detail</a>
+           <%= link_to "detail here: "+grupe.name , grupe %>
         </div>
     <% end %>
 

@@ -49,6 +49,8 @@ https://www.sitepoint.com/master-many-to-many-associations-with-activerecord/
 # design
 https://startbootstrap.com/template-categories/all/
 
+http://v4-alpha.getbootstrap.com/utilities/spacing/#notation
+
 # cool site
 https://www.waze.com/carpool/
 
@@ -69,3 +71,4 @@ rails s -b 0.0.0.0
 
 # data
 https://data.opendatasoft.com/explore/dataset/all-starbucks-locations-in-the-world%40public-us/?refine.city=Ottawa
+
