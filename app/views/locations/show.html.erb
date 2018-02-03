@@ -1,24 +1,62 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @location.name %>
-</p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @location.latitude %>
-</p>
+<div class="row">
+  <div class="col" >
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @location.longitude %>
-</p>
+    <% 5.downto(rand(2..5)).each do |a1|%>
+        <!--Grupe list component-->
+        <div class="row ">
+          <% [1,2,3].each do |a2|%>
+              <div class="col-sm-2 color3 offset-md-1">
+            <i class="fa fa-user-circle fa-2x"></i>
 
-<p>
-  <strong>Ltype:</strong>
-  <%= @location.ltype %>
-</p>
 
+                <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %>
+              </div>
+              <% end %>
+          <% [1,2].each do |a3|%>
+              <div class="col">
+                <i class="fa fa-square-o fa-2x"></i>
+                  nil
+              </div>
+          <% end %>
+           <a href="#"> Link to group detail</a>
+        </div>
+    <% end %>
+
+  </div>
+  <div class="col-4">
+
+    <%= tag.div nil, id: 'map' %>
+
+
+
+  </div>
+</div>
+
+
+<div class="row">
+  <p>
+    <strong>Name:</strong>
+    <%= @location.name %>
+  </p>
+
+  <p>
+    <strong>Latitude:</strong>
+    <%= @location.latitude %>
+  </p>
+
+  <p>
+    <strong>Longitude:</strong>
+    <%= @location.longitude %>
+  </p>
+
+  <p>
+    <strong>Ltype:</strong>
+    <%= @location.ltype %>
+  </p>
+
+</div>
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

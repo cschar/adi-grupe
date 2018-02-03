@@ -41,3 +41,7 @@ $color3: #ebe8da;
 .color3{
   background-color: $color3;
 }
+
+.box:hover{
+  background: $color1; /* make this whatever you want */
+}

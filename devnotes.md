@@ -12,6 +12,7 @@ etc.
 text search using postgres
 for announcements
 
+or rails gem...
 http://rachbelaid.com/postgres-full-text-search-is-good-enough/
 
 #TODO DEVISE
@@ -64,3 +65,7 @@ https://dashboard.ngrok.com/get-started
 rails s -b 0.0.0.0
 ./ngrok http 3000
 ```
+
+
+# data
+https://data.opendatasoft.com/explore/dataset/all-starbucks-locations-in-the-world%40public-us/?refine.city=Ottawa

@@ -67,7 +67,9 @@ gem 'tether-rails'
 gem 'sidekiq'
 gem 'foreman'
 
+#styling stuff
 # gem 'bootstrap-sass', '3.3.7'
+# gem "neat"
 gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap4-kaminari-views'  #gives kaminari (paginate)
 gem 'kaminari'
