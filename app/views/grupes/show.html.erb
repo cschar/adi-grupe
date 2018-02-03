@@ -2,8 +2,8 @@
 
 <h3> Grupe: <%= @grupe.name %>  <%= @grupe.id %> @ locationClick
   <a href="#InfoAnchor1" data-turbolinks="false"> <%= @grupe.location_id.to_s + " " + @grupe.location.name %></a>
-   setting out / venturing / questing with
-  <a href="#InfoAnchor2" data-turbolinks="false"> $quest_num quests </a>
+   grouping for
+  <a href="#InfoAnchor2" data-turbolinks="false"> 5 quests </a>
 </h3>
 
 <%= tag.div id: "grupe-location", data: { attr: @grupe.location.to_json() } do %>
@@ -33,8 +33,32 @@
 
 <% end %>  <!-- end div -->
 
-<a name="InfoAnchor1"></a>
+
+
+<a name="InfoAnchor2"></a>
 <div class="row">
+  <div class="col ">
+    <div id="chat" class="d-flex flex-column color2">
+      <div class="mb-auto p-2"> quest 1 : Talk about XYZ </div>
+      <div class="m-2"> quest 2 : Walk to nearby location < some location of interest OR other tavern> </div>
+      <div class="ml-5 mt-2 mb-5 "> <span class="color1">quest 3 </span> (user 1 - profession {song collector}): Sing a song / learn a verse / write a verse </div>
+      <div class="mt-2 mb-5 "> <span class="color1">quest 4 </span>
+        Share a song. What do you think about it and how does it make you feel.
+        <br/> Tooltip Here exploding feelings into choice box archetypes
+        (glad/sad/mad/tired/confused/lonely/excited/friendly/calm)
+      </div>
+
+    </div>
+  </div>
+  <div class="col">
+    <h2> Detail for each quest when mouse rolls over </h2>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <a name="InfoAnchor1"></a>
   <div class="col ">
     <div>
       <h3> Details about location</h3>
@@ -48,25 +72,10 @@
   </div>
   <div class="col">
     a map
-  <%= tag.div nil, id: 'map' %>
+    <%= tag.div nil, id: 'map' %>
   </div>
 </div>
 
-<a name="InfoAnchor2"></a>
-<div class="row">
-  <div class="col ">
-    <div id="chat" class="d-flex flex-column color2">
-      <div class="mb-auto p-2"> quest 1 : Talk about XYZ </div>
-      <div class="m-2"> quest 2 : Walk to nearby location < some location of interest OR other tavern> </div>
-      <div class="ml-5 mt-2"> <span class="color1">quest 3 </span> (user 1 - profession {song collector}): Sing a song / learn a verse / write a verse </div>
-
-    </div>
-  </div>
-  <div class="col">
-    <h2> Detail for each quest when mouse rolls over </h2>
-
-  </div>
-</div>
 
 <div class="row">
   <div class="d-flex align-items-start flex-column" style="height: 200px;">

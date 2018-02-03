@@ -2,11 +2,16 @@ TODO to add:
 
 #Idea
 
-use gmaps routes, and make waze style 
+use gmaps.js routes, and make waze style 
 preapproved quests, 
 e.g. along canal, into 
 5 consective cool spots
 etc.
+
+### In app mesaging like meetup
+https://gorails.com/series/in-app-messaging-between-users
+
+
 
 #TODO 
 text search using postgres
