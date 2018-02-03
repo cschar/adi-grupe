@@ -1,0 +1,23 @@
+<h1> <%= @conversation.subject %> </h1>
+
+
+<%= foo %>
+<%# @conversation.receipts.each do |receipt| %>
+<% @conversation.receipts_for(current_user).each do |receipt| %>
+  <div>
+      <div><%= receipt.message.sender.myname_meth %> commented : </div>
+      <%= receipt.message.body %>
+    <%= link_to "nil", root_path %>
+
+  </div>
+<% end %>
+
+<%= form_tag conversation_messages_path(@conversation), method: :post do %>
+   <div>
+     <%= text_area_tag :body  %>
+
+   </div>
+
+      <%= submit_tag %>
+
+<% end %>

@@ -6,6 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 
+###irbtools for rails console
+gem 'irbtools', require: 'irbtools/binding'
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 
@@ -47,11 +51,10 @@ gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
 gem 'activerecord-session_store', '~> 1.0'
 
 
+#messaging
+gem 'mailboxer', github: 'mailboxer/mailboxer'
 
-gem 'jquery-rails'
-# gem 'gon'
-# https://fontawesome.com/v4.7.0/icons/
-gem "font-awesome-rails"
+
 
 gem 'sidekiq'
 gem 'graphql'
@@ -65,6 +68,7 @@ gem 'geocoder'
 
 gem 'tether-rails'
 gem 'sidekiq'
+# optional for   foreman start    (using procfile) to start sidekiq.1 web.1 webpack.1
 gem 'foreman'
 
 #styling stuff
@@ -73,6 +77,12 @@ gem 'foreman'
 gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap4-kaminari-views'  #gives kaminari (paginate)
 gem 'kaminari'
+gem 'jquery-rails'
+# gem 'gon'
+# https://fontawesome.com/v4.7.0/icons/
+gem "font-awesome-rails"
+
+
 
 
 # elasticsearch support

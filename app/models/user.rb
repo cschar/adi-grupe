@@ -9,6 +9,19 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable,
   :omniauthable, omniauth_providers: [:facebook, :github]# :google_oauth2, :twitter]
 
+   #### mailboxer
+   acts_as_messageable
+
+   def myname_meth
+     "User [][][][]]  #{id}"
+   end
+   def mailboxer_email(object)
+     nil
+   end
+
+
+
+   ##### model relations #####
   has_many(:markers)
   has_many(:lmarkers)
   has_many(:firetrees)
