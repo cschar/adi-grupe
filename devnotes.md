@@ -55,5 +55,12 @@ https://www.waze.com/carpool/
 be rails g geocoder:config
 be rails geocode:all CLASS=Transaction SLEEP=0.25 BATCH=100
 
-Transaction.near([38.6787626, -121.0352162])
 
+
+# quick demo for slack etc..
+https://dashboard.ngrok.com/get-started
+
+```
+rails s -b 0.0.0.0
+./ngrok http 3000
+```

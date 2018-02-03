@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many(:lmarkers)
   has_many(:firetrees)
 
+  # rails g migration CreateJoinTableUsersGrupes users groups
+  has_and_belongs_to_many :grupes
+
 
   def self.create_from_provider_data(provider_data)
     where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do | user |

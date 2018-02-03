@@ -47,7 +47,7 @@ gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
 gem 'activerecord-session_store', '~> 1.0'
 
 
-# gem 'bootstrap-sass', '3.3.7'
+
 gem 'jquery-rails'
 # gem 'gon'
 # https://fontawesome.com/v4.7.0/icons/
@@ -66,8 +66,9 @@ gem 'geocoder'
 gem 'tether-rails'
 gem 'sidekiq'
 gem 'foreman'
-gem 'bootstrap', '~> 4.0.0'
 
+# gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap4-kaminari-views'  #gives kaminari (paginate)
 gem 'kaminari'
 

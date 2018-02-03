@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :locations
+  resources :grupes
   resources :transactions
   resources :items
   resources :firetrees

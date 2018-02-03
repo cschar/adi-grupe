@@ -2,7 +2,7 @@ console.log("maps")
 
 var map;
 
-window.addMarkers = function addMarkers() {
+window.addTransactionMarkers = function addTransactionMarkers() {
     var element = document.querySelector("#transactions-list");
     var transactions = window.transactions = JSON.parse(element.dataset.transactions);
 
@@ -18,6 +18,32 @@ window.addMarkers = function addMarkers() {
                     content: `<div>
             <i class="fa fa-car pull-left"></i>
 <p><a href='/transactions/${transaction.id}'>${transaction.address}</a></p>
+
+</div>`
+                }
+            });
+        }
+    });
+
+    setSafeBounds(element);
+}
+
+window.addLocationMarkers = function addLocationMarkers() {
+    var element = document.querySelector("#locations-list");
+    var locations = window.locations = JSON.parse(element.dataset.locations);
+
+    map.removeMarkers();
+
+    locations.forEach(function(location) {
+        if (location.latitude && location.longitude) {
+            var marker = map.addMarker({
+                lat: location.latitude,
+                lng: location.longitude,
+                title: location.my_tostring,
+                infoWindow: {
+                    content: `<div>
+            <i class="fa fa-flask pull-left"></i>
+<p><a href='/locations/${location.id}'>${location.my_tostring}</a></p>
 
 </div>`
                 }
@@ -51,35 +77,42 @@ document.addEventListener("turbolinks:load", function() {
         lng: -121.4944
     });
 
-    addMarkers();
-
-    var checkedDrag = document.querySelector("#map").getAttribute("data-checkedDrag")
-    checkedDrag = (checkedDrag == 'true')
-
-    var checkbox = $('#mapDragCheckbox')
-    if(checkedDrag){
-        checkbox.prop('checked', true);
+    if(window.location.pathname == '/locations') {
+        console.log("locationsosinsoisn")
+        addLocationMarkers();
     }
+    if(window.location.pathname == '/transactions') {
+        addTransactionMarkers();
 
-    map.addListener("dragend", function() {
+        var checkedDrag = document.querySelector("#map").getAttribute("data-checkedDrag")
+        checkedDrag = (checkedDrag == 'true')
 
-        var isChecked = checkbox.is(":checked")
-        if(isChecked) {
+        var checkbox = $('#mapDragCheckbox')
+        if(checkedDrag){
+            checkbox.prop('checked', true);
+        }
+
+        map.addListener("dragend", function() {
+
+            var isChecked = checkbox.is(":checked")
+            if(isChecked) {
+                var bounds = map.getBounds();
+                var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
+                Turbolinks.visit(`/transactions?l=${location}&checkedDrag=${isChecked}`);
+            }
+        });
+
+        //map.addListener("zoom_changed", function(){  console.log("map zoomed ")   })
+
+        document.querySelector("#redo-search").addEventListener("click", function(e) {
+            e.preventDefault();
+
             var bounds = map.getBounds();
             var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
-            Turbolinks.visit(`/transactions?l=${location}&checkedDrag=${isChecked}`);
-        }
-    });
 
-    //map.addListener("zoom_changed", function(){  console.log("map zoomed ")   })
+            Turbolinks.visit(`/transactions?l=${location}`);
+        });
 
-    document.querySelector("#redo-search").addEventListener("click", function(e) {
-        e.preventDefault();
-
-        var bounds = map.getBounds();
-        var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
-
-        Turbolinks.visit(`/transactions?l=${location}`);
-    });
+    }
 });
 

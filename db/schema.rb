@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125175025) do
+ActiveRecord::Schema.define(version: 20180202235658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,11 +63,39 @@ ActiveRecord::Schema.define(version: 20180125175025) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "checkins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "communities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "developers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "location"
+    t.string "name"
+    t.bigint "developer_id"
+    t.bigint "community_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_events_on_community_id"
+    t.index ["developer_id"], name: "index_events_on_developer_id"
   end
 
   create_table "firetrees", force: :cascade do |t|
@@ -76,6 +104,29 @@ ActiveRecord::Schema.define(version: 20180125175025) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.string "url"
+    t.text "post"
+    t.bigint "developer_id"
+    t.bigint "community_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_forums_on_community_id"
+    t.index ["developer_id"], name: "index_forums_on_developer_id"
+  end
+
+  create_table "grupes", force: :cascade do |t|
+    t.string "name"
+    t.integer "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "grupes_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "grupe_id", null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -96,12 +147,32 @@ ActiveRecord::Schema.define(version: 20180125175025) do
     t.index ["user_id"], name: "index_lmarkers_on_user_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "ltype"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "markers", force: :cascade do |t|
     t.integer "user_id"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "repos", force: :cascade do |t|
+    t.string "url"
+    t.string "comment"
+    t.bigint "developer_id"
+    t.bigint "community_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_repos_on_community_id"
+    t.index ["developer_id"], name: "index_repos_on_developer_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -149,4 +220,10 @@ ActiveRecord::Schema.define(version: 20180125175025) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "events", "communities"
+  add_foreign_key "events", "developers"
+  add_foreign_key "forums", "communities"
+  add_foreign_key "forums", "developers"
+  add_foreign_key "repos", "communities"
+  add_foreign_key "repos", "developers"
 end
