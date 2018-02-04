@@ -1,10 +1,26 @@
 <h1> all converstions</h1>
 
+<hr />
+
+ <%= link_to "Inbox", inbox_conversations_path %> (<%= current_user.mailbox.inbox.unread(current_user).count %>) |
+<%= link_to "All Conversations ", all_conversations_path %>(<%= current_user.mailbox.conversations.count %>) |
+<%= link_to "Sent", sent_conversations_path %>  (<%= current_user.mailbox.sentbox.count %>) |
+<%= link_to "Trash", trash_conversations_path %>  (<%= current_user.mailbox.trash.count %>)
+
+<hr />
+
+Total : ( <%= @conversations.count %>)
+
 <% @conversations.each do |conversation| %>
   <div>
+    <% if conversation.is_unread?(current_user) %>
+        <strong><%= link_to conversation.subject, conversation_path(conversation) %></strong>
+    <% else %>
+        <%= link_to conversation.subject, conversation_path(conversation) %>
+    <% end %>
     <%# conversation_path, because mailboxer_conversations is table name,
     therefore route url would need to be mailboxer_conversations instead... %>
-    <%= link_to conversation.subject, conversation_path(conversation) %>
+
   </div>
 <% end %>
 

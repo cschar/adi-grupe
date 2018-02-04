@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :locations
   resources :grupes do
+
+    #requires id
     member do
       get :join  # /grupe/1/join
     end
@@ -11,6 +13,14 @@ Rails.application.routes.draw do
 
   resources :conversations do
     resources :messages
+
+    # doesnt need id
+    collection do
+      get :inbox
+      get :all, action: :index
+      get :sent
+      get :trash
+    end
   end
 
 
