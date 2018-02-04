@@ -1,23 +1,47 @@
-<h1> <%= @conversation.subject %> </h1>
+
+<div class="d-inline p-2 color4">
+
+  <div class="d-inline p-2 bg-info text-white">  <%= @conversation.subject %> </div>
+
+  <div class="row">
+   <div class="col">
 
 
-<%= foo %>
+     <%= foo %>
 <%# @conversation.receipts.each do |receipt| %>
-<% @conversation.receipts_for(current_user).each do |receipt| %>
-  <div>
-      <div><%= receipt.message.sender.myname_meth %> commented : </div>
-      <%= receipt.message.body %>
-    <%= link_to "nil", root_path %>
+     <% @conversation.receipts_for(current_user).each do |receipt| %>
+         <div>
+           <div><%= receipt.message.sender.myname_meth %> commented : </div>
+           <%= receipt.message.body %>
+           <%= link_to "nil", root_path %>
 
-  </div>
-<% end %>
+         </div>
+     <% end %>
 
-<%= form_tag conversation_messages_path(@conversation), method: :post do %>
-   <div>
-     <%= text_area_tag :body  %>
+     <%= form_tag conversation_messages_path(@conversation), method: :post do %>
+         <div>
+           <%= text_area_tag :body  %>
+
+         </div>
+
+         <%= submit_tag %>
+
+     <% end %>
 
    </div>
+    <div class="col">
+      <div class="d-block p-4">
+        <div class="d-flex color1"> participants: </div>
+        <% @conversation.participants.each do |participant| %>
+            <div class="color1 p-2">
+              <div class="d-inline p-2 bg-info text-white">
+                <%= participant.myname_meth %></div>
+              <div class="d-inline p-2 bg-info text-white">
+                <i class="fa fa-square-o fa-2x"></i> </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <%= submit_tag %>
-
-<% end %>

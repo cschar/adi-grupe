@@ -3,7 +3,9 @@
 <%= form_tag conversations_path, method: :post do %>
 
     <div>
-    <%= select_tag :user_id , options_from_collection_for_select(@recipients, :id, :myname_meth)%>
+      <%= select_tag :user_ids , options_from_collection_for_select(@recipients, :id, :myname_meth),
+      multiple: true%>
+    <%#= select_tag :user_id , options_from_collection_for_select(@recipients, :id, :myname_meth)%>
     </div>
     <div>
     <%= text_field_tag :subject, nil, placeholder: "Subject..." %>

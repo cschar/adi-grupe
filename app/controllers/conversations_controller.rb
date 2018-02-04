@@ -34,8 +34,9 @@ class ConversationsController < ApplicationController
 
   def create
     #dont even need @instance variable, wont use it in view
-    recipient = User.find(params[:user_id ])
-    receipt = current_user.send_message(recipient, params[:body], params[:subject])
+    # recipient = User.find(params[:user_id ])
+    recipients = User.where(id: params[:user_ids ])
+    receipt = current_user.send_message(recipients, params[:body], params[:subject])
 
     redirect_to conversation_path(receipt.conversation)
   end
