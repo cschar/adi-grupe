@@ -15,7 +15,7 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    #dont even need @instance varaible, wont use it in view
+    #dont even need @instance variable, wont use it in view
     recipient = User.find(params[:user_id ])
     receipt = current_user.send_message(recipient, params[:body], params[:subject])
 

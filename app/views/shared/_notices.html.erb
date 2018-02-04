@@ -1,8 +1,10 @@
 <% flash.each do |msg_type, message| %>
-    <div class="alert <%= msg_type %>">
+    <% msg_type %>
+    <div class="alert alert-<%= boostrap_alert_lookup(msg_type) %>">
       <div class="container">
         <button class="close" data-dismiss="alert"><span>×</span></button>
         <%= message %>
       </div>
     </div>
 <% end %>
+

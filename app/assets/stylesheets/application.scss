@@ -29,6 +29,7 @@
 $color1: #ffedc8;
 $color2: #b3ffde;
 $color3: #ebe8da;
+$color4: #e94e75;
 
 .color1{
   background-color: $color1;
@@ -42,6 +43,17 @@ $color3: #ebe8da;
   background-color: $color3;
 }
 
-.box:hover{
-  background: $color1; /* make this whatever you want */
+.color4{
+  background-color: $color4;
+}
+
+/////////////////////
+////////////////////
+//bootstrap override
+
+.dropdown-item-navvy {
+  @extend .dropdown-item;
+  &:hover {
+    background-color:$color4;
+  }
 }

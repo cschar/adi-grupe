@@ -1,32 +1,45 @@
 <p id="notice"><%= notice %></p>
 
 
+<h2><%= @location.name %> -- <%= @location.ltype %>
+  <span class="pull-right">location <%= @location.id %></span>
+</h2>
 <div class="row">
   <div class="col" >
-
-    <% @location.grupes.all.each do |grupe|%>
+    <% @grupes.all.each do |grupe|%>
         <!--Grupe list component-->
+        <div class="d-flex p-2 "> <span class="color2"><%= grupe.name %>--</span></div>
         <div class="row ">
           <% grupe.users.all.each do |user|%>
-              <div class="col-sm-2 color3 offset-md-1">
+              <div class="col-md-2 color3 ">
             <i class="fa fa-user-circle fa-2x"></i>
-                <ul>
-                  <li>user <%= user.id %></li>
-                  <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
+                <ul class="list-group">
+                  <li class="list-group-item">user <%= user.id %></li>
+                  <li class="list-group-item"> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
                 </ul>
 
               </div>
 
           <% end %>
           <!--5 max in grupe, show empty spots if less than 5-->
-          <% [*grupe.users.all.count..4].each do |placeholder|%>
+          <% [*1..(5-grupe.users.count)].each do |placeholder|%>
               <div class="col">
                 <i class="fa fa-square-o fa-2x"></i>
                   nil
               </div>
           <% end %>
-           <%= link_to "detail here: "+grupe.name , grupe %>
+
+
+          <div class="col-md-2 pull-left">
+             <%= link_to "view details", grupe %> <br/>
+            <%= link_to join_grupe_path(grupe.id), class: "btn btn-outline-primary"  do %>
+                Join up <i class="fa fa-cubes fa-2x"></i>
+            <% end %>
+          </div>
         </div>
+
+
+
     <% end %>
 
   </div>
@@ -41,26 +54,10 @@
 
 
 <div class="row">
-  <p>
-    <strong>Name:</strong>
-    <%= @location.name %>
-  </p>
 
-  <p>
-    <strong>Latitude:</strong>
-    <%= @location.latitude %>
-  </p>
-
-  <p>
-    <strong>Longitude:</strong>
-    <%= @location.longitude %>
-  </p>
-
-  <p>
-    <strong>Ltype:</strong>
-    <%= @location.ltype %>
-  </p>
-
+<%= link_to new_grupe_path(location_id: @location.id ) do %>
+      Create new Gruupe <i class="fa fa-bolt fa-2x"></i>
+  <% end %> |
+  <%= link_to 'Back', locations_path %>
 </div>
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+

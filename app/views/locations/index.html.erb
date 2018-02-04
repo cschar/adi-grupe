@@ -13,8 +13,11 @@
 
         <% @locations.each do |location| %>
             <div>
-              <h6><%= link_to location.my_tostring, location %></h6>
-              <div class="color3"> <%= location.grupes.count %> grupes setting up here</div>
+              <h6><%= link_to location.name, location %></h6>
+              <div class="color3">
+                <%= location.grupes.count %> grupes setting up here
+
+              </div>
               <div class="row">
                 <div class="col">
                 <ul>

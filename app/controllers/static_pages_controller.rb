@@ -9,4 +9,11 @@ class StaticPagesController < ApplicationController
     @books = Book.all
   end
 
+  def pricing
+
+  end
+
+  def feature1
+
+  end
 end

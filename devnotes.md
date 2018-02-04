@@ -53,7 +53,7 @@ https://www.sitepoint.com/master-many-to-many-associations-with-activerecord/
 
 # design
 https://startbootstrap.com/template-categories/all/
-
+https://nagoshiashumari.github.io/Rpg-Awesome/
 http://v4-alpha.getbootstrap.com/utilities/spacing/#notation
 
 # cool site

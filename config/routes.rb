@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :locations
-  resources :grupes
+  resources :grupes do
+    member do
+      get :join  # /grupe/1/join
+    end
+  end
   resources :transactions
   resources :items
   resources :firetrees
@@ -27,8 +31,12 @@ Rails.application.routes.draw do
   resources :lmarkers
 
 
-  get '/readquest', to: 'static_pages#readquest'
+
   root 'static_pages#index'
+
+  get 'feature1', to: 'static_pages#feature1'
+  get '/readquest', to: 'static_pages#readquest'
+  get '/pricing', to: 'static_pages#pricing'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

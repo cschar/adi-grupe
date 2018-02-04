@@ -1,5 +1,6 @@
 class GrupesController < ApplicationController
-  before_action :set_grupe, only: [:show, :edit, :update, :destroy]
+  before_action :set_grupe, only: [:show, :edit, :update, :destroy, :join]
+  before_action :authenticate_user!, only: [:join]  #make all later
 
   # GET /grupes
   # GET /grupes.json
@@ -14,6 +15,7 @@ class GrupesController < ApplicationController
 
   # GET /grupes/new
   def new
+    @GET_location_id = params[:location_id]
     @grupe = Grupe.new
   end
 
@@ -28,7 +30,7 @@ class GrupesController < ApplicationController
 
     respond_to do |format|
       if @grupe.save
-        format.html { redirect_to @grupe, notice: 'Grupe was successfully created.' }
+        format.html { redirect_to @grupe, notice: 'Grupe was successfully created11.' }
         format.json { render :show, status: :created, location: @grupe }
       else
         format.html { render :new }
@@ -46,6 +48,21 @@ class GrupesController < ApplicationController
         format.json { render :show, status: :ok, location: @grupe }
       else
         format.html { render :edit }
+        format.json { render json: @grupe.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def join
+    grupe_users = @grupe.users
+    respond_to do |format|
+      if grupe_users.count < 5
+        @grupe.users << current_user
+
+        format.html { redirect_to @grupe, notice: 'Joined grupe' }
+        format.json { render :show, status: :ok, location: @grupe }
+      else
+        format.html { render :show, notice: 'Grupe is already full! start another one' }
         format.json { render json: @grupe.errors, status: :unprocessable_entity }
       end
     end
