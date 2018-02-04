@@ -1,0 +1,47 @@
+<header class="container">
+  <nav class="navbar navbar-expand-md navbar-light bg-faded">
+    <a class="navbar-brand" href="/">
+      <!--<img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">-->
+      <!--<i class="fa fa-umbrella fa-1x"></i>-->
+      Adi
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><%= link_to "grupes", grupes_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "locations", locations_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "transactions", transactions_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "Firetrees", firetrees_path, class: "nav-link" %></li>
+
+      </ul>
+
+      <ul class="navbar-nav mr-auto">
+
+      <% if user_signed_in? %>
+          <li class="nav-item"><%= link_to "messages", conversations_path, class: "nav-link" %></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  href="" id="navbarDropdownMenuLink"
+               data-disabled="false" data-toggle="dropdown" aria-expanded="true">
+               Uesr
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <%= link_to "Account", edit_user_registration_path, class: "dropdown-item-navvy" %>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item-navvy" %>
+              <a class="dropdown-item-navvy" href="#">Action</a>
+              <a class="dropdown-item-navvy" href="#">Another action</a>
+              <a class="dropdown-item-navvy" href="#">Something else here</a>
+              <button class="btn btn-outline-success" type="button"> click if you dare</button>
+
+            </div>
+          </li>
+            </ul>
+      <% else %>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "nav-link" %></li>
+      <% end %>
+
+    </div>
+  </nav>
+</header>
