@@ -10,3 +10,4 @@
 
 require('./maps');
 console.log('Hello World from Webpacker')
+
