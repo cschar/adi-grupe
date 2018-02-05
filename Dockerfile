@@ -23,10 +23,10 @@ COPY . /adiapp
 RUN bundle exec rails db:migrate 
 
 #react_on_rails
-WORKDIR /adiapp/client
-RUN yarn 
+#WORKDIR /adiapp/client
+#RUN yarn
 
 EXPOSE 3000
 WORKDIR /adiapp
-CMD foreman start -f Procfile.dev
+CMD foreman start -f Procfile
 

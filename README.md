@@ -94,3 +94,12 @@ git push gitlab_remote
 
 apply rps game logic on lmarkers
 > rake rps_game_logic_on_lmarkers
+
+
+## Heroku
+
+heroku login
+heroku create
+heroku addons:create heroku-postgresql:hobby-dev
+heroku config:set GOOGLE_GEOCODER_API_KEY=<key>
+heroku config:set GOOGLE_MAPS_JS_API_KEY=<key>

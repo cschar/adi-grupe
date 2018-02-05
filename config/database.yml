@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -32,11 +32,19 @@ test:
 #  <<: *default
 #  database: db/production.sqlite3
 
+#production:
+#  adapter: postgresql
+#  database: adi_rails_production
+#  min_messages: WARNING
+#  pool: 5
+#  username: postgres
+##  host: localhost
+##  host: db-za
+
+
+#Heroku settings
 production:
-  adapter: postgresql
-  database: adi_rails_production
-  min_messages: WARNING
-  pool: 5
-  username: postgres
-#  host: localhost
-  host: db-za
+  <<: *default
+  database: myapp_production
+  username: myapp
+  password: <%= ENV['DATABASE_URL'] %>
