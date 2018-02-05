@@ -1,0 +1,24 @@
+<% @conversations.each do |conversation| %>
+    <div class="row">
+      <div class="col">
+      <% if conversation.is_unread?(current_user) %>
+          <strong><%= link_to conversation.subject, conversation_path(conversation) %></strong>
+      <% else %>
+          <%= link_to conversation.subject, conversation_path(conversation) %>
+      <% end %>
+        <%# conversation_path, because mailboxer_conversations is table name,
+    therefore route url would need to be mailboxer_conversations instead... %>
+
+      </div>
+
+      <div class="col">
+
+      | <%= link_to  trashit_conversation_path(conversation), remote: true  do %>
+          trashit <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+        | <%= link_to  untrashit_conversation_path(conversation), remote: true  do %>
+            UNtrashit <i class="fa fa-trash" aria-hidden="true"></i>
+        <% end %>
+      </div>
+    </div>
+<% end %>

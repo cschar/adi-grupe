@@ -21,6 +21,12 @@ Rails.application.routes.draw do
       get :sent
       get :trash
     end
+
+    member do
+      get :trashit, to: 'conversations#set_archived'
+      get :untrashit, to: 'conversations#unset_archived'
+    end
+
   end
 
 
