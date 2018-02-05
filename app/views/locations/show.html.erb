@@ -17,10 +17,13 @@
           <% grupe.users.all.each do |user|%>
               <div class="col-md-2 color3 ">
             <i class="fa fa-user-circle fa-2x"></i>
-                <ul class="list-group">
-                  <li class="list-group-item">user <%= user.id %></li>
-                  <li class="list-group-item"> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
-                </ul>
+                <li class="list-group-item"> <%= user.id %></li>
+                <span class="d-block p-2 bg-info text-white"><%= user.myname_meth %></span>
+                <span class="d-block p-2 "> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></span>
+
+                  <li class="list-group-item">  <i class="fa fa-clock-o fa-1x"></i>
+                    <i class="fa fa-wrench fa-1x"></i>
+                  </li>
 
               </div>
 

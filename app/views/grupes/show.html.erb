@@ -6,14 +6,22 @@
   <a href="#InfoAnchor2" data-turbolinks="false"> 5 quests </a>
 </h3>
 
+<% if @grupe.users.all.count < 5 &&
+    (@grupe.users.where(id: current_user.id).count == 0) %>
+  <%= link_to join_grupe_path(@grupe.id), class: "btn btn-outline-primary"  do %>
+      Join up <i class="fa fa-cubes fa-2x"></i>
+  <% end %>
+<% end %>
+
 <%= tag.div id: "single-location-info", data: { locationinfo: @grupe.location.to_json() } do %>
 
 <% end %>
 
+
 <%= tag.div class: "row" do %>
 
   <% @grupe.users.all.each do |user|%>
-      <div class="col-sm-2 color3 offset-md-1">
+      <div class="col-sm-2 color3 ">
         <i class="fa fa-user-circle fa-2x"></i>
         <ul>
           <li>user <%= user.id %></li>

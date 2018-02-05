@@ -26,6 +26,7 @@ vendor
 
 #custom
 devnotes.txt
+dns.txt
 .env
 /public/packs
 /public/packs-test
@@ -33,3 +34,4 @@ devnotes.txt
 yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
+

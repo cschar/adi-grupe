@@ -84,8 +84,14 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.11)
+    better_errors (2.4.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.5.0)
     binding.repl (3.0.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootstrap (4.0.0)
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
@@ -124,6 +130,7 @@ GEM
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crass (1.0.3)
+    debug_inspector (0.0.3)
     debugging (1.1.1)
       binding.repl (~> 3.0)
       paint (>= 0.9, < 3.0)
@@ -415,6 +422,8 @@ DEPENDENCIES
   activeadmin!
   activerecord-session_store (~> 1.0)
   annotate
+  better_errors (~> 2.4)
+  binding_of_caller (~> 0.8.0)
   bootstrap (~> 4.0.0)
   bootstrap4-kaminari-views
   byebug

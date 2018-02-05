@@ -1,29 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Grupes</h1>
+<h1> Grupes</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="d-block p-4">
+  <div class="d-flex p-2 color1">
+    locked in for:
+  </div>
 
-  <tbody>
-    <% @grupes.each do |grupe| %>
-      <tr>
-        <td><%= grupe.name %></td>
-        <td><%= grupe.location_id %></td>
-        <td><%= link_to 'Show', grupe %></td>
-        <td><%= link_to 'Edit', edit_grupe_path(grupe) %></td>
-        <td><%= link_to 'Destroy', grupe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <% @locked_grupes.each do |locked_grupe| %>
+      <%= link_to grupe_path(locked_grupe) do %>
+        <div class="d-inline p-2 color2">
+          <%= locked_grupe.name %> ==
+        </div>
+        <div class="d-inline p-2 ">
+          location : <%= locked_grupe.location.id %> <i class="fa fa-flag-o "></i>
+        </div>
+      <% end %>
+  <% end %>
+</div>
 
-<br>
+
+<div class="d-block p-4">
+  <div class="d-flex pl-2 color1"> queuing up for: </div>
+
+  <% @my_grupes.each do |my_grupe| %>
+      <div class="mt-2 mb-2 ">
+      <%= link_to grupe_path(my_grupe) do %>
+          <div class="d-inline p-2 pl-4 color2">
+            <%= my_grupe.name %> ==
+          </div>
+          <div class="d-inline p-2 ">
+            location : <%= my_grupe.location.id %> <i class="fa fa-flag-o "></i>
+          </div>
+      <% end %>
+      </div>
+  <% end %>
+</div>
+
+
+<div>
+  <%= link_to locations_path(), class: ""  do %>
+      Check out Locations <i class="fa fa-cubes fa-2x"></i>
+  <% end %>
+  to queue up with others in a Grupe
+</div>
+
+<hr>
+
 
 <%= link_to 'New Grupe', new_grupe_path %>

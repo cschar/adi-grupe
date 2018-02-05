@@ -1,11 +1,15 @@
 class GrupesController < ApplicationController
   before_action :set_grupe, only: [:show, :edit, :update, :destroy, :join]
-  before_action :authenticate_user!, only: [:join]  #make all later
+  before_action :authenticate_user! #, only: [:join]
 
   # GET /grupes
   # GET /grupes.json
   def index
-    @grupes = Grupe.all
+    # @grupes = Grupe.all
+
+    ## save ids on user for quick access?
+    @my_grupes = Grupe.joins(:users).where('users.id = ?', current_user.id).group('grupes.id')
+    @locked_grupes = Grupe.joins(:users).where('users.id = 5').group('grupes.id').having('COUNT(grupes_users.user_id) = 5')
   end
 
   # GET /grupes/1
@@ -28,6 +32,7 @@ class GrupesController < ApplicationController
   def create
     @grupe = Grupe.new(grupe_params)
 
+    @grupe.users << current_user
     respond_to do |format|
       if @grupe.save
         format.html { redirect_to @grupe, notice: 'Grupe was successfully created11.' }
@@ -55,14 +60,16 @@ class GrupesController < ApplicationController
 
   def join
     grupe_users = @grupe.users
+
     respond_to do |format|
+      # debugger
       if grupe_users.count < 5
         @grupe.users << current_user
 
         format.html { redirect_to @grupe, notice: 'Joined grupe' }
         format.json { render :show, status: :ok, location: @grupe }
       else
-        format.html { render :show, notice: 'Grupe is already full! start another one' }
+        format.html { redirect_to location_path(@grupe.location),  alert: 'Grupe is already full! start another one' }
         format.json { render json: @grupe.errors, status: :unprocessable_entity }
       end
     end

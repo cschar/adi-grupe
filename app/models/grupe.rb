@@ -17,4 +17,32 @@ class Grupe < ApplicationRecord
   # only 1 location can be linked to a grupe
   belongs_to(:location)
 
+  def removeNoUserGrupes()
+    grupes = findn(0)
+    grupes.each do |g|
+      g.delete
+    end
+  end
+
+  def findn(n)
+    finds = []
+    Grupe.all.each do |g|
+      if g.users.all.count == n
+        finds = finds + [g]
+      end
+    end
+    finds
+  end
+
+  def findni(n)
+    finds = []
+    Grupe.includes(:users).all.each do |g|
+      if g.users.all.count == n
+        finds = finds + [g]
+      end
+    end
+    finds
+  end
+
+
 end
