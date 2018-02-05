@@ -1,14 +1,50 @@
-#image: ruby:2.3
+#https://docs.gitlab.com/ce/ci/examples/test-and-deploy-ruby-application-to-heroku.html
+#image: ruby:2.4
 image:
   name: cclay/adi:push3
+#image:
+#   name: starefossen/ruby-node:latest
 
-#before_script:
-#  - ruby -v
-#  - which ruby
+services:
+  - postgres:latest
 
+variables:
+  POSTGRES_DB: nice_marmot
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
 
-testjob:
+test:
+  stage: test
   script:
-    - cd client && yarn
-    - yarn run build:test
-    - cd /app && bundle exec rails test
+#  - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+#  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+#  - apt-get update -y
+#  - apt-get install -y yarn
+#  - apt-get update -qy
+#  - apt-get install -y nodejs
+  - cp config/database-gitlabci.yml config/database.yml
+  - ls
+  - bundle install --path /cache
+#  - bundle exec rake db:create RAILS_ENV=test  #nice_marmot exists
+  - gem list
+  - bundle exec rake assets:precompile
+  - ls
+#  - bundle exec rake test test/controllers/firetrees_controller_test.rb
+  - bundle exec rake test TEST=test/controllers/firetrees_controller_test.rb
+
+staging:
+  stage: deploy
+  script:
+  - gem install dpl
+  # gitlab project settings --> ci_cd --> secret_variables
+  - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_STAGING_API_KEY
+  only:
+  - master
+
+production:
+  stage: deploy
+  script:
+  - gem install dpl
+  - dpl --provider=heroku --app=gitlab-ci-ruby-test-prod --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+  - deploytagofmychoice
