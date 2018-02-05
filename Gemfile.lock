@@ -71,6 +71,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    annotate (2.7.2)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (8.0.0)
@@ -411,6 +414,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   activerecord-session_store (~> 1.0)
+  annotate
   bootstrap (~> 4.0.0)
   bootstrap4-kaminari-views
   byebug

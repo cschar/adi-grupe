@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<%= tag.div id: "single-location-info",
+            data: { locationinfo: @location.to_json(methods: [:my_tostring])
+            } do %> <% end %>
+
 
 <h2><%= @location.name %> -- <%= @location.ltype %>
   <span class="pull-right">location <%= @location.id %></span>

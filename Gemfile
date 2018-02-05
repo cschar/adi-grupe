@@ -98,6 +98,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Use Dotenv for environment variables
   gem 'dotenv', '~> 2.2.1'
+
+  gem 'annotate'
 end
 
 group :development do
