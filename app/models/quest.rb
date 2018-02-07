@@ -13,4 +13,9 @@
 class Quest < ApplicationRecord
   has_many :qglinks
   has_many :grupes, through: :qglinks
+
+
+  def times_done_today
+    return [*1..100].sample.to_s
+  end
 end

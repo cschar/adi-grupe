@@ -12,3 +12,25 @@
 require('./maps');
 console.log('Hello World from Webpacker')
 
+document.addEventListener("turbolinks:load", function() {
+
+    //Put this in a show.js.erb AUgh
+    if(window.location.pathname.match(/grupes\/\d/)) {
+        console.log("grupe detail")
+        let element = document.querySelector("#single-grupe-quests-info");
+        let questsinfo = JSON.parse(element.dataset.questsinfo);
+
+
+        questDescriptionContainer = document.getElementById("quest-description-container")
+        questBoxes = document.getElementsByClassName('quest-detail-clicker');
+
+        for (let i = 0; i < questBoxes.length; i++) {
+            let box = questBoxes[i];
+            box.addEventListener("click", function (e) {
+                e.preventDefault();
+                questDescriptionContainer.innerHTML = questsinfo[0].body
+            })
+        }
+    }
+})
+
