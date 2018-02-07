@@ -43,10 +43,30 @@
 
 
 
+<%# #####################quest area %>
+
 <a name="InfoAnchor2"></a>
 <div class="row">
+
+
   <div class="col ">
     <div id="chat" class="d-flex flex-column color2">
+      <% @grupe.quests.each_with_index do |quest, index| %>
+
+          <% if index % 2 == 0 %>
+              <div class="mb-auto p-2">
+                <span class="color1"> <%= quest.name %> </span>
+                <%= quest.body %> <a href="#"> Details <i class="fa fa-bolt fa-2x"></i></a>
+              </div>
+              <% else %>
+              <div class="ml-5 mt-2 mb-5 ">
+                <span class="color1"> <%= quest.name %> </span>
+                <%= quest.body %> <a href="#"> Details <i class="fa fa-bolt fa-2x"></i></a>
+              </div>
+              <% end %>
+
+      <% end %>
+
       <div class="mb-auto p-2"> quest 1 : Talk about XYZ </div>
       <div class="m-2"> quest 2 : Walk to nearby location < some location of interest OR other tavern> </div>
       <div class="ml-5 mt-2 mb-5 "> <span class=color1">quest 3 </span> (user 1 - profession {song collector}): Sing a song / learn a verse / write a verse </div>

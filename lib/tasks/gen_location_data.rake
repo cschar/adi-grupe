@@ -14,11 +14,11 @@ task gen_grupe_data: :environment do
     h = line.to_hash
     location = Location.create!(name: h["Name"], longitude: h["Longitude"], latitude: h["Latitude"])
 
-    [*rand(1..4)..3].each do |n|
-      grupe = Grupe.create! name: FFaker::NameCN, location_id: location.id
-      user = User.all.sample
-      user.grupes << grupe
-    end
+    # [*rand(1..4)..3].each do |n|
+    #   grupe = Grupe.create! name: FFaker::NameCN.name, location_id: location.id
+    #   user = User.all.sample
+    #   user.grupes << grupe
+    # end
 
     # Location.create! line.to_hash
   end

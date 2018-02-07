@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203193026) do
+ActiveRecord::Schema.define(version: 20180207024344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,24 @@ ActiveRecord::Schema.define(version: 20180203193026) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "qglinks", force: :cascade do |t|
+    t.string "subject"
+    t.bigint "quest_id"
+    t.bigint "grupe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grupe_id"], name: "index_qglinks_on_grupe_id"
+    t.index ["quest_id"], name: "index_qglinks_on_quest_id"
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.string "name"
+    t.text "body"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "repos", force: :cascade do |t|
     t.string "url"
     t.string "comment"
@@ -281,6 +299,8 @@ ActiveRecord::Schema.define(version: 20180203193026) do
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
   add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
   add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
+  add_foreign_key "qglinks", "grupes"
+  add_foreign_key "qglinks", "quests"
   add_foreign_key "repos", "communities"
   add_foreign_key "repos", "developers"
 end

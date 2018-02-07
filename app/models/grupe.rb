@@ -10,6 +10,10 @@
 #
 
 class Grupe < ApplicationRecord
+  #rails g model qglink subject:string quest:references grupe:references
+  has_many :qglinks
+  has_many :quests, through: :qglinks
+
 
   # rails g migration CreateJoinTableUsersGrupes users groups
   has_and_belongs_to_many :users

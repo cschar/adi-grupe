@@ -63,13 +63,13 @@ class GrupesController < ApplicationController
 
     respond_to do |format|
       # debugger
-      if grupe_users.count < 5
+      if grupe_users.count < 5 and not grupe_users.exists?(current_user.id)
         @grupe.users << current_user
 
         format.html { redirect_to @grupe, notice: 'Joined grupe' }
         format.json { render :show, status: :ok, location: @grupe }
       else
-        format.html { redirect_to location_path(@grupe.location),  alert: 'Grupe is already full! start another one' }
+        format.html { redirect_to location_path(@grupe.location),  alert: 'Cant join that grupe' }
         format.json { render json: @grupe.errors, status: :unprocessable_entity }
       end
     end

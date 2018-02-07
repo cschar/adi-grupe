@@ -11,6 +11,10 @@
 #  updated_at :datetime         not null
 #  is_new     :boolean          default(TRUE)
 #
+# Indexes
+#
+#  index_lmarkers_on_user_id  (user_id)
+#
 
 class Lmarker < ApplicationRecord
   belongs_to(:user)
