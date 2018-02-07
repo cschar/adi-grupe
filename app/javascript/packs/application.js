@@ -28,7 +28,19 @@ document.addEventListener("turbolinks:load", function() {
             let box = questBoxes[i];
             box.addEventListener("click", function (e) {
                 e.preventDefault();
-                questDescriptionContainer.innerHTML = questsinfo[0].body
+                htmlInsert = `
+                <div>
+                <i class="fa fa-map-o fa-2x"></i> : blocks ${Math.random() * (10)} blocks
+                <br/>
+                <i class="fa fa-map-o fa-2x"></i> : Stat 2 : ${Math.random() * (10)}
+                <br/>
+                <i class="fa fa-map-o fa-2x"></i> : stat 3 : ${Math.random() * (100)}
+                <br/>
+                Extended Description (scroll box here):
+                    ${questsinfo[i].body}
+                </div>
+                `
+                questDescriptionContainer.innerHTML = htmlInsert
             })
         }
     }

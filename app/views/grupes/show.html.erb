@@ -47,16 +47,18 @@
 
 
 
-<%# #####################quest area %>
+<%# #####################quest area
+https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
+%>
 
-<a name="InfoAnchor2"></a>
-<div class="row">
-  <div class="col ">
-    <div id="chat" class="d-flex flex-column color2">
+<a name="InfoAnchor2 "></a>
+<div class="row ">
+  <div class="col-sm">
+    <div class="d-flex flex-column color2">
       <% @grupe.quests.each_with_index do |quest, index| %>
 
 
-          <div class="mb-auto p-2">
+          <div class="mb-5 p-2">
 
           <span class="color1"> <%= quest.name %> </span>
           <%= quest.body %>
@@ -69,51 +71,16 @@
     </div>
   </div>
 
-  <div class="col">
+  <div class="col-sm">
     <div id="quest-description-container">
     <h2> Detail for each quest when mouse rolls over </h2>
     </div>
   </div>
 </div>
 
-<div class="row ">
-  <div class="mt-5 p-3">
-    QUest view style 2
-  </div>
 
 
-</div>
 
-  <div class="row mt-7">
-    <div class="col color2">
-
-    <ul class="nav flex-column" id="myTab" role="tablist">
-      <% @grupe.quests.each_with_index do |quest, index| %>
-          <li class="nav-item">
-
-            <a class="nav-link" data-toggle="tab" href="#home-<%= index %>" role="tab"
-               aria-controls="profile" aria-selected="false">
-              <%= index %> <%= quest.name %>
-            </a>
-
-
-          </li>
-          <% end %>
-
-
-    </ul>
-    </div>
-    <div class="col ">
-    <div class="tab-content" id="myTabContent">
-      <% @grupe.quests.each_with_index do |quest, index| %>
-      <div class="tab-pane fade" id="home-<%= index%>" role="tabpanel" aria-labelledby="home-tab">
-        <%= quest.body %>
-      </div>
-
-      <% end %>
-    </div>
-    </div>
-  </div>
 
 
 <div class="row">
