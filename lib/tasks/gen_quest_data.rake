@@ -11,7 +11,7 @@ task gen_quest_data: :environment do
 
 
 
-  q1 = Quest.create! name: "quest1 - talker", body: "Talk about XYZ"
+  q1 = Quest.create! name: "talker1", body: "Talk about XYZ"
   q2 = Quest.create! name: "quest2 - walker", body: "Walk to nearby location < some location of interest OR other tavern>"
   q3 = Quest.create! name: "quest - some type3",  body: "(user 1 - profession {song collector}): Sing a song / learn a verse / write a verse"
   q4 = Quest.create! name: "quest4",
@@ -24,7 +24,7 @@ task gen_quest_data: :environment do
   Qglink.create quest: q1, grupe: grupe2, subject: u.id.to_s
 
   ### some cool querying the a 'transitive' association (extra model)
-  Quest.find_by(name: 'talker').grupes  # all of q1s grupes
+  Quest.find_by(name: 'talker1').grupes  # all of q1s grupes
 
 
   Quest.joins(:qglinks).where(qglinks: {subject: u.id.to_s}).distinct.pluck(:name)

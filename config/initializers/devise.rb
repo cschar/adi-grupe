@@ -3,8 +3,17 @@
 Devise.setup do |config|
 
 
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'public_profile,email'
-  config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], scope: 'user,public_repo'
+  #https://developers.facebook.com/docs/facebook-login/permissions/
+  # public_profile is defualt setting
+  config.omniauth :facebook, Rails.application.secrets.facebook_app_id, Rails.application.secrets.facebook_app_secret,
+                  scope: 'public_profile,email'
+
+  config.omniauth :github, Rails.application.secrets.github_app_id, Rails.application.secrets.github_app_secret,
+                   scope: 'user,public_repo'
+
+  config.omniauth :twitter, Rails.application.secrets.twitter_app_id,
+                  Rails.application.secrets.twitter_app_secret
+
   # config.omniauth :google_oauth2, ENV['GOOGLE_APP_ID'], ENV['GOOGLE_APP_SECRET'], scope: 'userinfo.email,userinfo.profile'
   # config.omniauth :twitter, ENV['TWITTER_APP_ID'], ENV['TWITTER_APP_SECRET']
   

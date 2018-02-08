@@ -1,5 +1,5 @@
 
-task gen_grupe_data: :environment do
+task gen_location_data: :environment do
 
   Grupe.destroy_all
   Location.destroy_all

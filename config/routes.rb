@@ -41,7 +41,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   #### Devise
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth' }
+  ## override the omniauth_callbacks controller
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   get '/users/info', to: 'user_info#show', constraints: lambda { |req| req.format == :json }
 
 
@@ -59,6 +60,8 @@ Rails.application.routes.draw do
   get 'feature1', to: 'static_pages#feature1'
   get '/readquest', to: 'static_pages#readquest'
   get '/pricing', to: 'static_pages#pricing'
+  get '/terms', to: 'static_pages#terms'
+  get '/privacy', to: 'static_pages#privacy'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

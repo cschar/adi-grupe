@@ -11,9 +11,10 @@
 <%# @conversation.receipts.each do |receipt| %>
      <% @conversation.receipts_for(current_user).each do |receipt| %>
          <div>
+           <hr>
            <div><%= receipt.message.sender.myname_meth %> commented : </div>
-           <%= receipt.message.body %>
-           <%= link_to "nil", root_path %>
+           <div class="ml-3"><%= receipt.message.body %></div>
+           <%#= link_to "nil", root_path %>
 
          </div>
      <% end %>

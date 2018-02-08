@@ -13,7 +13,10 @@
 
         <% @locations.each do |location| %>
             <div>
-              <h6><%= link_to location.name, location %></h6>
+              <h5><%= link_to location do%>
+                    <%= location.name %> <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <% end %>
+              </h5>
               <div class="color3">
                 <%= location.grupes.count %> grupes setting up here
 
@@ -32,7 +35,8 @@
                 <div class="col">
                   <ul>
 
-                    <li> <i class="fa fa-anchor fa-2x" ></i> Info blah blah
+                    <li> <i class="fa fa-history fa-1x" ></i>
+                      Recent meets: <%= [*1..15].sample %>
                     </li>
 
                     <li> <i class="fa fa-database" aria-hidden="true"></i>
