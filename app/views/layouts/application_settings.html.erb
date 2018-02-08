@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render 'shared/head' %>
+</head>
+
+<!--<body class="container">-->
+<body>
+<%# render 'shared/navbar' %>
+<%= render 'shared/navbar_b' %>
+<%= render 'shared/notices' %>
+
+<div class="container">
+  <div class="row pt-4 ">
+    <div class="col-sm-3">
+    <div class="list-group">
+
+      <%#<li class="nav-item list-group-item list-group-item-action">
+        <%= link_to "Account", edit_user_registration_path, class: "nav-link" %>
+
+      <%# Some nice sidebar setting pages
+      https://www.spotify.com/ca-en/account/overview/
+      https://twitter.com/settings/safety
+      %>
+      <%= link_to edit_user_registration_path,
+                  class: "nav-link list-group-item list-group-item-action" do %>
+
+          <% if request.path == '/users/edit' %>
+              <div class="color4 pl-2">
+              <h3 class="bg-white pl-1 text-primary"> Account <br/> >> </h3>
+              </div>
+              <% else %>
+              Account >>
+          <% end %>
+      <% end %>
+
+      <%= link_to "/settings/weird",
+                  class: "nav-link list-group-item list-group-item-action" do %>
+
+          <% if request.path == '/settings/weird' %>
+              <div class="color4 pl-2">
+                <h3 class="bg-white pl-1 text-primary">
+                  <i class="fa fa-cutlery fa-1x"></i>
+                  Future Settings page for something weird >> <br/> >> </h3>
+              </div>
+          <% else %>
+              Future Settings page for something weird >>
+          <% end %>
+      <% end %>
+
+
+      <a class="list-group-item list-group-item-action list-group-item-danger" href="#">
+        Future Settings page for something important </a>
+      <a class="list-group-item list-group-item-action" href="#">
+        Future Settings page for annoying configuration >>
+      </a>
+
+
+
+
+    </div>
+    </div>
+      <div class="col-sm-8 jumbotron">
+        <%= yield %>
+      </div>
+  </div>
+</div>
+
+<%# <%= render 'shared/footer' %>
+<%= render 'shared/footerbig' %>
+</body>
+</html>

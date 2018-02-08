@@ -42,7 +42,10 @@ Rails.application.routes.draw do
 
   #### Devise
   ## override the omniauth_callbacks controller
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: {
+      omniauth_callbacks: 'users/omniauth_callbacks',
+      registrations: 'users/registrations'
+  }
   get '/users/info', to: 'user_info#show', constraints: lambda { |req| req.format == :json }
 
 
@@ -62,6 +65,7 @@ Rails.application.routes.draw do
   get '/pricing', to: 'static_pages#pricing'
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
+  get '/settings/weird', to: 'static_pages#settings_weird'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
