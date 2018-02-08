@@ -13,7 +13,7 @@
             </div>
       <%= select_tag :quest_id , options_from_collection_for_select(@quests, :id, :quest_display_method),
                      multiple: false,
-                     class: "form-control form-control-lg color1"%>
+                     class: "form-control form-control-lg "%>
           </div>
       <%#= select_tag :user_id , options_from_collection_for_select(@recipients, :id, :myname_meth)%>
         </div>
@@ -37,7 +37,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"> <i class="fa fa-sun-o fa-2x"></i></div>
               </div>
-              <%= number_field_tag :quest_id, nil, placeholder: "quest id", class: "color1" %>
+              <%= number_field_tag :quest_id, nil, placeholder: "quest id", class: "" %>
             </div>
           </div>
 

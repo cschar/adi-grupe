@@ -53,7 +53,7 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 <a name="InfoAnchor2 "></a>
 <div class="row ">
-  <div class="col-sm">
+  <div class="col-sm-6">
     <div class="d-flex flex-column color2">
       <% @grupe.quests.each_with_index do |quest, index| %>
 
@@ -69,12 +69,13 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 
     </div>
+
+  </div>
+
+  <div class="col-sm-6">
     <%= link_to add_quest_grupe_path(@grupe)  do %>
         Add a quest <i class="fa fa-plus-circle fa-1x"></i>
     <% end %>
-  </div>
-
-  <div class="col-sm">
     <div id="quest-description-container">
     <h2> Detail area for each quest  </h2>
     </div>
@@ -87,12 +88,19 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 
 
+<div class="row">
+  Details only once group is 'locked' in to meet
+  <ul>
+    <li> Time to meet, or time range, (counter counting down? lol)</li>
+    <li> </li>
+  </ul>
+</div>
 
 <!--<div class="row">-->
   <!--<a name="InfoAnchor1"></a>-->
   <!--<div class="col ">-->
     <!--<div>-->
-      <!--<h3> Details about location</h3>-->
+      <!--<h3> General non-group specific Details about location</h3>-->
       <!--<ul>-->
         <li> <i class="fa fa-database" ></i> star level: <%= [*5..30].sample %>
         <!--</li>-->
