@@ -1,5 +1,5 @@
 class GrupesController < ApplicationController
-  before_action :set_grupe, only: [:show, :edit, :update, :destroy, :join]
+  before_action :set_grupe, only: [:show, :edit, :update, :destroy, :join, :add_quest]
   before_action :authenticate_user! #, only: [:join]
 
   # GET /grupes
@@ -76,6 +76,11 @@ class GrupesController < ApplicationController
         format.json { render json: @grupe.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_quest
+
+    @quests = Quest.page(params[:page]).per(5)
   end
 
   # DELETE /grupes/1

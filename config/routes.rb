@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
+  resources :quests
   resources :locations
-  resources :grupes do
 
+  resources :grupes do
     #requires id
     member do
       get :join  # /grupe/1/join
+
+      get :add_quest  #/grupe/1/addquest   #give a page we can post to qglinks create
     end
+    resources :qglinks
+
   end
+
   resources :transactions
   resources :items
   resources :firetrees

@@ -231,7 +231,7 @@ ActiveRecord::Schema.define(version: 20180207024344) do
   create_table "quests", force: :cascade do |t|
     t.string "name"
     t.text "body"
-    t.string "type"
+    t.string "qtype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

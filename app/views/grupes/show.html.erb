@@ -7,7 +7,7 @@
 <h3> Grupe: <%= @grupe.name %>  <%= @grupe.id %> @ location
   <a href="#InfoAnchor1" data-turbolinks="false"> <%= @grupe.location_id.to_s + " " + @grupe.location.name %></a>
    grouping for
-  <a href="#InfoAnchor2" data-turbolinks="false"> 5 quests </a>
+  <a href="#InfoAnchor2" data-turbolinks="false"> <%= @grupe.quests.count %> quests </a>
 </h3>
 
 <% if @grupe.users.all.count < 5 &&
@@ -69,13 +69,18 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 
     </div>
+    <%= link_to add_quest_grupe_path(@grupe)  do %>
+        Add a quest <i class="fa fa-plus-circle fa-1x"></i>
+    <% end %>
   </div>
 
   <div class="col-sm">
     <div id="quest-description-container">
-    <h2> Detail for each quest when mouse rolls over </h2>
+    <h2> Detail area for each quest  </h2>
     </div>
   </div>
+
+
 </div>
 
 
@@ -83,24 +88,24 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 
 
-<div class="row">
-  <a name="InfoAnchor1"></a>
-  <div class="col ">
-    <div>
-      <h3> Details about location</h3>
-      <ul>
+<!--<div class="row">-->
+  <!--<a name="InfoAnchor1"></a>-->
+  <!--<div class="col ">-->
+    <!--<div>-->
+      <!--<h3> Details about location</h3>-->
+      <!--<ul>-->
         <li> <i class="fa fa-database" ></i> star level: <%= [*5..30].sample %>
-        </li>
-        <li> <i class="fa fa-bolt" aria-hidden="true"></i> Info 1
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="col">
-    a map
-    <%= tag.div nil, id: 'map' %>
-  </div>
-</div>
+        <!--</li>-->
+        <!--<li> <i class="fa fa-bolt" aria-hidden="true"></i> Info 1-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col">-->
+    <!--a map-->
+    <!--<%= tag.div nil, id: 'map' %>-->
+  <!--</div>-->
+<!--</div>-->
 
 
 <div class="row">

@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  name       :string
 #  body       :text
-#  type       :string
+#  qtype      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

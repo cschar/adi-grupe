@@ -1,0 +1,84 @@
+<h1> Add quest to grupe <%= @grupe.name %> </h1>
+
+
+<div class="row"> Use this form...
+<%= form_tag grupe_qglinks_path(@grupe), method: :post do %>
+      <div class="form-row align-items-center">
+
+        <div class="col-auto">
+          <label class="sr-only" for="inlineFormInputGroup">Username</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fa fa-moon-o fa-2x"></i></div>
+            </div>
+      <%= select_tag :quest_id , options_from_collection_for_select(@quests, :id, :quest_display_method),
+                     multiple: false,
+                     class: "form-control form-control-lg color1"%>
+          </div>
+      <%#= select_tag :user_id , options_from_collection_for_select(@recipients, :id, :myname_meth)%>
+        </div>
+
+        <div class="col-auto">
+            <%= submit_tag nil,  class: "btn btn-primary" %>
+        </div>
+      </div>
+<% end %>
+</div>
+
+<div class="row">
+  Or this one
+  <div class="col">
+    <%= form_tag grupe_qglinks_path(@grupe), method: :post do %>
+        <div class="form-row align-items-center">
+
+          <div class="col-auto">
+            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"> <i class="fa fa-sun-o fa-2x"></i></div>
+              </div>
+              <%= number_field_tag :quest_id, nil, placeholder: "quest id", class: "color1" %>
+            </div>
+          </div>
+
+
+            <div class="col-auto">
+              <%= submit_tag nil, class: "btn btn-primary" %>
+            </div>
+
+    <% end %>
+  </div>
+  <div class="col">
+    <h2> Available Quests: </h2>
+    <table class="table-striped table-bordered">
+      <thead>
+      <tr>
+        <th> ID </th>
+        <th>Name</th>
+        <th>Body</th>
+        <th>Qtype</th>
+        <th> link 2 detail</th>
+
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @quests.each do |quest| %>
+          <tr>
+            <td class="color1"><h3><%= quest.id %></h3></td>
+            <td><%= quest.name %></td>
+            <td><%= quest.body %></td>
+            <td><%= quest.qtype %></td>
+            <td> <a href="#"> nil</a></td>
+
+            <!--<td><%#= link_to 'Show', quest %></td>-->
+            <!--<td><%#= link_to 'Edit', edit_quest_path(quest) %></td>-->
+            <!--<td><%#= link_to 'Destroy', quest, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%#= paginate @transactions, theme: 'twitter-bootstrap-4', remote: true %>
+    <%= paginate @quests, theme: 'twitter-bootstrap-4', remote: false %>
+  </div>
+</div>
