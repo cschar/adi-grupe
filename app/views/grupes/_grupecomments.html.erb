@@ -17,22 +17,19 @@
 <% end %>
 
   <%= form_tag grupe_grupecomments_path(@grupe), method: :post do %>
-      <div class="form-row align-items-center">
-
-        <!--<div class="col-auto">-->
-          <!--<label class="sr-only" for="inlineFormInputGroup">Username</label>-->
-          <!--<div class="input-group mb-2">-->
-            <!--<div class="input-group-prepend">-->
-              <!--<div class="input-group-text"> <i class="fa fa-sun-o fa-2x"></i></div>-->
-            <!--</div>-->
-            <%= text_field_tag :comment, nil, placeholder: "Add a note", class: "" %>
-          <!--</div>-->
-        <!--</div>-->
 
 
-        <div class="col-auto">
-          <%= submit_tag 'Add note', class: "btn btn-primary" %>
-        </div>
+          <%= text_field_tag :comment, nil, size: 50 , placeholder: "Add a note", class: "" %>
+
+
+
+        <br/>
+
+
+          <%= submit_tag ">>>", class: "btn btn-primary" %>
+
+
+
 
   <% end %>
 

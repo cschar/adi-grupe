@@ -26,7 +26,7 @@ document.addEventListener("turbolinks:load", function() {
 
         for (let i = 0; i < questBoxes.length; i++) {
             let box = questBoxes[i];
-            box.addEventListener("click", function (e) {
+            box.addEventListener("mouseover", function (e) {
                 e.preventDefault();
                 htmlInsert = `
                 <div>

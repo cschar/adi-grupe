@@ -47,7 +47,8 @@ Rails.application.routes.draw do
       omniauth_callbacks: 'users/omniauth_callbacks',
       registrations: 'users/registrations'
   }
-  get '/users/info', to: 'user_info#show', constraints: lambda { |req| req.format == :json }
+
+  get '/users/profile', to: 'user_info#profile'
 
 
   ## Geo game
