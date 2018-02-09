@@ -77,3 +77,44 @@ rails s -b 0.0.0.0
 # data
 https://data.opendatasoft.com/explore/dataset/all-starbucks-locations-in-the-world%40public-us/?refine.city=Ottawa
 
+
+
+## messaeg api
+https://gist.github.com/rstacruz/1569572
+```
+ "id":488388606,
+               "comment":"what is the price for 3 nights?",
+               "link":"https://www.meetup.com/ottawa-social/events/246836137/comments/488388606/",
+               "created":1517709197000,
+               "like_count":0,
+               "member":{  
+                  "id":203428624,
+                  "name":"Emefa",
+                  "photo":{  
+                     "id":274427329,
+                     "highres_link":"https://secure.meetupstatic.com/photos/member/b/8/e/1/highres_274427329.jpeg",
+                     "photo_link":"https://secure.meetupstatic.com/photos/member/b/8/e/1/member_274427329.jpeg",
+                     "thumb_link":"https://secure.meetupstatic.com/photos/member/b/8/e/1/thumb_274427329.jpeg",
+                     "type":"member",
+                     "base_url":"https://secure.meetupstatic.com"
+                  },
+                  "web_actions":{  
+                     "group_profile_link":"https://www.meetup.com/ottawa-social/members/203428624"
+                  },
+                  "event_context":{  
+                     "host":false
+                  }
+               },
+               "self":{  
+                  "liked":false,
+                  "actions":[  
+                     "flag_spam",
+                     "like"
+                  ],
+                  "notifications":"on"
+               },
+               "web_actions":{  
+                  "report_abuse":"https://www.meetup.com/report_abuse/event_comment/488388606"
+               }
+            },
+  ```

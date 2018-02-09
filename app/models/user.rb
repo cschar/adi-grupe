@@ -45,6 +45,10 @@ class User < ApplicationRecord
    def myname_meth
      "User [][][][]]  #{id}"
    end
+   def display_name
+     " ubo-ola #{id}"
+   end
+
    def mailboxer_email(object)
      nil
    end
@@ -55,6 +59,7 @@ class User < ApplicationRecord
   has_many(:markers)
   has_many(:lmarkers)
   has_many(:firetrees)
+  has_many :grupecomments
 
   # rails g migration CreateJoinTableUsersGrupes users groups
   has_and_belongs_to_many :grupes

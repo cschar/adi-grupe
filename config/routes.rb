@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :add_quest  #/grupe/1/addquest   #give a page we can post to qglinks create
     end
     resources :qglinks
+    resources :grupecomments
 
   end
 
