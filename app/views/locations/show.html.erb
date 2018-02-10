@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<%= javascript_pack_tag 'location_detail', 'data-turbolinks-track': 'reload' %>
+
 
 <%= tag.div id: "single-location-info",
             data: { locationinfo: @location.to_json(methods: [:my_tostring])

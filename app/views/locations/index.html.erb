@@ -1,60 +1,17 @@
-<p id="notice"><%= notice %></p>
+<%= javascript_pack_tag 'location', 'data-turbolinks-track': 'reload' %>
+
+
+<%= form_with(url: locations_path, class: "form-inline my-2 my-lg-0 mr-auto", local: true, method: :get) do |f| %>
+    <%= f.text_field :near, class: "form-control mr-sm-2", placeholder: "Search" %>
+    <%= f.submit "Search", class: "btn btn-outline-secondary my-2 my-sm-0" %>
+<% end %>
 
 <h1>Locations  ( <%= @locations.total_count %> )</h1>
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-sm-6">
 
-
-    <%= tag.div id: "locations-list",
-                data: { locations: @locations.to_json(methods: [:my_tostring])
-                        } do %>
-
-
-        <% @locations.each do |location| %>
-            <div>
-              <h5><%= link_to location do%>
-                    <%= location.name %> <i class="fa fa-flag-o" aria-hidden="true"></i>
-                    <% end %>
-              </h5>
-              <div class="color3">
-                <%= location.grupes.count %> grupes setting up here
-
-              </div>
-              <div class="row">
-                <div class="col">
-                <ul>
-
-                <li> <i class="fa fa-bolt" aria-hidden="true"></i> Info 1
-                </li>
-
-                  <li> <i class="fa fa-bolt" aria-hidden="true"></i>  Info 2
-                  </li>
-                </ul>
-                </div>
-                <div class="col">
-                  <ul>
-
-                    <li> <i class="fa fa-history fa-1x" ></i>
-                      Recent meets: <%= [*1..15].sample %>
-                    </li>
-
-                    <li> <i class="fa fa-database" aria-hidden="true"></i>
-                         star level: <%= [*5..30].sample %>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-            <hr />
-        <% end %>
-
-        <!-- pagination will update-everytime link is clicked -->
-        <%= paginate @locations, theme: 'twitter-bootstrap-4'%>
-        <!--<%= paginate @locations, theme: 'twitter-bootstrap-4', remote: true %>-->
-
-    <% end %>
+    <%= render partial: "list" %>
 
     <br>
 
@@ -62,9 +19,20 @@
 
   </div>
 
-  <div class="col-4 color1" >
+  <div class="col-sm-6 color1" >
 
-    <%= tag.div nil, id: 'map' %>
+    <div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="mapDragCheckbox">
+        <label class="form-check-label" for="defaultCheck1">
+          Search as I move the map
+        </label>
+      </div>
+
+    </div>
+
+    <%= tag.div nil, id: 'map',  data: { checkedDrag: @checkedDrag} %>
+    <%= link_to "Redo search in this area", "#", id: "redo-search" %>
 
   </div>
 </div>

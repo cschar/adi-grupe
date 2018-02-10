@@ -4,7 +4,60 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all.page(params[:page]).per(5)
+
+    puts params[:checkedDrag]
+    puts 'checked drag'
+    if params[:checkedDrag] != nil
+      @checkedDrag = params[:checkedDrag]
+    else
+      @checkedDrag = true
+    end
+
+    # @transactions = Transaction.all
+    @current_page = params[:page] ||= 1
+    puts "current & page #{@current_page} #{params[:page]}"
+
+
+    @locations = if params[:l] && params[:page]
+                   puts "=Using page and l"
+                   # debugger
+                   sw_lat, sw_lng, ne_lat, ne_lng = params[:l].split(",")
+
+                   Location.search("*", page: params[:page], per_page: 5, where: {
+                       location: {
+                           top_left: {
+                               lat: ne_lat,
+                               lon: sw_lng
+                           },
+                           bottom_right: {
+                               lat: sw_lat,
+                               lon: ne_lng
+                           }
+                       }
+                   })
+
+
+                 elsif params[:near] && params[:near].strip != ""  # search box
+
+
+                   location = Geocoder.search(params[:near]).first
+
+                   Location.search "*", page: params[:page], per_page: 5,
+                                   boost_by_distance: {location: {origin: {lat: location.latitude, lon: location.longitude}}},
+                                   where: {
+                                       location: {
+                                           near: {
+                                               lat: location.latitude,
+                                               lon: location.longitude
+                                           },
+                                           within: "10km"
+                                       }
+                                   }
+
+                 else
+                   Location.all.page(@current_page).per(5)
+                 end
+
   end
 
   # GET /locations/1

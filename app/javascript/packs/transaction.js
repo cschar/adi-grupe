@@ -28,32 +28,6 @@ window.addTransactionMarkers = function addTransactionMarkers() {
     setSafeBounds(element);
 }
 
-window.addLocationMarkers = function addLocationMarkers() {
-    var element = document.querySelector("#locations-list");
-    var locations = window.locations = JSON.parse(element.dataset.locations);
-
-    map.removeMarkers();
-
-    locations.forEach(function(location) {
-        if (location.latitude && location.longitude) {
-            var marker = map.addMarker({
-                lat: location.latitude,
-                lng: location.longitude,
-                title: location.my_tostring,
-                infoWindow: {
-                    content: `<div>
-            <i class="fa fa-flask pull-left"></i>
-<p><a href='/locations/${location.id}'>${location.my_tostring}</a></p>
-
-</div>`
-                }
-            });
-        }
-    });
-
-    setSafeBounds(element);
-}
-
 function setSafeBounds(element) {
     var l = element.dataset.l;
     if (l) {
@@ -69,32 +43,6 @@ function setSafeBounds(element) {
     }
 }
 
-function addSingleLocationInfoMarker(){
-    var element = window.eee = document.querySelector("#single-location-info");
-    var grupelocation = JSON.parse(element.dataset.locationinfo);
-
-    // map.removeMarkers();
-
-    var marker = map.addMarker({
-        lat: grupelocation.latitude,
-        lng: grupelocation.longitude,
-        title: grupelocation.name,
-        infoWindow: {
-            content: `<div>
-            <i class="fa fa-flask fa-4x pull-left"></i>
-<p><a href='/locations/${grupelocation.id}'>${grupelocation.name}</a></p>
-
-</div>`
-        }
-    });
-
-
-    setSafeBounds(element);
-    // map.fitZoom()
-    map.zoomOut(8);  //not working? use setTimeout instead sigh
-
-}
-
 document.addEventListener("turbolinks:load", function() {
     console.log("turbo loaded , making map")
     map = window.map = new GMaps({
@@ -103,28 +51,7 @@ document.addEventListener("turbolinks:load", function() {
         lng: -121.4944
     });
 
-    var zoom = function(){
-        setTimeout(function(){
-                map.zoomOut(8)
-                console.log("zoomin out")
-            },
-            1500)
-    }
 
-    if(window.location.pathname.indexOf('/grupes') >= 0 ){
-        addSingleLocationInfoMarker()
-        zoom()
-
-    }
-
-    if(window.location.pathname.match(/locations\/\d/)){
-        addSingleLocationInfoMarker()
-        zoom()
-    }
-
-    if(window.location.pathname == '/locations') {
-        addLocationMarkers();
-    }
     if(window.location.pathname == '/transactions') {
         addTransactionMarkers();
 

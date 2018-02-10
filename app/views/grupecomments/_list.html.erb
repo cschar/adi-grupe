@@ -1,0 +1,14 @@
+<div id="grupecomment-list">
+<% @grupe.grupecomments.each do |grupecomment| %>
+    <div class="row">
+      <div class="col-sm-3">
+        <%= grupecomment.user.display_name %>
+      </div>
+
+      <div class="col-sm-9 bg-white ">
+        <%= grupecomment.comment %>
+      </div>
+    </div>
+
+<% end %>
+</div>

@@ -3,6 +3,7 @@
 <h3> Comments </h3>
 
 
+  <div id="grupecomment-list">
 <% @grupe.grupecomments.each do |grupecomment| %>
       <div class="row">
       <div class="col-sm-3">
@@ -15,8 +16,9 @@
       </div>
 
 <% end %>
+  </div>
 
-  <%= form_tag grupe_grupecomments_path(@grupe), method: :post do %>
+  <%= form_tag grupe_grupecomments_path(@grupe), method: :post, remote: true do %>
 
 
           <%= text_field_tag :comment, nil, size: 50 , placeholder: "Add a note", class: "" %>

@@ -12,9 +12,14 @@
 #
 
 class Location < ApplicationRecord
-
-  # 1 location may have many groups using it
   has_many(:grupes)
+
+  searchkick(locations: [:location])
+
+  def search_data
+    attributes.merge location: {lat: latitude, lon: longitude}
+  end
+
 
   def my_tostring
     ["custom address" ,latitude, "  ",longitude].join("--")

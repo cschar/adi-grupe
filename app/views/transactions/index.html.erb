@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<%= javascript_pack_tag 'transaction', 'data-turbolinks-track': 'reload' %>
 
 <%= form_with(url: transactions_path, class: "form-inline my-2 my-lg-0 mr-auto", local: true, method: :get) do |f| %>
     <%= f.text_field :near, class: "form-control mr-sm-2", placeholder: "Search" %>
@@ -30,7 +30,7 @@
       </div>
 
     </div>
-    <%= tag.div nil, id: 'map',data: { checkedDrag: @checkedDrag}  %>
+    <%= tag.div nil, id: 'map', data: { checkedDrag: @checkedDrag}  %>
     <%= link_to "Redo search in this area", "#", id: "redo-search" %>
   </div>
 </div>

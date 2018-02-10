@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<%= javascript_pack_tag 'location_detail', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
 
 <%= tag.div id: "single-grupe-quests-info",
             data: { questsinfo: @quests.to_json(methods: [:times_done_today])
@@ -88,7 +89,7 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 <div class="row">
   <div class="col">
-    comm
+
     <%= render partial: "grupecomments" %>
 
   </div>
