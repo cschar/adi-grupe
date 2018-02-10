@@ -105,8 +105,8 @@ document.addEventListener("turbolinks:load", function() {
 
     var zoom = function(){
         setTimeout(function(){
-                map.zoomOut(8)
-                console.log("zoomin out")
+                map.setZoom(14);
+                console.log("zoomin 14")
             },
             1500)
     }
@@ -124,6 +124,36 @@ document.addEventListener("turbolinks:load", function() {
 
     if(window.location.pathname == '/locations') {
         addLocationMarkers();
+
+        var checkedDrag = document.querySelector("#map").getAttribute("data-checkedDrag")
+        checkedDrag = (checkedDrag == 'true')
+
+        var checkbox = $('#mapDragCheckbox')
+        if(checkedDrag){
+            checkbox.prop('checked', true);
+        }
+
+        map.addListener("dragend", function() {
+
+            var isChecked = checkbox.is(":checked")
+            if(isChecked) {
+                var bounds = map.getBounds();
+                var coords = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
+                Turbolinks.visit(`/locations?l=${coords}&checkedDrag=${isChecked}`);
+            }
+        });
+
+        //map.addListener("zoom_changed", function(){  console.log("map zoomed ")   })
+
+        document.querySelector("#redo-search").addEventListener("click", function(e) {
+            e.preventDefault();
+
+            var bounds = map.getBounds();
+            var coords = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
+
+            Turbolinks.visit(`/locations?l=${coords}`);
+        });
+
     }
     if(window.location.pathname == '/transactions') {
         addTransactionMarkers();

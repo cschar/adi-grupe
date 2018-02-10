@@ -9,7 +9,7 @@
 
 
 // import 'rpg-awesome';
-// require('./maps');
+require('./maps');
 
 console.log('Hello World from Webpacker')
 
