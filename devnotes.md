@@ -3,10 +3,14 @@ TODO to add:
 #Idea
 
 use gmaps.js routes, and make waze style 
+
 preapproved quests, 
 e.g. along canal, into 
 5 consective cool spots
 etc.
+
+GameMaster admins for each region,
+content creators
 
 ### In app mesaging like meetup
 https://gorails.com/series/in-app-messaging-between-users

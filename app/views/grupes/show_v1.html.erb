@@ -1,0 +1,143 @@
+<%#= javascript_pack_tag 'location_detail', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
+
+<%= tag.div id: "single-grupe-quests-info",
+            data: { questsinfo: @quests.to_json(methods: [:times_done_today])
+            }  %>
+
+<h3> Grupe: <%= @grupe.name %>  <%= @grupe.id %> @ location
+  <a href="#InfoAnchor1" data-turbolinks="false"> <%= @grupe.location_id.to_s + " " + @grupe.location.name %></a>
+   grouping for
+  <a href="#InfoAnchor2" data-turbolinks="false"> <%= @grupe.quests.count %> quests </a>
+</h3>
+
+<% if @grupe.users.all.count < 5 &&
+    (@grupe.users.where(id: current_user.id).count == 0) %>
+  <%= link_to join_grupe_path(@grupe.id), class: "btn btn-outline-primary"  do %>
+      Join up <i class="fa fa-cubes fa-2x"></i>
+  <% end %>
+<% end %>
+
+<%= tag.div id: "single-location-info", data: { locationinfo: @grupe.location.to_json() } do %>
+
+<% end %>
+
+
+<%= tag.div class: "row" do %>
+
+  <% @grupe.users.all.each do |user|%>
+      <div class="col-sm-2 color3 ">
+        <i class="fa fa-user-circle fa-2x"></i>
+        <ul>
+          <li>user <%= user.id %></li>
+          <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
+        </ul>
+
+      </div>
+
+  <% end %>
+  <!--5 max in grupe, show empty spots if less than 5-->
+  <% [*@grupe.users.all.count..4].each do |placeholder|%>
+      <div class="col color3 offset-sm-1">
+        <i class="fda fa-square-o fa-2x"></i>
+        nil
+      </div>
+  <% end %>
+
+<% end %>  <!-- end div -->
+
+
+
+<%# #####################quest area
+https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
+%>
+
+<a name="InfoAnchor2 "></a>
+<div class="row ">
+  <div class="col-sm-6">
+    <div class="d-flex flex-column color2">
+      <% @grupe.quests.each_with_index do |quest, index| %>
+
+
+          <div class="mb-5 p-2">
+
+          <span class="color1"> <%= quest.name %> </span>
+          <%= quest.body %>
+          <a class='quest-detail-clicker'href="#"> Details <i class="fa fa-bolt fa-2x"></i></a>
+          </div>
+
+      <% end %>
+
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-6">
+    <%= link_to add_quest_grupe_path(@grupe)  do %>
+        Add a quest <i class="fa fa-plus-circle fa-1x"></i>
+    <% end %>
+    <div id="quest-description-container">
+    <h2> Detail area for each quest  </h2>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<div class="row">
+  <div class="col">
+
+    <%= render partial: "grupecomments" %>
+
+  </div>
+</div>
+
+
+<div class="row">
+  Details only once group is 'locked' in to meet
+  <ul>
+    <li> Time to meet, or time range, (counter counting down? lol)</li>
+    <li> </li>
+  </ul>
+</div>
+
+<!--<div class="row">-->
+  <!--<a name="InfoAnchor1"></a>-->
+  <!--<div class="col ">-->
+    <!--<div>-->
+      <!--<h3> General non-group specific Details about location</h3>-->
+      <!--<ul>-->
+        <li> <i class="fa fa-database" ></i> star level: <%= [*5..30].sample %>
+        <!--</li>-->
+        <!--<li> <i class="fa fa-bolt" aria-hidden="true"></i> Info 1-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col">-->
+    <!--a map-->
+    <!--<%= tag.div nil, id: 'map' %>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+<div class="row">
+  <div class="d-flex align-items-start flex-column" style="height: 200px;">
+    <div class="mb-auto p-2">Flex item</div>
+    <div class="p-2">Flex item</div>
+    <div class="p-2">Flex item</div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<%= link_to 'Edit', edit_grupe_path(@grupe) %> |
+<%= link_to 'Back', grupes_path %>

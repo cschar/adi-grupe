@@ -16,7 +16,6 @@ class GrupesController < ApplicationController
   # GET /grupes/1.json
   def show
 
-    #TODO # add pagination
     @quests = @grupe.quests.all
   end
 

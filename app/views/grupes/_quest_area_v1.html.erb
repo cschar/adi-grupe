@@ -1,0 +1,27 @@
+<div class="col-sm-6">
+  <div class="d-flex flex-column color2">
+    <% @grupe.quests.each_with_index do |quest, index| %>
+
+
+        <div class="mb-5 p-2">
+
+          <span class="color1"> <%= quest.name %> </span>
+          <%= quest.body %>
+          <a class='quest-detail-clicker'href="#"> Details <i class="fa fa-bolt fa-2x"></i></a>
+        </div>
+
+    <% end %>
+
+
+  </div>
+
+</div>
+
+<div class="col-sm-6">
+  <%= link_to add_quest_grupe_path(@grupe)  do %>
+      Add a quest <i class="fa fa-plus-circle fa-1x"></i>
+  <% end %>
+  <div id="quest-description-container">
+    <h2> Detail area for each quest  </h2>
+  </div>
+</div>

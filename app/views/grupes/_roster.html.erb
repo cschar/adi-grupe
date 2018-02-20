@@ -1,0 +1,23 @@
+<%= tag.div class: "row" do %>
+
+    <% @grupe.users.all.each do |user|%>
+        <div class="col-sm-2 color3 ">
+          <i class="fa fa-user-circle fa-2x"></i>
+          <ul>
+            <li>user <%= user.id %></li>
+            <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
+          </ul>
+
+        </div>
+
+    <% end %>
+    <!--5 max in grupe, show empty spots if less than 5-->
+    <% [*@grupe.users.all.count..4].each do |placeholder|%>
+        <div class="col color3 offset-sm-1">
+          <i class="fda fa-square-o fa-2x"></i>
+          nil
+        </div>
+    <% end %>
+
+<% end %>  <!-- end div -->
+
