@@ -1,0 +1,142 @@
+<%#= javascript_pack_tag 'location_detail', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
+
+<%= tag.div id: "single-grupe-quests-info",
+            data: { questsinfo: @quests.to_json(methods: [:times_done_today])
+            }  %>
+
+<h3>
+  Grupe: <%= @grupe.name %>  <%= @grupe.id %> @ location
+  <a href="#InfoAnchor1" data-turbolinks="false"> <%= @grupe.location_id.to_s + " " + @grupe.location.name %></a>
+   grouping for
+  <a href="#InfoAnchor2" data-turbolinks="false"> <%= @grupe.quests.count %> quests </a>
+</h3>
+
+<% if @grupe.users.all.count < 5 &&
+    (@grupe.users.where(id: current_user.id).count == 0) %>
+  <%= link_to join_grupe_path(@grupe.id), class: "btn btn-outline-primary"  do %>
+      Join up <i class="fa fa-cubes fa-2x"></i>
+  <% end %>
+<% end %>
+
+<%= tag.div id: "single-location-info", data: { locationinfo: @grupe.location.to_json() } do %>
+
+<% end %>
+
+
+<%= render partial: "roster" %>
+
+
+
+<a name="InfoAnchor2 "></a>
+<div class="row ">
+  <%#= render partial: "quest_area_v1" %>
+
+  <h1> quests: </h1>
+  <div class="col">
+
+
+
+    <div class="color3">
+      <h2> Talk Boo-ker - Fiction style</h2>
+      <i class="fa fa-microphone fa-2x"></i>
+
+      <pre>
+        User1 is interested in a Talk BOOKER.
+        Discuss the plot, the characters, the emotions and feelings the text created.
+        The thoughts and questions it created after reading it...
+      book is left in the comments. (or add an API call to goodreads to load it up? lol)
+      </pre>
+    </div>
+
+    <div>
+      <h2> Language Learner - (French/Mandarin)|| <span class="color2">[[ knowledger + 1]]</span></h2>
+      <i class="fa fa-language fa-4x"></i>
+      <span class="color4"> practice or explore a new language </span>
+      <div> User <%= @grupe.users.first ? @grupe.users.first.display_name : ""%> : </div>
+      <pre>
+        Conversation focused language learning.
+        Talk 1,2,5 minutes without speaking english
+        vocal cords
+
+
+
+      </pre>
+    </div>
+
+    <div class="color3">
+      <h2> Walk window gazer </h2>
+      <i class="fa fa-fire fa-4x"></i>
+
+      <pre>
+        Check the downtown shop windows.
+        Zoom in for a look then zoom out.
+
+      </pre>
+
+
+    </div>
+
+
+    <div>
+      <h2> Beer brewer </h2>
+      <i class="fa fa-beer fa-2x"></i>
+      <div class="color2"> User <%= @grupe.users.first ? @grupe.users.first.display_name : ""%> : </div>
+      <pre>
+        Beer connaisseurs.
+        Brewing tips.
+        Beer trivia.
+
+      </pre>
+
+
+    </div>
+
+    <div>
+      <h2> History Buff(alo)s </h2>
+      <i class="fa fa-hourglass-o fa-2x"></i>
+
+      <pre>
+        Gather at the watering hole to discuss history.
+        rant about extraordinary events.
+        Geek out about how civilizations survived through the ages.
+
+      </pre>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<div class="row">
+  <div class="col">
+
+    <%= render partial: "grupecomments" %>
+
+  </div>
+</div>
+
+
+
+<div class="row">
+  <br/>
+  <br/>
+
+  Details only once group is 'locked' in to meet
+  <ul>
+    <li> Time to meet, or time range, (counter counting down? lol)</li>
+    <li> </li>
+  </ul>
+</div>
+
+
+
+
+
+
+<%= link_to 'Edit', edit_grupe_path(@grupe) %> |
+<%= link_to 'Back', grupes_path %>

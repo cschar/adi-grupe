@@ -1,40 +1,29 @@
 
-<h2> adi main</h2>
+
 
 <div class="jumbotron">
-  <h1>Ind</h1>
-
-
+  
     <div class="row" class="footest">
-        <div class="col">
-            <ul>
-              <li> search for grupes with similar quests / quester attributes (likes pingpong/ likes mtg / likes meditation / etc..</li>
-              <li> search available quests </li>
-              <li> = </li>
-              <li> enter auto-gruper (chooses from premiere / high rated locations) </li>
-            </ul>
+        <div class="col sm-4">
+             <%= image_tag("gruper1.jpeg",
+              {:style => "width:400px;"})
+               %>
         </div>
+
+        <div class="col sm-4">
+        <h5> grupe up </h5>
+        <h4> with </h4>
+        <h1> gruepers </h1>
+            <%= link_to new_user_registration_path(),
+              class: "btn btn-lg btn-primary" do %>
+        <i class="fa fa-thumbs-up fa-2x"></i> Sign up
+             <% end %>
+        </div>
+
     </div>
 
   <div class="row">
-    <h1> interlude </h1>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-aura"></i> ra-aura </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-aware"></i> ra-aware </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-double-team"></i> ra-double-team </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-falling"></i> ra-falling </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-monster-skull"></i> ra-monster-skull </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-muscle-fat"></i> ra-muscle-fat </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-muscle-up"></i> ra-muscle-up </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player"></i> ra-player </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-despair"></i> ra-player-despair </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-dodge"></i> ra-player-dodge </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-king"></i> ra-player-king </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-lift"></i> ra-player-lift </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-pain"></i> ra-player-pain </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-pyromaniac"></i> ra-player-pyromaniac </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-shot"></i> ra-player-shot </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-teleport"></i> ra-player-teleport </div>
-    <div class="ra-hover col-md-3 col-sm-4"><i class="ra ra-player-thunder-struck"></i> ra-player-thunder-struck </div>
+    
   </div>
 
 

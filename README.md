@@ -18,6 +18,8 @@ kibana
 rake searchkick:reindex CLASS=<searchkick classes>   
 ```  
 
+# See Devnotes.md for cheatsheet + ideas
+
 ## Heroku
 
 heroku login
@@ -34,4 +36,8 @@ heroku addons:create searchbox:starter
 heroku config:set ELASTICSEARCH_URL=`heroku config:get SEARCHBOX_URL`
 
 heroku run rake searchkick:reindex CLASS=Transaction
+heroku run rake searchkick:reindex CLASS=Location
 
+  lib/tasks/<some_task.rake>
+heroku run rake gen_location_data
+heroku run rake gen_quest_data

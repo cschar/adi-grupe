@@ -4,10 +4,10 @@ task gen_quest_data: :environment do
 
 
   grupe1 = Grupe.first
-  10.times do |x|
-      q = Quest.create! name: FFaker::Color.name, body: FFaker::Book.description(2)
-      Qglink.create quest: q, grupe: grupe1, subject: FFaker::Name.first_name + "'s Link"
-  end
+  # 10.times do |x|
+  #     q = Quest.create! name: FFaker::Color.name, body: FFaker::Book.description(2)
+  #     Qglink.create quest: q, grupe: grupe1, subject: FFaker::Name.first_name + "'s Link"
+  # end
 
 
 

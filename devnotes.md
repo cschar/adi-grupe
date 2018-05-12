@@ -74,3 +74,10 @@ https://data.opendatasoft.com/explore/dataset/all-starbucks-locations-in-the-wor
 
 ## messaeg api
 https://gist.github.com/rstacruz/1569572
+
+
+
+search for grupes with similar quests / quester attributes (likes pingpong/ likes mtg / likes meditation / etc..
+search available quests
+
+enter auto-gruper (chooses from premiere / high rated locations) 
