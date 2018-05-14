@@ -1,15 +1,17 @@
 class GrupesController < ApplicationController
-  before_action :set_grupe, only: [:show, :edit, :update, :destroy, :join, :add_quest]
+  before_action :set_grupe, only: [:show, :edit, :update, :destroy, :join, :leave, :confirm, :add_quest]
   before_action :authenticate_user! #, only: [:join]
+
+  @@locked_count = 2
 
   # GET /grupes
   # GET /grupes.json
   def index
     # @grupes = Grupe.all
 
-    ## save ids on user for quick access?
     @my_grupes = Grupe.joins(:users).where('users.id = ?', current_user.id).group('grupes.id')
-    @locked_grupes = Grupe.joins(:users).where('users.id = 5').group('grupes.id').having('COUNT(grupes_users.user_id) = 5')
+    
+    @locked_grupes = Grupe.joins(:users).group('grupes.id').having('COUNT(users.id) >= ?', @@locked_count)
   end
 
   # GET /grupes/1
@@ -72,6 +74,45 @@ class GrupesController < ApplicationController
         format.json { render :show, status: :ok, location: @grupe }
       else
         format.html { redirect_to location_path(@grupe.location),  alert: 'Cant join that grupe' }
+        format.json { render json: @grupe.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def confirm 
+    
+    # grupe_users = @grupe.users
+
+    respond_to do |format|
+      # if @grupe.users.count == 5
+      if @grupe.users.count >= 2
+      
+        
+
+        format.html { redirect_to @grupe, notice: 'Confirmed meeting with grupe!' }
+        format.json { render :show, status: :ok, location: @grupe }
+      else
+        format.html { redirect_to @grupe,  alert: 'Cant confirm without 5 ppl' }
+        format.json { render json: @grupe.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def leave
+    location = @grupe.location
+    respond_to do |format|
+
+      if @grupe.users.exists?(current_user.id)
+        @grupe.users.delete(current_user)
+        if @grupe.users.count == 0 
+          @grupe.destroy
+            
+        end
+
+        format.html { redirect_to location_path(location), notice: 'Left grupe ' + @grupe.name }
+        format.json { render :show, status: :ok, location: locations_path }
+      else
+        format.html { redirect_to location_path(location),  alert: 'Cant leave that grupe' }
         format.json { render json: @grupe.errors, status: :unprocessable_entity }
       end
     end

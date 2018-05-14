@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     #requires id
     member do
       get :join  # /grupe/1/join
+      get :leave  # /grupe/1/leave
+      get :confirm # /grupe/1/confirm
 
       get :add_quest  #/grupe/1/addquest   #give a page we can post to qglinks create
     end

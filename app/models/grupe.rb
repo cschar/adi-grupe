@@ -11,7 +11,7 @@
 
 class Grupe < ApplicationRecord
   #rails g model qglink subject:string quest:references grupe:references
-  has_many :qglinks
+  has_many :qglinks, dependent: :destroy
   has_many :quests, through: :qglinks
   has_many :grupecomments
 

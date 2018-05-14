@@ -49,7 +49,19 @@
 
 
 <div class="row ">
-  
+<%= link_to confirm_grupe_path(@grupe), class: "btn btn-outline-primary"  do %>
+                Confirm grupe <i class="fa fa-cubes fa-2x"></i>
+            <% end %>
+
+  <%#= form_tag grupe_path(@grupe), method: :patch, remote: true do %>
+
+          <%#= submit_tag "Confirm", class: "btn btn-success" %>
+
+  <%# end %>
+
+  <%= link_to leave_grupe_path(@grupe), class: "btn btn-outline-danger"  do %>
+                Leave grupe <i class="fa fa-cubes fa-2x"></i>
+            <% end %>
 </div>
 
 <%# #####################quest area

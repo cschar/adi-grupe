@@ -4,10 +4,11 @@
 
 <div class="d-block p-4">
   <div class="d-flex p-2 color1">
-    locked in for:
+    full up / ready to confirm for:
   </div>
 
   <% @locked_grupes.each do |locked_grupe| %>
+    <div class="mt-2 mb-2 ">
       <%= link_to grupe_path(locked_grupe) do %>
         <div class="d-inline p-2 color2">
           <%= locked_grupe.name %> ==
@@ -16,6 +17,7 @@
           location : <%= locked_grupe.location.id %> <i class="fa fa-flag-o "></i>
         </div>
       <% end %>
+    </div>
   <% end %>
 </div>
 

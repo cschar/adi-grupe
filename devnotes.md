@@ -15,6 +15,19 @@ content creators
 ### In app mesaging like meetup
 https://gorails.com/series/in-app-messaging-between-users
 
+#TODO
+Make User associated to location "THROUGH" Grupe
+
+user can have 4 grupe associations to one Location 
+(queuing up for 4 grupes), and one association can track 'confirmed' and other info
+....
+but then 4 users will have 4 links, and quests will have
+to be linked to... all 4? makes no sense,
+just link to one GRUPE
+       Qup ... a QueueUp Queup
+have a usergrupeLINK linking to grupe, (confirmed/ time left to confirm etc....),
+       questgrupeLINK linking to quest [Done],
+        
 
 
 #TODO 
