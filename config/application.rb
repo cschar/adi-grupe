@@ -13,6 +13,10 @@ module RailsReact
 
     config.app_generators.scaffold_controller = :scaffold_controller
 
+    # https://devcenter.heroku.com/articles/rails-4-asset-pipeline#serve-assets
+    config.serve_static_assets = true
+
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
