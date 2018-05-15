@@ -7,9 +7,14 @@
 #  location_id :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  creator_id  :integer
 #
 
 class Grupe < ApplicationRecord
+  
+  def locked_count
+    2
+  end
   #rails g model qglink subject:string quest:references grupe:references
   has_many :qglinks, dependent: :destroy
   has_many :quests, through: :qglinks

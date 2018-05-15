@@ -47,7 +47,7 @@
   <% [*@grupe.users.all.count..4].each do |placeholder|%>
       <div class="col color3 offset-sm-1">
         <i class="fda fa-square-o fa-2x"></i>
-        nil
+        Empty
       </div>
   <% end %>
 
@@ -56,7 +56,7 @@
 
 
 <div class="row ">
-<% if !current_user.confirmed_for(@grupe) %>
+<% if @grupe.users.all.count >= @grupe.locked_count && !current_user.confirmed_for(@grupe) %>
 <%= link_to confirm_grupe_path(@grupe), class: "btn btn-outline-primary"  do %>
                 Confirm grupe <i class="fa fa-cubes fa-2x"></i>
             <% end %>
@@ -78,17 +78,31 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 <a name="InfoAnchor2 "></a>
 <div class="row ">
-  <div class="col-sm-6">
-    <div class="d-flex flex-column color2">
-      <% @grupe.quests.each_with_index do |quest, index| %>
+  <div class="col-sm-10">
+    <div class="d-flex flex-column ">
+      <% @grupe.qglinks.each_with_index do |qglink, index| %>
 
 
-          <div class="mb-5 p-2">
+          <div class="mb-4 p-2">
 
-          <span class="color1"> <%= quest.name %> </span>
-          <%= quest.body %>
-          <a class='quest-detail-clicker'href="#"> Details <i class="fa fa-bolt fa-2x"></i></a>
-          </div>
+
+          <span class="color1"> <%= qglink.quest.name %>
+          <% if @grupe.creator_id == current_user.id %>
+          
+          
+          <%= link_to([@grupe, qglink], :method  => :delete)   do %>
+            Remove quest <i class="fa fa-bolt fa-2x"></i>
+          <% end %> 
+
+                
+
+          <% end %>
+
+           </span>
+          
+          <div> <%= qglink.quest.body.html_safe %> </div>
+          
+                    </div>
 
       <% end %>
 
@@ -97,12 +111,16 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-sm-2">
+  <% if @grupe.creator_id == current_user.id %>
     <%= link_to add_quest_grupe_path(@grupe)  do %>
         Add a quest <i class="fa fa-plus-circle fa-1x"></i>
     <% end %>
+  <% end %>
     <div id="quest-description-container">
-    <h2> Detail area for each quest  </h2>
+    <h2> Detail area for each quest, E.G> who is running it,
+     
+    </h2>
     </div>
   </div>
 
@@ -147,14 +165,6 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
   <!--</div>-->
 <!--</div>-->
 
-
-<div class="row">
-  <div class="d-flex align-items-start flex-column" style="height: 200px;">
-    <div class="mb-auto p-2">Flex item</div>
-    <div class="p-2">Flex item</div>
-    <div class="p-2">Flex item</div>
-  </div>
-</div>
 
 
 

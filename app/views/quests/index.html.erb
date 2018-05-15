@@ -16,7 +16,7 @@
     <% @quests.each do |quest| %>
       <tr>
         <td><%= quest.name %></td>
-        <td><%= quest.body %></td>
+        <td><%= quest.body.html_safe %></td>
         <td><%= quest.qtype %></td>
         <td><%= link_to 'Show', quest %></td>
         <td><%= link_to 'Edit', edit_quest_path(quest) %></td>
@@ -26,6 +26,7 @@
   </tbody>
 </table>
 
+aa
 <br>
 
 <%= link_to 'New Quest', new_quest_path %>

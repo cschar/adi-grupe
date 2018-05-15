@@ -16,26 +16,15 @@ content creators
 https://gorails.com/series/in-app-messaging-between-users
 
 #TODO
-Make User associated to location "THROUGH" Grupe
 
-user can have 4 grupe associations to one Location 
-(queuing up for 4 grupes), and one association can track 'confirmed' and other info
-....
-but then 4 users will have 4 links, and quests will have
-to be linked to... all 4? makes no sense,
-just link to one GRUPE
-       Qup ... a QueueUp Queup
-have a usergrupeLINK linking to grupe, (confirmed/ time left to confirm etc....),
-       questgrupeLINK linking to quest [Done],
-        
+Make grupes only have 1-2 quests for now
+grupe --> has_many quests ,
+ limit it to 2, and only grupe creator can make them
+gup ---> is_creator , true/false
+or grupe ---> user_id / creator_id (userid)
+or user ---> grupe_id , the grupe they've created, only allowed 1 
 
 
-#TODO 
-text search using postgres
-for announcements
-
-or rails gem...
-http://rachbelaid.com/postgres-full-text-search-is-good-enough/
 
 #TODO DEVISE
 https://github.com/plataformatec/devise

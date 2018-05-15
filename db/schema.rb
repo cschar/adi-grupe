@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514210338) do
+ActiveRecord::Schema.define(version: 20180515211132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,11 +141,7 @@ ActiveRecord::Schema.define(version: 20180514210338) do
     t.integer "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "grupes_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "grupe_id", null: false
+    t.integer "creator_id"
   end
 
   create_table "gups", force: :cascade do |t|
@@ -154,6 +150,7 @@ ActiveRecord::Schema.define(version: 20180514210338) do
     t.datetime "confirmed_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_creator", default: false
     t.index ["grupe_id"], name: "index_gups_on_grupe_id"
     t.index ["user_id"], name: "index_gups_on_user_id"
   end

@@ -40,7 +40,11 @@ class GrupesController < ApplicationController
   def create
     @grupe = Grupe.new(grupe_params)
 
-    @grupe.users << current_user ## equivalent of #Gup.create user: current_user, grupe: @grupe
+    #@grupe.users << current_user ## equivalent of #Gup.create user: current_user, grupe: @grupe
+    Gup.create user: current_user, grupe: @grupe, is_creator: true
+
+    @grupe.creator_id = current_user.id
+
 
     respond_to do |format|
       if @grupe.save
@@ -98,14 +102,14 @@ class GrupesController < ApplicationController
     respond_to do |format|
 
       if @grupe.users.exists?(current_user.id)
-        gup = Gup.where(grupe: @grupe, user: current_user).first
-        gup.destroy
 
-        @grupe.reload  # way to explicit hah?
-        if @grupe.users.count == 0 
+        if @grupe.creator_id == current_user.id
+          Gup.where(grupe: @grupe).destroy_all
           @grupe.destroy
-            
+        else
+          Gup.where(grupe: @grupe, user: current_user).first.destroy
         end
+
 
         format.html { redirect_to location_path(location), notice: 'Left grupe ' + @grupe.name }
         format.json { render :show, status: :ok, location: locations_path }
@@ -120,6 +124,7 @@ class GrupesController < ApplicationController
 
     @quests = Quest.page(params[:page]).per(5)
   end
+
 
   # DELETE /grupes/1
   # DELETE /grupes/1.json

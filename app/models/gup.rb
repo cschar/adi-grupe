@@ -8,6 +8,7 @@
 #  confirmed_time :datetime
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  is_creator     :boolean          default(FALSE)
 #
 # Indexes
 #

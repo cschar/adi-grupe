@@ -10,6 +10,78 @@ task gen_quest_data: :environment do
   # end
 
 
+  #these could be individual frontend vue/react components based on 
+  # some styling "type"
+  q01 = Quest.create! name: "talkbookr", body: "<div class=\"color3\">\n      <h2> Talk Boo-ker - Fiction style</h2>\n      <i class=\"fa fa-microphone fa-2x\"></i>\n\n      <pre>\n        User1 is interested in a Talk BOOKER.\n        Discuss the plot, the characters, the emotions and feelings the text created.\n        The thoughts and questions it created after reading it...\n      book is left in the comments. (or add an API call to goodreads to load it up? lol)\n      </pre>\n    </div>\n"
+  q02 = Quest.create! name: "Language learner",
+      body: <<-EOD 
+      <div>
+      <h2> Language Learner - (French/Mandarin)|| <span class="color2">[[ knowledger + 1]]</span></h2>
+      <i class="fa fa-language fa-4x"></i>
+      <span class="color4"> practice or explore a new language </span>
+      
+      <pre>
+        Conversation focused language learning.
+        Talk 1,2,5 minutes without speaking english
+        vocal cords
+
+
+
+      </pre>
+    </div>
+    
+    EOD
+  
+  q03 = Quest.create! name: "Walk window gazer",
+    body: <<-EOD
+    <div class="color3">
+      <h2> Walk window gazer </h2>
+      <i class="fa fa-fire fa-4x"></i>
+
+      <pre>
+        Check the downtown shop windows.
+        Zoom in for a look then zoom out.
+
+      </pre>
+
+
+    </div>
+    EOD
+
+    q04 = Quest.create! name: "Beer Brewer",
+    body: <<-EOD
+    <div>
+      <h2> Beer brewer </h2>
+      <i class="fa fa-beer fa-2x"></i>
+      <div class="color2"> User <%= @grupe.users.first ? @grupe.users.first.display_name : ""%> : </div>
+      <pre>
+        Beer connaisseurs.
+        Brewing tips.
+        Beer trivia.
+
+      </pre>
+
+
+    </div>
+    EOD
+
+    q05 = Quest.create! name: "History Buffalos",
+    body: <<-EOD
+    <div>
+      <h2> History Buff(alo)s </h2>
+      <i class="fa fa-hourglass-o fa-2x"></i>
+
+      <pre>
+        Gather at the watering hole to discuss history.
+        rant about extraordinary events.
+        Geek out about how civilizations survived through the ages.
+
+      </pre>
+
+
+    </div>
+    EOD
+
 
   q1 = Quest.create! name: "talker1", body: "Talk about XYZ"
   q2 = Quest.create! name: "quest2 - walker", body: "Walk to nearby location < some location of interest OR other tavern>"
