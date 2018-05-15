@@ -26,10 +26,17 @@
 <%= tag.div class: "row" do %>
 
   <% @grupe.users.all.each do |user|%>
+  
       <div class="col-sm-2 color3 ">
+      
         <i class="fa fa-user-circle fa-2x"></i>
+        <% if user.confirmed_for(@grupe) %>
+          <h2> Confirmed </h2>
+        <% end %>
         <ul>
-          <li>user <%= user.id %></li>
+          <li>user <%= user.id %>
+           
+          </li>
           <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
         </ul>
 
@@ -49,10 +56,11 @@
 
 
 <div class="row ">
+<% if !current_user.confirmed_for(@grupe) %>
 <%= link_to confirm_grupe_path(@grupe), class: "btn btn-outline-primary"  do %>
                 Confirm grupe <i class="fa fa-cubes fa-2x"></i>
             <% end %>
-
+<% end %>
   <%#= form_tag grupe_path(@grupe), method: :patch, remote: true do %>
 
           <%#= submit_tag "Confirm", class: "btn btn-success" %>

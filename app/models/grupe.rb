@@ -13,11 +13,13 @@ class Grupe < ApplicationRecord
   #rails g model qglink subject:string quest:references grupe:references
   has_many :qglinks, dependent: :destroy
   has_many :quests, through: :qglinks
-  has_many :grupecomments
+  has_many :grupecomments, dependent: :destroy
 
+  has_many :gups, dependent: :destroy
+  has_many :users, through: :gups
 
   # rails g migration CreateJoinTableUsersGrupes users groups
-  has_and_belongs_to_many :users
+  # has_and_belongs_to_many :users
 
   # only 1 location can be linked to a grupe
   belongs_to(:location)

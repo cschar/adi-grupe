@@ -9,9 +9,13 @@ class GrupesController < ApplicationController
   def index
     # @grupes = Grupe.all
 
-    @my_grupes = Grupe.joins(:users).where('users.id = ?', current_user.id).group('grupes.id')
+    #Grupe.joins(:gups).where('gups.user_id = ?', u.id).group('grupes.id')
     
-    @locked_grupes = Grupe.joins(:users).group('grupes.id').having('COUNT(users.id) >= ?', @@locked_count)
+    
+    #@locked_grupes = Grupe.joins(:users).group('grupes.id').having('COUNT(users.id) >= ?', @@locked_count)
+    @locked_grupes = Grupe.includes(:gups).where('gups.user_id = ?', current_user.id).where.not('gups.confirmed_time' => nil)
+    
+    @my_grupes = current_user.grupes - @locked_grupes
   end
 
   # GET /grupes/1
@@ -36,7 +40,8 @@ class GrupesController < ApplicationController
   def create
     @grupe = Grupe.new(grupe_params)
 
-    @grupe.users << current_user
+    @grupe.users << current_user ## equivalent of #Gup.create user: current_user, grupe: @grupe
+
     respond_to do |format|
       if @grupe.save
         format.html { redirect_to @grupe, notice: 'Grupe was successfully created11.' }
@@ -48,19 +53,6 @@ class GrupesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /grupes/1
-  # PATCH/PUT /grupes/1.json
-  def update
-    respond_to do |format|
-      if @grupe.update(grupe_params)
-        format.html { redirect_to @grupe, notice: 'Grupe was successfully updated.' }
-        format.json { render :show, status: :ok, location: @grupe }
-      else
-        format.html { render :edit }
-        format.json { render json: @grupe.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   def join
     grupe_users = @grupe.users
@@ -68,7 +60,8 @@ class GrupesController < ApplicationController
     respond_to do |format|
       # debugger
       if grupe_users.count < 5 and not grupe_users.exists?(current_user.id)
-        @grupe.users << current_user
+        
+        Gup.create user: current_user, grupe: @grupe
 
         format.html { redirect_to @grupe, notice: 'Joined grupe' }
         format.json { render :show, status: :ok, location: @grupe }
@@ -87,7 +80,9 @@ class GrupesController < ApplicationController
       # if @grupe.users.count == 5
       if @grupe.users.count >= 2
       
-        
+        gup = current_user.gups.where(grupe: @grupe).first
+        gup.confirmed_time = DateTime.now
+        gup.save
 
         format.html { redirect_to @grupe, notice: 'Confirmed meeting with grupe!' }
         format.json { render :show, status: :ok, location: @grupe }
@@ -103,7 +98,10 @@ class GrupesController < ApplicationController
     respond_to do |format|
 
       if @grupe.users.exists?(current_user.id)
-        @grupe.users.delete(current_user)
+        gup = Gup.where(grupe: @grupe, user: current_user).first
+        gup.destroy
+
+        @grupe.reload  # way to explicit hah?
         if @grupe.users.count == 0 
           @grupe.destroy
             

@@ -39,6 +39,18 @@ class User < ApplicationRecord
    #omniauth related
    has_many :services , dependent: :destroy
 
+  has_many :gups, dependent: :destroy
+  has_many :grupes, through: :gups
+
+  ##### model relations #####
+  has_many(:markers)
+  has_many(:lmarkers)
+  has_many(:firetrees)
+  has_many :grupecomments
+
+  # rails g migration CreateJoinTableUsersGrupes users groups
+  #has_and_belongs_to_many :grupes
+
    #### mailboxer
    acts_as_messageable
 
@@ -53,16 +65,13 @@ class User < ApplicationRecord
      nil
    end
 
+   def confirmed_for(grupe)
+    self.gups.where('grupe_id = ? AND confirmed_time IS NOT NULL', grupe.id).exists?
+   end
 
 
-   ##### model relations #####
-  has_many(:markers)
-  has_many(:lmarkers)
-  has_many(:firetrees)
-  has_many :grupecomments
 
-  # rails g migration CreateJoinTableUsersGrupes users groups
-  has_and_belongs_to_many :grupes
+ 
 
 
 

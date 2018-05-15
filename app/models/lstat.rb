@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: lstats
+#
+#  id          :integer          not null, primary key
+#  location_id :integer
+#  data        :jsonb
+#
+
 class Lstat < ApplicationRecord
 
   # l = Lstat.first
