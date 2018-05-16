@@ -55,7 +55,8 @@ class LocationsController < ApplicationController
                                    }
 
                  else
-                   Location.all.page(@current_page).per(5)
+                  #  Location.all.page(@current_page).order("created_at ASC").per(5)
+                  Location.all.page(@current_page).order("updated_at DESC").per(5)
                  end
 
   end

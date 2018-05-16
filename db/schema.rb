@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515211132) do
+ActiveRecord::Schema.define(version: 20180515233715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,8 @@ ActiveRecord::Schema.define(version: 20180515211132) do
     t.string "ltype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_grupes", default: 0
+    t.integer "recent_quest_id"
   end
 
   create_table "lstats", force: :cascade do |t|

@@ -12,7 +12,11 @@ task gen_location_data: :environment do
               headers: true,  :col_sep => ';' ) do |line|
 
     h = line.to_hash
-    location = Location.create!(name: h["Name"] + " starbucks", longitude: h["Longitude"], latitude: h["Latitude"])
+    location = Location.create!(
+      name: h["Name"] + " starbucks",
+      ltype: "Starbucks",
+      longitude: h["Longitude"],
+      latitude: h["Latitude"])
 
     # [*rand(1..4)..3].each do |n|
     #   grupe = Grupe.create! name: FFaker::NameCN.name, location_id: location.id

@@ -2,6 +2,7 @@
 
 <h1>Quests</h1>
 
+<%= paginate @quests, theme: 'twitter-bootstrap-4', remote: false %>
 <table class="table-striped table-bordered">
   <thead>
     <tr>
@@ -18,15 +19,10 @@
         <td><%= quest.name %></td>
         <td><%= quest.body.html_safe %></td>
         <td><%= quest.qtype %></td>
-        <td><%= link_to 'Show', quest %></td>
-        <td><%= link_to 'Edit', edit_quest_path(quest) %></td>
-        <td><%= link_to 'Destroy', quest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       
       </tr>
     <% end %>
   </tbody>
 </table>
 
-aa
-<br>
-
-<%= link_to 'New Quest', new_quest_path %>
+<%= paginate @quests, theme: 'twitter-bootstrap-4', remote: false %>

@@ -19,22 +19,26 @@
             <div class="col">
               <ul>
 
-                <li> <i class="fa fa-bolt" aria-hidden="true"></i> Info 1
+                <li> <i class="fa fa-bolt" aria-hidden="true"></i>
+                 type: <h4> <%= location.ltype %> </h4>
                 </li>
 
-                <li> <i class="fa fa-bolt" aria-hidden="true"></i>  Info 2
-                </li>
               </ul>
             </div>
             <div class="col">
               <ul>
 
                 <li> <i class="fa fa-history fa-1x" ></i>
-                  Recent meets: <%= [*1..15].sample %>
+                  Recent meets: <%= location.total_grupes %>
                 </li>
 
                 <li> <i class="fa fa-database" aria-hidden="true"></i>
-                  star level: <%= [*5..30].sample %>
+                <% if location.recent_quest_id != nil %>
+                  
+                   <%= link_to quest_path(location.recent_quest_id) do %>
+                          last quest
+                   <% end %>
+                  <% end %>
                 </li>
               </ul>
             </div>
