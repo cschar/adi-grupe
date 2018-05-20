@@ -2,25 +2,33 @@ version: '2'
 services:
   db-za:
     image: postgres:9.4.1
-    ports:
-      - "5433:5432"
+    # ports:
+    #   - "5433:5432"
 
   redis-za:
     image: redis:3.2-alpine
-    ports:
-      - "6379:6379"
+    # ports:
+    #   - "6379:6379"
+
+#https://github.com/ledermann/docker-rails/blob/develop/docker-compose.yml
+  elasticsearch-za:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
+    # volumes:
+    #   - es-data:/usr/share/elasticsearch/data
 
   web:
-    image: adiprod
+    image: adi-grupe
     #gem updates?
     command: bash -c "bin/rails server -e production --port 3000 --binding 0.0.0.0"
     environment:
       - SECRET_KEY_BASE
       - RAILS_LOG_TO_STDOUT=1  #TODO setup logging
       - RAILS_SERVE_STATIC_FILES=1
+      - ELASTICSEARCH_HOST=elasticsearch-za
     ports:
       - "3003:3000"
     links:
+      - elasticsearch-za
       - db-za
       - redis-za
 #    volumes:

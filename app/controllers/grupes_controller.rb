@@ -44,8 +44,7 @@ class GrupesController < ApplicationController
     Gup.create user: current_user, grupe: @grupe, is_creator: true
 
     @grupe.creator_id = current_user.id
-    @grupe.location.total_grupes = @grupe.location.total_grupes + 1
-    @grupe.location.save 
+    
 
     respond_to do |format|
       if @grupe.save
