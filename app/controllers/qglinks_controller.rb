@@ -15,8 +15,8 @@ class QglinksController < ApplicationController
       # Qglink.create quest: q1, grupe: grupe2, subject: params[:comments]
       Qglink.create quest: quest, grupe: @grupe, subject: ''
 
-      grupe.location.recent_quest_id = quest.id
-      grupe.location.save
+      @grupe.location.recent_quest_id = quest.id
+      @grupe.location.save
       
       redirect_to grupe_path(@grupe), notice: 'Quest added '
     else
