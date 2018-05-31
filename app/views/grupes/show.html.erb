@@ -1,5 +1,6 @@
-<%#= javascript_pack_tag 'location_detail', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
+
+<%#= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'hello_react' %>
 
 <%= tag.div id: "single-grupe-quests-info",
             data: { questsinfo: @quests.to_json(methods: [:times_done_today])
@@ -22,6 +23,7 @@
 
 <% end %>
 
+<div id='react-app'> </div>
 
 <%= tag.div class: "row" do %>
 
@@ -117,11 +119,7 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
         Add a quest <i class="fa fa-plus-circle fa-1x"></i>
     <% end %>
   <% end %>
-    <div id="quest-description-container">
-    <h2> Detail area for each quest, E.G> who is running it,
-     
-    </h2>
-    </div>
+    
   </div>
 
 
