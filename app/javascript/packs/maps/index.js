@@ -116,8 +116,8 @@ document.addEventListener("turbolinks:load", function() {
     }
 
     if(window.location.pathname.indexOf('/grupes') >= 0 ){
-        addSingleLocationInfoMarker()
-        zoom()
+        // addSingleLocationInfoMarker()
+        // zoom()
 
     }
 

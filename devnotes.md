@@ -17,6 +17,18 @@ https://gorails.com/series/in-app-messaging-between-users
 
 #TODO
 
+##HOW to confirm a grupe?
+//show users , joining / leaving
+// when there are X users, show confirm button
+// give 5 minutes to confirm
+
+// when confirmed, set grupe to "locked",
+// column locked_in_at date time ?
+//  remove from available grupes to browse at location
+
+// delete grupe after 5 hours from "locked" date
+
+
 Make grupes only have 1-2 quests for now
 grupe --> has_many quests ,
  limit it to 2, and only grupe creator can make them
