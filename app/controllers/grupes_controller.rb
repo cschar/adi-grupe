@@ -89,6 +89,9 @@ class GrupesController < ApplicationController
         gup.confirmed_time = DateTime.now
         gup.save
 
+        @grupe.locked_in_at = DateTime.now
+        @grupe.save
+        
         format.html { redirect_to @grupe, notice: 'Confirmed meeting with grupe!' }
         format.json { render :show, status: :ok, location: @grupe }
       else

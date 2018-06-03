@@ -8,4 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 
 require('./maps');
-console.log('Hello World from Webpacker')
+

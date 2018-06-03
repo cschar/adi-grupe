@@ -2,12 +2,14 @@
 #
 # Table name: grupes
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  location_id :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  creator_id  :integer
+#  id           :integer          not null, primary key
+#  name         :string
+#  location_id  :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  creator_id   :integer
+#  locked_in_at :datetime
+#  capacity     :integer          default(2)
 #
 
 class Grupe < ApplicationRecord
@@ -30,31 +32,13 @@ class Grupe < ApplicationRecord
   # only 1 location can be linked to a grupe
   belongs_to(:location)
 
-  def removeNoUserGrupes()
-    grupes = findn(0)
-    grupes.each do |g|
-      g.delete
-    end
+  def time_to_live
+    5.hours
   end
 
-  def findn(n)
-    finds = []
-    Grupe.all.each do |g|
-      if g.users.all.count == n
-        finds = finds + [g]
-      end
-    end
-    finds
-  end
-
-  def findni(n)
-    finds = []
-    Grupe.includes(:users).all.each do |g|
-      if g.users.all.count == n
-        finds = finds + [g]
-      end
-    end
-    finds
+  def self.clean_up_expired_grupes
+    expiry_time = DateTime.now - 5.hours
+    Grupe.where('locked_in_at < ?', expiry_time).destroy_all
   end
 
 

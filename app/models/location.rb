@@ -26,4 +26,12 @@ class Location < ApplicationRecord
   def my_tostring
     ["custom address" ,latitude, "  ",longitude].join("--")
   end
+
+  def open_grupes
+    self.grupes.where(locked_in_at: nil)
+  end
+
+  def locked_grupes
+    self.grupes.where.not(locked_in_at: nil)
+  end
 end

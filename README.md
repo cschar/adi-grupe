@@ -1,11 +1,9 @@
-# Adi 
+# Adi-Grupe
 
-experiments w/ maps and rails
+Maps/Rails Group up app
 
+### Setting up 
 
-
-
-### Development
 
 rails searchkick gem depends on elasticsearch: 
 ```
@@ -19,7 +17,17 @@ rake searchkick:reindex CLASS=Location
 
 
 bundle exec foreman start  # or bundle exec rails server etc..   
+
+# https://github.com/javan/whenever
+# see background jobs set up in config/schedule.rb
+whenever  
+# write the jobs to crontab
+whenever --update-crontab
 ```  
+
+
+### Development
+
 
 # See Devnotes.md for cheatsheet + ideas
 

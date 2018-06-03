@@ -57,13 +57,25 @@ class GrupeRoster extends Component {
   }
 }
 
+const Completionist = () => <span>Grupe meeting time over</span>;
+
+const renderer = ({ hours, minutes, seconds, completed }) => {
+  if (completed) {
+    // Render a completed state
+    return <Completionist />;
+  } else {
+    // Render a countdown
+    return <h1><span>{hours}:{minutes}:{seconds}</span></h1>;
+  }
+};
 
 class GrupeDetailApp extends React.Component {
   constructor(){
     super()
     
     this.state = {
-      users: []
+      users: [],
+      locked_in_at: null
     }
     this.handleChange = this.handleChange.bind(this);
     this.tick = this.tick.bind(this);
@@ -74,11 +86,10 @@ class GrupeDetailApp extends React.Component {
       {url: `/grupes/${this.props.grupe.id}.json`,
        type: "GET", dataType: "json",
       success: function(data){
-          console.log("got data")
-          console.log(data)
           
           this.setState({
-            users: data.users
+            users: data.users,
+            locked_in_at: data.locked_in_at
           })
        }.bind(this)
       })
@@ -90,11 +101,11 @@ class GrupeDetailApp extends React.Component {
     // this.setState({
     //   date: new Date()
     // });
-    // this.handleChange()
+    this.handleChange()
   }
 
   componentDidMount(){
-    console.log(this.props.grupe)
+    
     this.timerID = setInterval(
       () => this.tick(),
       10000
@@ -109,13 +120,28 @@ class GrupeDetailApp extends React.Component {
 
 
   render() {
+
+    let countdownUI = null;
+    if ( this.state.locked_in_at ){
+      let time_to_meet = 1000*60*60*5; // 5 hours
+      countdownUI = (
+        <div className="color2">
+        <h2> Group up with your fellow Gruepers! </h2>
+
+        <h3> Meeting time closes in : </h3>
+        <Countdown date={new Date(this.state.locked_in_at).getTime() + time_to_meet }
+                   renderer={renderer} />
+        </div>
+      )
+    }
+    
+
     return (
       <div className="App">
-      <div> Hello </div>
-        <Countdown date={Date.now() + 10000} />
-        <button text="test" onClick={this.handleChange} > test </button>
+      
+        {countdownUI}
         <GrupeRoster users={this.state.users}
-                     capacity={2}
+                     capacity={this.props.grupe.capacity}
                      creatorId={this.props.grupe.creator_id} />
       </div>
     );
