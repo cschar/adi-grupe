@@ -2,12 +2,14 @@
 #
 # Table name: grupes
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  location_id :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  creator_id  :integer
+#  id           :integer          not null, primary key
+#  name         :string
+#  location_id  :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  creator_id   :integer
+#  locked_in_at :datetime
+#  capacity     :integer          default(2)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -54,7 +54,8 @@ gem 'twitter'
 #messaging
 gem 'mailboxer', github: 'mailboxer/mailboxer'
 
-
+# background jobs in ruby
+gem 'whenever', require: false   
 
 gem 'sidekiq'
 gem 'graphql'

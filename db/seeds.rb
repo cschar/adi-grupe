@@ -7,8 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
-Lmarker.destroy_all
-AdminUser.destroy_all
 
 u = User.new(
             :email=>'c3@c.com',
@@ -26,26 +24,6 @@ u2.save
 
 
 
-tree_type = [
-    'birch',
-    'maple',
-    'evergreen',
-    'ash',
-    'ironwood'
-]
-
-temp = [
-    'Hot',
-    'lukewarm',
-    'tepid',
-    'cold'
-]
-
-15.times do
-  Firetree.create(name: FFaker::Food.ingredient,
-                  body: tree_type.sample + temp.sample,
-                  user_id:1)
-end
 
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

@@ -1,22 +1,44 @@
-# Adi <span style="color:blue"> geo game.</span>
+# Adi-Grupe
 
-experiments w/ maps and rails
+Maps/Rails Group up app
+
+### Setting up 
+
+
+```
+bundle install
+
+rails db:migrate
+
+rake gen_location_data 
+rake gen_quest_data
 
 
 
 
-### Development
+bundle exec foreman start  # or bundle exec rails server etc..   
+
+# https://github.com/javan/whenever
+# see background jobs set up in config/schedule.rb
+whenever  
+# write the jobs to crontab
+whenever --update-crontab
+```  
+
 
 rails searchkick gem depends on elasticsearch: 
 ```
 brew install elasticsearch
 brew install kibana (optional, opens http://localhost:5601/)
-
 elasticsearch
 kibana
 
-rake searchkick:reindex CLASS=<searchkick classes>   
-```  
+rake searchkick:reindex CLASS=Location
+```
+
+
+### Development
+
 
 # See Devnotes.md for cheatsheet + ideas
 

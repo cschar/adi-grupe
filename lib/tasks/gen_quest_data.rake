@@ -2,14 +2,6 @@
 task gen_quest_data: :environment do
 
 
-
-  grupe1 = Grupe.first
-  # 10.times do |x|
-  #     q = Quest.create! name: FFaker::Color.name, body: FFaker::Book.description(2)
-  #     Qglink.create quest: q, grupe: grupe1, subject: FFaker::Name.first_name + "'s Link"
-  # end
-
-
   #these could be individual frontend vue/react components based on 
   # some styling "type"
   q01 = Quest.create! name: "talkbookr", body: "<div class=\"color3\">\n      <h2> Talk Boo-ker - Fiction style</h2>\n      <i class=\"fa fa-microphone fa-2x\"></i>\n\n      <pre>\n        User1 is interested in a Talk BOOKER.\n        Discuss the plot, the characters, the emotions and feelings the text created.\n        The thoughts and questions it created after reading it...\n      book is left in the comments. (or add an API call to goodreads to load it up? lol)\n      </pre>\n    </div>\n"
@@ -90,21 +82,29 @@ task gen_quest_data: :environment do
                 body: "Share a song. What do you think about it and how does it make you feel.
                        Tooltip Here exploding feelings into choice box archetypes (glad/sad/mad/tired/confused/lonely/excited/friendly/calm)"
 
-  grupe2 = Grupe.first(2)[1]
-
-  u = User.first
-  Qglink.create quest: q1, grupe: grupe2, subject: u.id.to_s
-
-  ### some cool querying the a 'transitive' association (extra model)
-  Quest.find_by(name: 'talker1').grupes  # all of q1s grupes
 
 
-  Quest.joins(:qglinks).where(qglinks: {subject: u.id.to_s}).distinct.pluck(:name)
+  # grupe1 = Grupe.first
+  # 10.times do |x|
+  #     q = Quest.create! name: FFaker::Color.name, body: FFaker::Book.description(2)
+  #     Qglink.create quest: q, grupe: grupe1, subject: FFaker::Name.first_name + "'s Link"
+  # end
+                     
+  # grupe2 = Grupe.first(2)[1]
+ 
+  # u = User.first
+  # Qglink.create quest: q1, grupe: grupe2, subject: u.id.to_s
 
-  # get all Quest name attributes who belong to the user id who are linked to the
-  # grupe with the name 'bluegrupe'
-    Quest.joins(:grupes).joins(:qglinks).where(qglinks: {subject: u.id.to_s},
-               grupes: {name: 'bluegrupe'}).distinct.map {|x| puts x.name}
+  # ### some cool querying the a 'transitive' association (extra model)
+  # Quest.find_by(name: 'talker1').grupes  # all of q1s grupes
+
+
+  # Quest.joins(:qglinks).where(qglinks: {subject: u.id.to_s}).distinct.pluck(:name)
+
+  # # get all Quest name attributes who belong to the user id who are linked to the
+  # # grupe with the name 'bluegrupe'
+  #   Quest.joins(:grupes).joins(:qglinks).where(qglinks: {subject: u.id.to_s},
+  #              grupes: {name: 'bluegrupe'}).distinct.map {|x| puts x.name}
 
 
 end

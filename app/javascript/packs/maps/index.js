@@ -97,11 +97,15 @@ function addSingleLocationInfoMarker(){
 
 document.addEventListener("turbolinks:load", function() {
     console.log("turbo loaded , making map")
-    map = window.map = new GMaps({
+    try{
+        map = window.map = new GMaps({
         div: '#map',
         lat: 38.5816,
         lng: -121.4944
-    });
+        });
+    }catch(err) {
+
+    }
 
     var zoom = function(){
         setTimeout(function(){
@@ -112,8 +116,8 @@ document.addEventListener("turbolinks:load", function() {
     }
 
     if(window.location.pathname.indexOf('/grupes') >= 0 ){
-        addSingleLocationInfoMarker()
-        zoom()
+        // addSingleLocationInfoMarker()
+        // zoom()
 
     }
 

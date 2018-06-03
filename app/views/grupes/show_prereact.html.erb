@@ -9,10 +9,7 @@
             }  %>
 
 <h3> Grupe: <%= @grupe.name %>  <%= @grupe.id %> @ location
-  <%= link_to @grupe.location do%>
-                <%= @grupe.location_id.to_s + " " + @grupe.location.name %>
-                
-  <% end %>
+  <a href="#InfoAnchor1" data-turbolinks="false"> <%= @grupe.location_id.to_s + " " + @grupe.location.name %></a>
    grouping for
   <a href="#InfoAnchor2" data-turbolinks="false"> <%= @grupe.quests.count %> quests </a>
 </h3>
@@ -32,26 +29,52 @@
 
 <%= tag.div class: "row" do %>
 
+  <% @grupe.users.all.each do |user|%>
+  
+      <div class="col-sm-2 color3 ">
+      
+        <i class="fa fa-user-circle fa-2x"></i>
+        <% if user.confirmed_for(@grupe) %>
+          <h2> Confirmed </h2>
+        <% end %>
+        <ul>
+          <li>user <%= user.id %>
+           
+          </li>
+          <li> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></li>
+        </ul>
 
+      </div>
+
+  <% end %>
+  <!--5 max in grupe, show empty spots if less than 5-->
+  <% [*@grupe.users.all.count..4].each do |placeholder|%>
+      <div class="col color3 offset-sm-1">
+        <i class="fda fa-square-o fa-2x"></i>
+        Empty
+      </div>
+  <% end %>
 
 <% end %>  <!-- end div -->
 
 
 
-<% unless @grupe.locked_in_at %>
-  <div class="row ">
-  <% if @grupe.users.all.count >= @grupe.locked_count && !current_user.confirmed_for(@grupe) %>
-  <%= link_to confirm_grupe_path(@grupe), class: "btn btn-outline-primary"  do %>
-                  Confirm grupe <i class="fa fa-cubes fa-2x"></i>
-              <% end %>
-  <% end %>
-
-    <%= link_to leave_grupe_path(@grupe), class: "btn btn-outline-danger"  do %>
-                  Leave grupe <i class="fa fa-cubes fa-2x"></i>
-              <% end %>
-  </div>
-
+<div class="row ">
+<% if @grupe.users.all.count >= @grupe.locked_count && !current_user.confirmed_for(@grupe) %>
+<%= link_to confirm_grupe_path(@grupe), class: "btn btn-outline-primary"  do %>
+                Confirm grupe <i class="fa fa-cubes fa-2x"></i>
+            <% end %>
 <% end %>
+  <%#= form_tag grupe_path(@grupe), method: :patch, remote: true do %>
+
+          <%#= submit_tag "Confirm", class: "btn btn-success" %>
+
+  <%# end %>
+
+  <%= link_to leave_grupe_path(@grupe), class: "btn btn-outline-danger"  do %>
+                Leave grupe <i class="fa fa-cubes fa-2x"></i>
+            <% end %>
+</div>
 
 <%# #####################quest area
 https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
@@ -114,12 +137,14 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
   </div>
 </div>
 
-<br/>
-<br/>
-<br/>
 
-
-
+<div class="row">
+  Details only once group is 'locked' in to meet
+  <ul>
+    <li> Time to meet, or time range, (counter counting down? lol)</li>
+    <li> </li>
+  </ul>
+</div>
 
 <!--<div class="row">-->
   <!--<a name="InfoAnchor1"></a>-->
