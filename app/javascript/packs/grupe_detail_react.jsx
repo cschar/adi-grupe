@@ -148,16 +148,25 @@ class GrupeDetailApp extends React.Component {
   }
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-  document.addEventListener('turbolinks:load', () => {
+function setApp(){
   
+  if(window.location.pathname.indexOf('/grupes') >= 0 ){
     var grupeInfo = document.querySelector("#grupeInfo").getAttribute("data-grupeInfo")
     grupeInfo =  JSON.parse(grupeInfo)
 
-    console.log("React")
+    console.log("Turbo loaded: React")
     
   ReactDOM.render(
     <GrupeDetailApp grupe={grupeInfo} />,
     document.querySelector('#react-app'),
   )
+  }
+}
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     setApp()
+// })
+
+  document.addEventListener('turbolinks:load', () => {
+    setApp()
 })

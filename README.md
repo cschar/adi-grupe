@@ -5,15 +5,15 @@ Maps/Rails Group up app
 ### Setting up 
 
 
-rails searchkick gem depends on elasticsearch: 
 ```
-brew install elasticsearch
-brew install kibana (optional, opens http://localhost:5601/)
+bundle install
 
-elasticsearch
-kibana
+rails db:migrate
 
-rake searchkick:reindex CLASS=Location
+rake gen_location_data 
+rake gen_quest_data
+
+
 
 
 bundle exec foreman start  # or bundle exec rails server etc..   
@@ -24,6 +24,17 @@ whenever
 # write the jobs to crontab
 whenever --update-crontab
 ```  
+
+
+rails searchkick gem depends on elasticsearch: 
+```
+brew install elasticsearch
+brew install kibana (optional, opens http://localhost:5601/)
+elasticsearch
+kibana
+
+rake searchkick:reindex CLASS=Location
+```
 
 
 ### Development
