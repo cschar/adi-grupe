@@ -19,7 +19,8 @@ https://gorails.com/series/in-app-messaging-between-users
 
 ##HOW to confirm a grupe?
 //show users , joining / leaving
-// when there are X users, show confirm button
+// when there are X users,
+// show confirm button
 // give 5 minutes to confirm
 
 // when confirmed, set grupe to "locked",

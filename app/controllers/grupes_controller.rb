@@ -23,6 +23,7 @@ class GrupesController < ApplicationController
   def show
 
     @quests = @grupe.quests.all
+    
   end
 
   # GET /grupes/new

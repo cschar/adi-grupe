@@ -15,6 +15,7 @@ class Grupe < ApplicationRecord
   def locked_count
     2
   end
+  
   #rails g model qglink subject:string quest:references grupe:references
   has_many :qglinks, dependent: :destroy
   has_many :quests, through: :qglinks

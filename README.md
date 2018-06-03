@@ -1,4 +1,4 @@
-# Adi <span style="color:blue"> geo game.</span>
+# Adi 
 
 experiments w/ maps and rails
 
@@ -15,7 +15,10 @@ brew install kibana (optional, opens http://localhost:5601/)
 elasticsearch
 kibana
 
-rake searchkick:reindex CLASS=<searchkick classes>   
+rake searchkick:reindex CLASS=Location
+
+
+bundle exec foreman start  # or bundle exec rails server etc..   
 ```  
 
 # See Devnotes.md for cheatsheet + ideas
