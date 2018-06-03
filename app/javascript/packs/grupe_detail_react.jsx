@@ -48,7 +48,7 @@ class GrupeRoster extends Component {
       { _.range(this.props.users.length, this.props.capacity).map( x => 
       <div className="col color3 xs-2" key={x}>
         <i className="fa fa-square-o fa-2x"></i>
-        Empty spot {x}
+        <span> Empty spot {x} </span>
       </div>
       ) }
 
@@ -116,6 +116,7 @@ class GrupeDetailApp extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timerID);
+    console.log("unmounted grupe app:" + this.props.grupe.id)
   }
 
 
@@ -150,23 +151,27 @@ class GrupeDetailApp extends React.Component {
 
 function setApp(){
   
-  if(window.location.pathname.indexOf('/grupes') >= 0 ){
+  try{
+  // if(window.location.pathname.indexOf('/grupes') >= 0 ){
     var grupeInfo = document.querySelector("#grupeInfo").getAttribute("data-grupeInfo")
     grupeInfo =  JSON.parse(grupeInfo)
 
-    console.log("Turbo loaded: React")
+    console.log("Turbo loaded: React jsx")
     
-  ReactDOM.render(
-    <GrupeDetailApp grupe={grupeInfo} />,
-    document.querySelector('#react-app'),
-  )
+    ReactDOM.render(
+      <GrupeDetailApp grupe={grupeInfo} />,
+      document.querySelector('#react-app'),
+    )
+  }catch(err){
+    console.log(err)
   }
+  
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     setApp()
-// })
-
-  document.addEventListener('turbolinks:load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     setApp()
 })
+
+//   document.addEventListener('turbolinks:load', () => {
+//     setApp()
+// })

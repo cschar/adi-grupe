@@ -45,7 +45,7 @@ task gen_quest_data: :environment do
     <div>
       <h2> Beer brewer </h2>
       <i class="fa fa-beer fa-2x"></i>
-      <div class="color2"> User <%= @grupe.users.first ? @grupe.users.first.display_name : ""%> : </div>
+      <div class="color2"> Users  : Voted best pastime for 2nd century </div>
       <pre>
         Beer connaisseurs.
         Brewing tips.

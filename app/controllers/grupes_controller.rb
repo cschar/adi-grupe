@@ -30,6 +30,7 @@ class GrupesController < ApplicationController
   def new
     @GET_location_id = params[:location_id]
     @grupe = Grupe.new
+    @grupe.name = FFaker::Color.name  + " " + FFaker::CheesyLingo.sentence.split(" ").sample
   end
 
   # GET /grupes/1/edit

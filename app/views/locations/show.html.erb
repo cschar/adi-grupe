@@ -13,13 +13,27 @@
   <div class="col" >
     <% @grupes.all.each do |grupe|%>
         <!--Grupe list component-->
-        <div class="d-flex p-2 "> <span class="color2"><%= grupe.name %>--</span></div>
+        <div class="row">
+          <div class="col-md-6 p-2">
+            <span class="color2  d-flex p-2"><%= grupe.name %>--</span>
+          </div>
+          
+          <div class="col">
+          <div class="col-md-2 pull-left">
+             <%= link_to "view details", grupe, class: "btn btn-outline-primary" %> <br/>
+            <%= link_to join_grupe_path(grupe.id), class: "btn btn-outline-primary"  do %>
+                Join up <i class="fa fa-cubes fa-2x"></i>
+            <% end %>
+          </div>
+          </div>
+          
+        </div>
         <div class="row ">
           <% grupe.users.all.each do |user|%>
               <div class="col-md-2 color3 ">
             <i class="fa fa-user-circle fa-2x"></i>
                 <li class="list-group-item"> <%= user.id %></li>
-                <span class="d-block p-2 "><%= user.myname_meth %></span>
+                
                 <span class="d-block p-2 "> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></span>
 
                   <li class="list-group-item">  <i class="fa fa-clock-o fa-1x"></i>
@@ -31,19 +45,21 @@
           <% end %>
           <!--5 max in grupe, show empty spots if less than 5-->
           <% [*1..(5-grupe.users.count)].each do |placeholder|%>
-              <div class="col">
+              <div class="col-sm-2">
                 <i class="fa fa-square-o fa-2x"></i>
                   nil
               </div>
           <% end %>
 
 
+<!--
           <div class="col-md-2 pull-left">
              <%= link_to "view details", grupe %> <br/>
             <%= link_to join_grupe_path(grupe.id), class: "btn btn-outline-primary"  do %>
                 Join up <i class="fa fa-cubes fa-2x"></i>
             <% end %>
           </div>
+   -->       
         </div>
 
 

@@ -41,10 +41,10 @@ staging:
   only:
   - master
 
-production:
-  stage: deploy
-  script:
-  - gem install dpl
-  - dpl --provider=heroku --app=gitlab-ci-ruby-test-prod --api-key=$HEROKU_PRODUCTION_API_KEY
-  only:
-  - deploytagofmychoice
+# production:
+#   stage: deploy
+#   script:
+#   - gem install dpl
+#   - dpl --provider=heroku --app=gitlab-ci-ruby-test-prod --api-key=$HEROKU_PRODUCTION_API_KEY
+#   only:
+#   - deploytagofmychoice

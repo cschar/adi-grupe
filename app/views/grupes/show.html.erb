@@ -1,6 +1,6 @@
 
 <%#= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'grupe_detail_react' %>
+<%#= javascript_pack_tag 'grupe_detail_react' %>
 
 <%= tag.div nil, id: 'grupeInfo',  data: { grupeInfo: @grupe} %>
 
@@ -59,7 +59,7 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
 <a name="InfoAnchor2 "></a>
 <div class="row ">
-  <div class="col-sm-10">
+  <div class="col-md-6">
     <div class="d-flex flex-column ">
       <% @grupe.qglinks.each_with_index do |qglink, index| %>
 
@@ -90,29 +90,29 @@ https://getbootstrap.com/docs/4.0/layout/grid/#variable-width-content
 
     </div>
 
-  </div>
-
-  <div class="col-sm-2">
   <% if @grupe.creator_id == current_user.id %>
     <%= link_to add_quest_grupe_path(@grupe)  do %>
         Add a quest <i class="fa fa-plus-circle fa-1x"></i>
     <% end %>
   <% end %>
-    
+  
+
   </div>
 
 
-</div>
-
-
-
-<div class="row">
-  <div class="col">
+  <div class="col-md-6">
 
     <%= render partial: "grupecomments" %>
 
   </div>
+
+
 </div>
+
+
+
+
+
 
 <br/>
 <br/>
