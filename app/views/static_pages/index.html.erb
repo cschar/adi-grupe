@@ -1,19 +1,19 @@
 
 
 
-<div class="jumbotron">
+<div class="row">
   
-    <div class="row" class="footest">
-        <div class="col sm-4">
+    <div class="">
+        <div class="">
              <%= image_tag("gruper1.jpg",
               {:style => "width:400px;"})
                %>
         </div>
 
-        <div class="col sm-4">
-        <h5> grupe up </h5>
-        <h4> with </h4>
-        <h1> gruepers </h1>
+        <div class="">
+            <h5> grupe up </h5>
+            <h4> with </h4>
+            <h1> gruepers </h1>
             <%#= link_to new_user_registration_path(),
               class: "btn btn-lg btn-primary" do %> 
          <!-- <i class="fa fa-thumbs-up fa-2x"></i> Sign up -->
@@ -22,9 +22,10 @@
 
     </div>
 
-  <div class="row">
-    
-  </div>
+    <script >
+        document.body.style.backgroundImage = "url('<%= image_url("gruper1.jpg") %>')"
+        document.body.style.backgroundSize = 'contain'
+    </script>
 
 
 
