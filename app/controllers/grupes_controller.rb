@@ -82,9 +82,12 @@ class GrupesController < ApplicationController
     
     # grupe_users = @grupe.users
 
+    # for now
+    ## Confirmed/locked_in as soon as grupe is full,... thats it!
+
     respond_to do |format|
       # if @grupe.users.count == 5
-      if @grupe.users.count >= 2
+      if @grupe.users.count >= @grupe.capacity
       
         gup = current_user.gups.where(grupe: @grupe).first
         gup.confirmed_time = DateTime.now

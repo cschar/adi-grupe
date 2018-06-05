@@ -2,7 +2,9 @@
 <%#= javascript_pack_tag 'grupe_detail', 'data-turbolinks-track': 'reload' %>
 <%#= javascript_pack_tag 'grupe_detail_react' %>
 
-<%= tag.div nil, id: 'grupeInfo',  data: { grupeInfo: @grupe} %>
+
+
+
 
 <%= tag.div id: "single-grupe-quests-info",
             data: { questsinfo: @quests.to_json(methods: [:times_done_today])
@@ -28,7 +30,11 @@
 
 <% end %>
 
-<div id='react-app'> </div>
+<%#= tag.div nil, id: 'grupeInfo',  data: { grupeInfo: @grupe} %>
+
+<%= react_component('GrupeDetailApp', { grupe: @grupe },
+   tag: :div,
+   class: '') %>
 
 <%= tag.div class: "row" do %>
 
@@ -40,7 +46,7 @@
 
 <% unless @grupe.locked_in_at %>
   <div class="row ">
-  <% if @grupe.users.all.count >= @grupe.locked_count && !current_user.confirmed_for(@grupe) %>
+  <% if @grupe.users.count >= @grupe.capacity && !current_user.confirmed_for(@grupe) %>
   <%= link_to confirm_grupe_path(@grupe), class: "btn btn-outline-primary"  do %>
                   Confirm grupe <i class="fa fa-cubes fa-2x"></i>
               <% end %>

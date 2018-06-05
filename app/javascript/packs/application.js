@@ -9,3 +9,13 @@
 
 require('./maps');
 
+// import {GrupeDetailApp} from 'components/GrupeDetailApp'
+import {GrupeDetailApp, RosterIcon} from 'GrupeDetailApp'
+import WebpackerReact from 'webpacker-react'
+
+// import Turbolinks from 'turbolinks'
+// 
+// Turbolinks.start()
+
+// WebpackerReact.setup({GrupeDetailApp}) // ES6 shorthand for {Hello: Hello}
+WebpackerReact.setup({RosterIcon, GrupeDetailApp})

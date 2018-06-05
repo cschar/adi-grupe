@@ -149,28 +149,30 @@ class GrupeDetailApp extends React.Component {
   }
 }
 
-function setApp(){
-  
-  try{
-  // if(window.location.pathname.indexOf('/grupes') >= 0 ){
-    var grupeInfo = document.querySelector("#grupeInfo").getAttribute("data-grupeInfo")
-    grupeInfo =  JSON.parse(grupeInfo)
+export {GrupeDetailApp , RosterIcon};
 
-    console.log("Turbo loaded: React jsx")
+// function setApp(){
+  
+//   try{
+//   // if(window.location.pathname.indexOf('/grupes') >= 0 ){
+//     var grupeInfo = document.querySelector("#grupeInfo").getAttribute("data-grupeInfo")
+//     grupeInfo =  JSON.parse(grupeInfo)
+
+//     console.log("Turbo loaded: React jsx")
     
-    ReactDOM.render(
-      <GrupeDetailApp grupe={grupeInfo} />,
-      document.querySelector('#react-app'),
-    )
-  }catch(err){
-    console.log(err)
-  }
+//     ReactDOM.render(
+//       <GrupeDetailApp grupe={grupeInfo} />,
+//       document.querySelector('#react-app'),
+//     )
+//   }catch(err){
+//     console.log(err)
+//   }
   
-}
+// }
 
-document.addEventListener('DOMContentLoaded', () => {
-    setApp()
-})
+// document.addEventListener('DOMContentLoaded', () => {
+//     setApp()
+// })
 
 //   document.addEventListener('turbolinks:load', () => {
 //     setApp()
