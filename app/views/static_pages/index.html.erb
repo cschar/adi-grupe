@@ -5,27 +5,38 @@
   
     <div class="">
         <div class="">
-             <%= image_tag("gruper1.jpg",
-              {:style => "width:400px;"})
+            <% ab_test(:splash_page,
+                      {'gruper1.jpg' => 5}, {'gruper2.jpg' => 10}) do |alternative| %>
+                <script >
+                    document.body.style.backgroundImage = "url('<%= image_url(alternative) %>')"
+                    document.body.style.backgroundSize = 'contain'
+                </script>
+                 <%= image_tag(alternative,
+                    {:style => "width:400px;"})
                %>
+            <% end %>
+            
         </div>
 
         <div class="">
             <h5> grupe up </h5>
             <h4> with </h4>
             <h1> gruepers </h1>
-            <%#= link_to new_user_registration_path(),
-              class: "btn btn-lg btn-primary" do %> 
-         <!-- <i class="fa fa-thumbs-up fa-2x"></i> Sign up -->
-             <%# end %>
+
+            <% unless user_signed_in? %>
+                <% ab_test(:sign_up_link_class, 'btn-success', 'btn-primary') do |alternative| %>
+                    <%= link_to new_user_registration_path(),
+                    class: "btn " + alternative do %> 
+
+                 <i class="fa fa-circle-o-notch fa-2x"></i> Sign up
+                    <% end %>
+                <% end %>
+            <% end %>
         </div>
 
     </div>
 
-    <script >
-        document.body.style.backgroundImage = "url('<%= image_url("gruper1.jpg") %>')"
-        document.body.style.backgroundSize = 'contain'
-    </script>
+
 
 
 

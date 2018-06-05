@@ -8,6 +8,7 @@
 
 User.destroy_all
 
+
 u = User.new(
             :email=>'c3@c.com',
             :password=>'horahora',
@@ -22,17 +23,10 @@ u2 = User.new(
 )
 u2.save
 
-
-
-
-
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-
-require 'csv'
-
-Transaction.destroy_all
-
-CSV.foreach("db/Sacramentorealestatetransactions.csv", headers: true) do |line|
-  Transaction.create! line.to_hash.except(*%w{type latitude longitude})
-end
+# Transaction.destroy_all
+# require 'csv'
+# CSV.foreach("db/Sacramentorealestatetransactions.csv", headers: true) do |line|
+#   Transaction.create! line.to_hash.except(*%w{type latitude longitude})
+# end
