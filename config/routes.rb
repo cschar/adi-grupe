@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Split:dashboard, at: "split"
+
   resources :quests
   resources :locations
 

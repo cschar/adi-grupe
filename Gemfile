@@ -35,6 +35,9 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'webpacker-react', "~> 0.3.2"
 
+# a/b split testing
+gem 'split', require: 'split/dashboard'
+
 # gem 'react_on_rails', '~> 7.0', '>= 7.0.4'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
