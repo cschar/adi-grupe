@@ -48,6 +48,8 @@ rake searchkick:reindex CLASS=Location
 heroku login
 heroku create
 heroku addons:create heroku-postgresql:hobby-dev
+heroku addons:create heroku-redis:hobby-dev   ## a/b split testing 
+
 heroku config:set GOOGLE_GEOCODER_API_KEY=<key>
 heroku config:set GOOGLE_MAPS_JS_API_KEY=<key>
 heroku run rails db:migrate
