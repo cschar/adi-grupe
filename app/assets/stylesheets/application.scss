@@ -47,6 +47,21 @@ $color4: #e94e75;
   background-color: $color4;
 }
 
+
+//fullscreen class on video element
+video.fullscreen { 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  transform: translate(-50%, -50%);
+}
+
+
 /////////////////////
 ////////////////////
 //bootstrap override
