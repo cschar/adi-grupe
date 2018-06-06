@@ -103,6 +103,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-selenium (0.0.6)
+      capybara
+      selenium-webdriver
     carrierwave (1.2.2)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -152,6 +155,11 @@ GEM
     every_day_irb (2.0.0)
       cd (~> 1.0)
     execjs (2.7.0)
+    factory_bot (4.10.0)
+      activesupport (>= 3.0.0)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
+      railties (>= 3.0.0)
     fancy_irb (1.1.0)
       paint (>= 0.9, < 3.0)
       unicode-display_width (~> 1.1)
@@ -257,6 +265,20 @@ GEM
     mini_mime (0.1.4)
     mini_portile2 (2.3.0)
     minitest (5.11.1)
+    minitest-capybara (0.8.2)
+      capybara (~> 2.2)
+      minitest (~> 5.0)
+      rake
+    minitest-metadata (0.6.0)
+      minitest (>= 4.7, < 6.0)
+    minitest-rails (3.0.0)
+      minitest (~> 5.8)
+      railties (~> 5.0)
+    minitest-rails-capybara (3.0.1)
+      capybara (~> 2.7)
+      minitest-capybara (~> 0.8)
+      minitest-metadata (~> 0.6)
+      minitest-rails (~> 3.0)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -463,9 +485,11 @@ DEPENDENCIES
   bootstrap4-kaminari-views
   byebug
   capybara (~> 2.13)
+  capybara-selenium
   coffee-rails (~> 4.2)
   devise (~> 4.2)
   dotenv (~> 2.2.1)
+  factory_bot_rails (~> 4.0)
   ffaker
   font-awesome-rails
   foreman
@@ -478,6 +502,7 @@ DEPENDENCIES
   kaminari
   listen (>= 3.0.5, < 3.2)
   mailboxer!
+  minitest-rails-capybara
   omniauth-facebook (~> 4.0)
   omniauth-github (~> 1.1, >= 1.1.2)
   omniauth-twitter
