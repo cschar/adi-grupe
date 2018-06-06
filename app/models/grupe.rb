@@ -26,7 +26,7 @@ class Grupe < ApplicationRecord
   has_many :gups, dependent: :destroy
   has_many :users, through: :gups
 
-  scope active_yesterday -> { where('updated_at BETWEEN ? AND ?', 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
+  #scope active_yesterday -> { where('updated_at BETWEEN ? AND ?', 1.day.ago.beginning_of_day, 1.day.ago.end_of_day) }
 
   # rails g migration CreateJoinTableUsersGrupes users groups
   # has_and_belongs_to_many :users
