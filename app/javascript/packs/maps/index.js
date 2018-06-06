@@ -43,7 +43,14 @@ window.addLocationMarkers = function addLocationMarkers() {
                 infoWindow: {
                     content: `<div>
             <i class="fa fa-flask pull-left"></i>
-<p><a href='/locations/${location.id}'>${location.my_tostring}</a></p>
+<p>
+<a href='https://google.com/maps?q=${location.latitude},${location.longitude}' target='_blank'> View on google maps</a>
+</p>
+
+<div class="color1">
+    Check grupes at: <br/> 
+    <a href='/locations/${location.id}'>${location.my_tostring}</a>
+</div>
 
 </div>`
                 }

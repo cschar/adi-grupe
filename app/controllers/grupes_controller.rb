@@ -61,11 +61,10 @@ class GrupesController < ApplicationController
 
 
   def join
-    grupe_users = @grupe.users
-
+    
     respond_to do |format|
       # debugger
-      if grupe_users.count < 5 and not grupe_users.exists?(current_user.id)
+      if @grupe.users.count < @grupe.capacity and not @grupe.users.exists?(current_user.id)
         
         Gup.create user: current_user, grupe: @grupe
 

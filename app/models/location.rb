@@ -24,7 +24,7 @@ class Location < ApplicationRecord
 
 
   def my_tostring
-    ["custom address" ,latitude, "  ",longitude].join("--")
+    name + "  " + ["@" ,latitude.round(4), "  ",longitude.round(4)].join("--")
   end
 
   def open_grupes
