@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
   get '/settings/weird', to: 'static_pages#settings_weird'
+  post '/settings/weird', to: 'static_pages#settings_weird_post'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

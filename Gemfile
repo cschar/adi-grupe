@@ -68,6 +68,7 @@ gem 'graphql'
 
 gem 'activeadmin', github: 'activeadmin'
 gem 'ffaker'
+gem 'activerecord-typedstore' 
 
 gem 'webpacker', '~> 3.0'
 gem 'geocoder'

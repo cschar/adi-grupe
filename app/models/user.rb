@@ -18,12 +18,26 @@
 #  points                 :integer          default(0)
 #  provider               :string(50)       default(""), not null
 #  uid                    :string(500)      default(""), not null
+#  settings               :text
+#  preferences            :json
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
+
+module IdentityCoder
+  extend self
+
+  def load(data)
+    data || {}
+  end
+
+  def dump(data)
+    data || {}
+  end
+end
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -53,6 +67,30 @@ class User < ApplicationRecord
 
    #### mailboxer
    acts_as_messageable
+
+   #### active record store
+   # http://api.rubyonrails.org/classes/ActiveRecord/Store.html
+   ## since settings column is text, we have to use store method
+   store :settings, accessors: [ :weekly_email, :monthly_newsletter], coder: JSON  #JSON/YML etc.
+
+   ###  preferences is json column, so store_accessor used
+   store_accessor :preferences, :start_location
+
+  #  typed_store :settings, coder: JSON do |s|
+  #   s.string :weekly_email, default: true
+  #   s.string :monthly_newsletter, default: true
+  #  end
+
+  #  typed_store :preferences, coder: IdentityCoder do |a|
+  #   #a.string :start_location, default: "o"
+  #  end
+
+  # manual typed-store esque
+  def weekly_email
+    ActiveModel::Type::Boolean.new.cast(super.to_s)
+  end
+
+  
 
    def myname_meth
      "User [][][][]]  #{id}"

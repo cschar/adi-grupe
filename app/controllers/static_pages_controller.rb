@@ -31,4 +31,16 @@ class StaticPagesController < ApplicationController
   def settings_weird
 
   end
+
+  def settings_weird_post
+      
+
+      current_user.settings[:weekly_email] = params[:weekly_email] == 'true'
+      current_user.preferences = { :start_location => params[:start_location] }
+      current_user.save
+
+      redirect_to settings_weird_path
+  end
+
+
 end

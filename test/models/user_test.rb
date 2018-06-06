@@ -18,6 +18,8 @@
 #  points                 :integer          default(0)
 #  provider               :string(50)       default(""), not null
 #  uid                    :string(500)      default(""), not null
+#  settings               :text
+#  preferences            :json
 #
 # Indexes
 #

@@ -1,6 +1,38 @@
 
 <div style="background-color:transparent">
   <h1> <%= FFaker::Food.herb_or_spice %> </h1>
+
+  
+    <div>
+      
+        
+    </div>
+
+    <%= form_tag "/settings/weird", method: :post, remote: false do |form| %>
+      <div>
+          <%#= text_field_tag :location, nil, size: 50 , placeholder: "set", class: "" %>
+      </div>
+
+      <div>
+          <%= label_tag( :weekly_email, "Weekly email") %>        
+          <%= check_box_tag( :weekly_email, "true", current_user.weekly_email ) %>
+      </div>
+      <div>
+
+      
+      <h1>
+      
+          <%= label_tag( :start_location, "Set Starting location: ") %>
+          <%= select_tag( :start_location, options_for_select(["o", "m"]),  ) %>        
+          <h3> (Current location: <%= current_user.start_location %>) </h3>
+          </h1>
+      </div>
+        <br/>
+          <%= submit_tag "Save settings", class: "btn btn-primary" %>
+
+  <% end %>
+
+
   <video playsinline autoplay muted loop>
 
   <source src="/gruper1-flip-yellow.mp4" type="video/mp4">
