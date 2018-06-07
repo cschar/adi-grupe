@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
   }
 
+  
   get '/users/profile', to: 'user_info#profile'
 
 
