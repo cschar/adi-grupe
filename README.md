@@ -94,4 +94,9 @@ heroku run rake gen_quest_data
 # Heroku wont use whenever crontab, uses 'Scheduler' instead
 https://devcenter.heroku.com/articles/scheduler
 heroku addons:create scheduler:standard
+
+
+# Since scheduler costs $$$, can cleanup manually:
+heroku run rails console
+Grupe.clean_up_expired_grupes
 ```

@@ -9,10 +9,9 @@ const RegisteredComponentTypes = {
   GrupeDetailApp : GrupeDetailApp
 };  
 
-console.log("react loader loaded")
+
 
 function load_it(){
-console.log("react loader fired")
 
 const extractProps = (el) =>
  JSON.parse(el.getAttribute("data-react-props"))

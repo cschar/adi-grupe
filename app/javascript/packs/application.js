@@ -26,6 +26,6 @@ import WebpackerReact from 'webpacker-react'
 import {load_it} from './utils/react_loader'
 import {unload_it} from './utils/react_unloader'
 
-console.log("web")
+
 document.addEventListener("turbolinks:load", load_it);
 document.addEventListener("turbolinks:before-render", unload_it);
