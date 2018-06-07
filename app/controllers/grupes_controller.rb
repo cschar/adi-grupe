@@ -44,7 +44,7 @@ class GrupesController < ApplicationController
 
     #@grupe.users << current_user ## equivalent of #Gup.create user: current_user, grupe: @grupe
     Gup.create user: current_user, grupe: @grupe, is_creator: true
-
+    
     @grupe.creator_id = current_user.id
     
 
@@ -151,6 +151,6 @@ class GrupesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grupe_params
-      params.require(:grupe).permit(:name, :location_id)
+      params.require(:grupe).permit(:name, :location_id, :capacity)
     end
 end

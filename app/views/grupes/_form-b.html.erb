@@ -1,4 +1,6 @@
 <%= form_with(model: grupe, local: true) do |form| %>
+<div class="form-row align-items-center">
+<div class="col-auto">
   <% if grupe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(grupe.errors.count, "error") %> prohibited this grupe from being saved:</h2>
@@ -21,7 +23,17 @@
     <%= form.number_field :location_id, {id: :grupe_location_id, value: @GET_location_id} %>
   </div>
 
+  <div class="field">
+    <%= form.label :grupe_capacity %>
+    <%#= form.number_field :capacity, {id: :grupe_capacity, value: 2} %>
+          <%= form.select :capacity , options_for_select([2,3,4,5]),
+                     id: :grupe_capacity,
+                     class: "form-control form-control-lg "%>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
+  </div>
+  </div>
   </div>
 <% end %>

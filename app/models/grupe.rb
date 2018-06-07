@@ -13,7 +13,8 @@
 #
 
 class Grupe < ApplicationRecord
-  
+  validate :valid_capacity
+
   def locked_count
     2
   end
@@ -41,6 +42,12 @@ class Grupe < ApplicationRecord
   def self.clean_up_expired_grupes
     expiry_time = DateTime.now - 5.hours
     Grupe.where('locked_in_at < ?', expiry_time).destroy_all
+  end
+
+  def valid_capacity
+    if capacity < 2 || capacity > 5
+      errors.add(:capacity, "Capacity must be between 2 and 5")
+    end
   end
 
 
