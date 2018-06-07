@@ -6,17 +6,15 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
 
-    puts params[:checkedDrag]
-    puts 'checked drag'
+    
     if params[:checkedDrag] != nil
       @checkedDrag = params[:checkedDrag]
     else
       @checkedDrag = true
     end
 
-    # @transactions = Transaction.all
     @current_page = params[:page] ||= 1
-    puts "current & page #{@current_page} #{params[:page]}"
+    #puts "current & page #{@current_page} #{params[:page]}"
 
 
     @locations = if params[:l] && params[:page]

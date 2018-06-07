@@ -15,8 +15,8 @@ rake gen_quest_data
 
 
 
-
-bundle exec foreman start  # or bundle exec rails server etc..   
+alias 'be'='bundle exec'
+be foreman start  # or bundle exec rails server etc..   
 
 # https://github.com/javan/whenever
 # see background jobs set up in config/schedule.rb
@@ -37,7 +37,16 @@ rake searchkick:reindex CLASS=Location
 ```
 
 
-### Development
+### Development / Testing
+
+```
+## Acceptance tests: chrome driver via capybara
+be rspec
+
+## integration
+be rails test test/integration/*
+```
+
 
 
 # See Devnotes.md for cheatsheet + ideas
