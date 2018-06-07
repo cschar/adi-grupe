@@ -96,3 +96,6 @@ search for grupes with similar quests / quester attributes (likes pingpong/ like
 search available quests
 
 enter auto-gruper (chooses from premiere / high rated locations) 
+
+# checkbox ui
+https://lokesh-coder.github.io/pretty-checkbox/

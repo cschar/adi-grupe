@@ -5,12 +5,18 @@
 <%= csrf_meta_tags %>
 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<%= favicon_link_tag asset_path('gruper1.jpg'), :rel => 'icon', :type =>  'image/jpg' %>
+<%#= favicon_link_tag asset_path('gruper1.ico'), :rel => 'icon', :type => "image/x-icon" %>
+
 
 <%= javascript_include_tag "//maps.google.com/maps/api/js?key="+String(ENV['GOOGLE_MAPS_JS_API_KEY']),
                            'application', 'data-turbolinks-track': 'reload' %>
 
 <!--webpacker packs-->
+
+
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_pack_tag 'foo', 'data-turbolinks-track': 'reload' %>
 
 <%#=  data-turbolinks-track: 'reload'to force a full page reload when you deploy a new JavaScript bundle %>
 <%#= javascript_pack_tag 'grupe_detail_react', 'data-turbolinks-track': 'reload' %>

@@ -1,6 +1,6 @@
 
 <div style="background-color:transparent">
-  <h1> <%= FFaker::Food.herb_or_spice %> </h1>
+  
 
   
     <div>
@@ -14,29 +14,79 @@
       </div>
 
       <div>
-          <%= label_tag( :weekly_email, "Weekly email") %>        
-          <%= check_box_tag( :weekly_email, "true", current_user.weekly_email ) %>
+          <%#= label_tag( :weekly_email, "Weekly email") %>        
+          <%#= check_box_tag( :weekly_email, "true", current_user.weekly_email ) %>
       </div>
-      <div>
 
-      
-      <h1>
-      
-          <%= label_tag( :start_location, "Set Starting location: ") %>
-          <%= select_tag( :start_location, options_for_select(["o", "m"]),  ) %>        
-          <h3> (Current location: <%= current_user.start_location %>) </h3>
-          </h1>
+      <h2>
+      <div class="pretty p-icon p-toggle p-plain p-bigger p-pulse">
+        <input type="checkbox" value="true" name="weekly_email"
+          <% if current_user.weekly_email %> checked="checked" <% else %> "" <% end %>
+        />
+        <div class="state p-off">
+            <i class="icon fa fa-envelope-o "></i>
+            <label>Email now off</label>
+        </div>
+        <div class="state p-on p-info-o">
+            <i class="icon fa fa-envelope"></i>
+            <label>Email now on</label>
+        </div>
       </div>
+      </h2>
+    
+  
+       <!-- 
+        <div>
+          <h1>
+            <%#= label_tag( :start_location, "Set Starting location: ") %>
+            <%#= select_tag( :start_location, options_for_select(["o", "m"]),  ) %>        
+            <h3> (Current location: <%= current_user.start_location %>) </h3>
+          </h1>
+        </div>
+        -->
+
+<br/>
+<div>
+        
+
+  <video playsinline autoplay muted loop>
+
+  <source src="/gruper1-flip-yellow.mp4" type="video/mp4">
+</video> 
+
+          <h4> Starting Location: </h4>
+</div>
+        
+    <div> <h1>
+        <div class="pretty p-icon p-round p-pulse">
+        <input type="radio" name="start_location"
+        <% if current_user.start_location == 'o' %> checked="checked" <% else %> "" <% end %>
+         value="o"/>
+        <div class="state p-info">
+            <i class="icon mdi mdi-check"></i>
+            <label>Ott</label>
+        </div>
+    </div>
+    </h1>
+
+    <h1>
+    <div class="pretty p-icon p-round p-pulse ">
+        <input type="radio" name="start_location"
+        <% if current_user.start_location == 'm' %> checked="checked" <% else %> "" <% end %>
+         value="m" />
+        <div class="state p-warning">
+            <i class="icon mdi mdi-check"></i>
+            <label>Mon</label>
+        </div>
+    </div>
+    </h1>
+
         <br/>
           <%= submit_tag "Save settings", class: "btn btn-primary" %>
 
   <% end %>
 
 
-  <video playsinline autoplay muted loop>
-
-  <source src="/gruper1-flip-yellow.mp4" type="video/mp4">
-</video> 
 </div>
 
 <video class="fullscreen" playsinline autoplay muted loop>
