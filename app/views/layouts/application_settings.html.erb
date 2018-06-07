@@ -41,6 +41,27 @@
               <div class="color4 pl-2">
                 <h3 class="bg-white pl-1 text-primary">
                   <i class="fa fa-cutlery fa-1x"></i>
+                   Fork and Knife Settings >> <br/> >> </h3>
+              </div>
+          <% else %>
+              Fork and Knife Settings >> <i class="fa fa-cutlery fa-1x"></i>
+          <% end %>
+      <% end %>
+
+      
+      <a class="list-group-item list-group-item-action list-group-item-danger" href="#">
+        Future Settings page for a zoobar boop </a>
+
+
+<% if false %>
+
+              <%= link_to "/settings/weird",
+                  class: "nav-link list-group-item list-group-item-action" do %>
+
+          <% if request.path == '/settings/weird' %>
+              <div class="color4 pl-2">
+                <h3 class="bg-white pl-1 text-primary">
+                  <i class="fa fa-cutlery fa-1x"></i>
                   Future Settings page for something weird >> <br/> >> </h3>
               </div>
           <% else %>
@@ -48,13 +69,10 @@
           <% end %>
       <% end %>
 
-
-      <a class="list-group-item list-group-item-action list-group-item-danger" href="#">
-        Future Settings page for something important </a>
       <a class="list-group-item list-group-item-action" href="#">
         Future Settings page for annoying configuration >>
       </a>
-
+<% end %>
 
 
 
