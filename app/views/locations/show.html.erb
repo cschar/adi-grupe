@@ -7,9 +7,10 @@
 
 
 <h2><%= @location.name %> -- <%= @location.ltype %>
-  <span class="pull-right">location <%= @location.id %></span>
+  <span class="float-right">location <%= @location.id %></span>
 </h2>
-<div class="row">
+
+<div class="row no-gutters">
   <div class="col" >
     <% @grupes.all.each do |grupe|%>
         <!--Grupe list component-->
@@ -28,24 +29,26 @@
           </div>
           
         </div>
-        <div class="row ">
+        <div class="row no-gutters">
           <% grupe.users.all.each do |user|%>
-              <div class="col-md-2 color3 ">
+              <div class="col-2 color3 ">
             <i class="fa fa-user-circle fa-2x"></i>
-                <li class="list-group-item"> <%= user.id %></li>
-                
+                <div class="list-group-item"> <%= user.id %></div>
+
+             <% if false %>  
                 <span class="d-block p-2 "> <%=  FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample  %></span>
 
                   <li class="list-group-item">  <i class="fa fa-clock-o fa-1x"></i>
                     <i class="fa fa-wrench fa-1x"></i>
                   </li>
+                 <% end %>
 
               </div>
 
           <% end %>
           <!--5 max in grupe, show empty spots if less than 5-->
           <% [*1..(grupe.capacity - grupe.users.count)].each do |placeholder|%>
-              <div class="col-sm-2">
+              <div class="col-2">
                 <i class="fa fa-square-o fa-2x"></i>
                   nil
               </div>
@@ -67,7 +70,7 @@
     <% end %>
 
   </div>
-  <div class="col-4">
+  <div class="col-5">
 
     <%= tag.div nil, id: 'map' %>
 
