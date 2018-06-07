@@ -73,7 +73,12 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  
+  # config.before(:suite) do
+  #   # Compile our JavaScript
+  #   `bin/webpack`
+  #   # Load our JavaScript
+  #   Webpacker::Manifest.load
+  # end  
   
   config.before(:each, type: :feature) do
     # if Capybara.current_driver == :rack_test
@@ -82,6 +87,8 @@ RSpec.configure do |config|
     if Capybara.current_driver == :chrome
       Capybara.current_session.driver.browser.manage.window.resize_to(800, 600)
     end
+
+    
 
   end
 

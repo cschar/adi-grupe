@@ -3,17 +3,6 @@
 <%#= javascript_pack_tag 'grupe_detail_react' %>
 
 
-    <%= m_react_component('RosterIcon', 
-                         { name: 'clicker',
-                           confirmed: true}) %>
-     
-         <%= m_react_component('RosterIcon', 
-                         { name: 'clicker3',
-                           confirmed: false}) %>
-
-  <%= m_react_component('GrupeDetailApp', 
-                         { grupe: @grupe }) %>
-
 <%= tag.div id: "single-grupe-quests-info",
             data: { questsinfo: @quests.to_json(methods: [:times_done_today])
             }  %>
@@ -43,6 +32,9 @@
 <%#= react_component('GrupeDetailApp', { grupe: @grupe },
    tag: :div,
    class: '') %>
+
+  <%= m_react_component('GrupeDetailApp', 
+                         { grupe: @grupe }) %>
 
 <%= tag.div class: "row" do %>
 
