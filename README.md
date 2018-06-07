@@ -40,6 +40,11 @@ rake searchkick:reindex CLASS=Location
 ### Development / Testing
 
 ```
+be rake about
+
+#builds into public/packs-test, set in config/webpacker.yml
+RAILS_ENV=test ./bin/webpack  
+
 ## Acceptance tests: chrome driver via capybara
 be rspec
 

@@ -18,4 +18,14 @@ import WebpackerReact from 'webpacker-react'
 // Turbolinks.start()
 
 // WebpackerReact.setup({GrupeDetailApp}) // ES6 shorthand for {Hello: Hello}
-WebpackerReact.setup({RosterIcon, GrupeDetailApp})
+//WebpackerReact.setup({RosterIcon, GrupeDetailApp})
+
+// document.addEventListener("turbolinks:load", reactLoader);
+// document.addEventListener("turbolinks:before-render", reactUnLoader);
+
+import {load_it} from './utils/react_loader'
+import {unload_it} from './utils/react_unloader'
+
+console.log("web")
+document.addEventListener("turbolinks:load", load_it);
+document.addEventListener("turbolinks:before-render", unload_it);
