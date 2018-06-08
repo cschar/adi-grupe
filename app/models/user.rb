@@ -98,6 +98,9 @@ class User < ApplicationRecord
     ActiveModel::Type::Boolean.new.cast(super.to_s)
   end
 
+  def start_region
+    
+  end
   
 
    def myname_meth

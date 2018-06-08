@@ -71,6 +71,15 @@ https://www.waze.com/carpool/
 be rails g geocoder:config
 be rails geocode:all CLASS=Transaction SLEEP=0.25 BATCH=100
 
+## location search controller postgreql vs ElasticSearch
+
+when seraching for data, 
+user has start_location, can either use 
+
+1.'near' in elastisearch + Google Geocoder API
+
+or, more frugally, with just postgreseql
+2. hardcoded 'region' column on location to search
 
 
 # quick demo for slack etc..

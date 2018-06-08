@@ -15,6 +15,7 @@ task gen_location_data: :environment do
     location = Location.create!(
       name: h["Name"] + " starbucks",
       ltype: "Starbucks",
+      region: "Ottawa",
       longitude: h["Longitude"],
       latitude: h["Latitude"])
 

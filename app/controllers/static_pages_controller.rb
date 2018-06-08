@@ -39,9 +39,9 @@ class StaticPagesController < ApplicationController
       
       # replace with some params permit magic
       if params[:start_location] == "o"
-        current_user.start_location = "o"
+        current_user.start_location = "Ottawa"
       elsif params[:start_location] == "m"
-        current_user.start_location = "m"
+        current_user.start_location = "Montreal"
       end
       current_user.save
 

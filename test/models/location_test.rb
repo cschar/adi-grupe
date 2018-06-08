@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  total_grupes    :integer          default(0)
 #  recent_quest_id :integer
+#  region          :text
 #
 
 require 'test_helper'

@@ -1,10 +1,18 @@
 <%#= javascript_pack_tag 'location', 'data-turbolinks-track': 'reload' %>
 
-
+<div class="row">
+<div class="col-8">
 <%= form_with(url: locations_path, class: "form-inline my-2 my-lg-0 mr-auto", local: true, method: :get) do |f| %>
+    
     <%= f.text_field :near, class: "form-control mr-sm-2", placeholder: "Search" %>
     <%= f.submit "Search", class: "btn btn-outline-secondary my-2 my-sm-0" %>
+    
 <% end %>
+</div>
+<div class="col-4">
+  <a href="settings/weird"> change start location </a>
+</div>
+</div>
 
 <h1>Locations  ( <%= @locations.total_count %> )</h1>
 

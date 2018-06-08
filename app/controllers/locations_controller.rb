@@ -6,6 +6,11 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
 
+    # Location sort by Region sorting strategy 1
+    # rely on Google Geocode
+    # if params[:near] == nil || params[:near].strip == ""
+    #   params[:near] = current_user.start_location
+    # end
     
     if params[:checkedDrag] != nil
       @checkedDrag = params[:checkedDrag]
@@ -17,46 +22,57 @@ class LocationsController < ApplicationController
     #puts "current & page #{@current_page} #{params[:page]}"
 
 
-    @locations = if params[:l] && params[:page]
-                   puts "=Using page and l"
-                   # debugger
-                   sw_lat, sw_lng, ne_lat, ne_lng = params[:l].split(",")
+    @locations =
+    
+      if params[:l] && params[:page]
+        puts "=Using page and l"
+        # debugger
+        sw_lat, sw_lng, ne_lat, ne_lng = params[:l].split(",")
 
-                   Location.search("*", page: params[:page], per_page: 5, where: {
-                       location: {
-                           top_left: {
-                               lat: ne_lat,
-                               lon: sw_lng
-                           },
-                           bottom_right: {
-                               lat: sw_lat,
-                               lon: ne_lng
-                           }
-                       }
-                   })
+        Location.search("*",
+            page: params[:page], per_page: 5,
+            where: {
+              location: {
+                  top_left: {
+                      lat: ne_lat,
+                      lon: sw_lng
+                  },
+                  bottom_right: {
+                      lat: sw_lat,
+                      lon: ne_lng
+                  }
+              }
+        })
 
 
-                 elsif params[:near] && params[:near].strip != ""  # search box
+      elsif params[:near] && params[:near].strip != ""  # search box
 
 
-                   location = Geocoder.search(params[:near]).first
+        location = Geocoder.search(params[:near]).first
 
-                   Location.search "*", page: params[:page], per_page: 5,
-                                   boost_by_distance: {location: {origin: {lat: location.latitude, lon: location.longitude}}},
-                                   where: {
-                                       location: {
-                                           near: {
-                                               lat: location.latitude,
-                                               lon: location.longitude
-                                           },
-                                           within: "10km"
-                                       }
-                                   }
+        Location.search "*",
+                        page: params[:page], per_page: 5,
+                        boost_by_distance: {location:
+                         {origin: {lat: location.latitude,
+                                   lon: location.longitude}}},
+                        where: {
+                            location: {
+                                near: {
+                                    lat: location.latitude,
+                                    lon: location.longitude
+                                },
+                                within: "10km"
+                            }
+                        }
 
-                 else
-                  #  Location.all.page(@current_page).order("created_at ASC").per(5)
-                  Location.all.page(@current_page).order("updated_at DESC").per(5)
-                 end
+      else
+
+      # Location sort by Region sorting strategy 2
+      # rely on hardcoded region on location model
+        Location.where(region: current_user.start_location).page(@current_page).order("updated_at DESC").per(5)
+      #  Location.all.page(@current_page).order("created_at ASC").per(5)
+      #  Location.all.page(@current_page).order("updated_at DESC").per(5)
+      end
 
   end
 
