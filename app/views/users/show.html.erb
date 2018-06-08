@@ -1,0 +1,34 @@
+
+
+<div class="row">
+
+  <div class="jumbotron">
+
+    <div>
+    Display Name: <%= @user.display_name %>
+
+
+    <i class="ra ra-castle-emblem ra-5x" style="color:#1d9d74;"></i>
+    </div>
+
+  </div>
+
+
+
+</div>
+
+
+
+
+<script >
+  document.body.style.backgroundImage = "url('<%= image_url('gruper2.jpg') %>')"
+  document.body.style.backgroundSize = 'cover'
+</script>
+
+<% if false %>
+<video class="fullscreen" playsinline autoplay muted loop>
+
+  <source src="/gruper1-flip-yellow.mp4" type="video/mp4">
+</video> 
+
+<% end %>

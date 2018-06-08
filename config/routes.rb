@@ -56,9 +56,9 @@ Rails.application.routes.draw do
       omniauth_callbacks: 'users/omniauth_callbacks',
       registrations: 'users/registrations'
   }
-
+  resources :users, :only => [:show, :update]
+  get 'profile' => 'users#show_profile'
   
-  get '/users/profile', to: 'user_info#profile'
 
 
   ## Geo game
