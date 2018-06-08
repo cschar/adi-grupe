@@ -6,9 +6,34 @@
 
     <div>
     Display Name: <%= @user.display_name %>
-
+    
 
     <i class="ra ra-castle-emblem ra-5x" style="color:#1d9d74;"></i>
+    </div>
+
+    <div class="d-block p-4 m-2 bg-light">
+      <span> tag : <%= @user.tag %> </span>
+
+      <div id="tag"> </div>
+
+    <% if current_user == @user %>
+      
+    <%= link_to  user_path(@user, user: {tag: "placeholder"}), method: :put, remote: :true do %>
+      <span>
+        <i class="ra ra-fizzing-flask ra-5x" ></i>
+        <h4> Get a __New__! tag </h4>
+        </span>
+    <% end %>
+
+
+    <% if false %>
+      <%= link_to  user_path(@user, user: {tag: FFaker::Color.name }), method: :put do %>    
+        link via put
+      <% end %>
+    <% end %>
+
+    <% end %>
+
     </div>
 
   </div>

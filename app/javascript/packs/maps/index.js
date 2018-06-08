@@ -102,9 +102,12 @@ function addSingleLocationInfoMarker(){
 
 }
 
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("turbolinks:load", function() {    
     console.log("turbo loaded , making map")
     try{
+        // var element = document.querySelector("#user-info");
+        // var grupelocation = JSON.parse(element.dataset.start_location);
+
         map = window.map = new GMaps({
         div: '#map',
         lat: 38.5816,
@@ -166,37 +169,5 @@ document.addEventListener("turbolinks:load", function() {
         });
 
     }
-    if(window.location.pathname == '/transactions') {
-        addTransactionMarkers();
-
-        var checkedDrag = document.querySelector("#map").getAttribute("data-checkedDrag")
-        checkedDrag = (checkedDrag == 'true')
-
-        var checkbox = $('#mapDragCheckbox')
-        if(checkedDrag){
-            checkbox.prop('checked', true);
-        }
-
-        map.addListener("dragend", function() {
-
-            var isChecked = checkbox.is(":checked")
-            if(isChecked) {
-                var bounds = map.getBounds();
-                var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
-                Turbolinks.visit(`/transactions?l=${location}&checkedDrag=${isChecked}`);
-            }
-        });
-
-        //map.addListener("zoom_changed", function(){  console.log("map zoomed ")   })
-
-        document.querySelector("#redo-search").addEventListener("click", function(e) {
-            e.preventDefault();
-
-            var bounds = map.getBounds();
-            var location = bounds.getSouthWest().toUrlValue() + "," + bounds.getNorthEast().toUrlValue();
-
-            Turbolinks.visit(`/transactions?l=${location}`);
-        });
-
-    }
+    
 });

@@ -65,17 +65,25 @@ class User < ApplicationRecord
   # rails g migration CreateJoinTableUsersGrupes users groups
   #has_and_belongs_to_many :grupes
 
-   #### mailboxer
-   acts_as_messageable
+  #### mailboxer
+  acts_as_messageable
 
-   #### active record store
-   # http://api.rubyonrails.org/classes/ActiveRecord/Store.html
-   ## since settings column is text, we have to use store method
-   store :settings, accessors: [ :weekly_email, :monthly_newsletter], coder: JSON  #JSON/YML etc.
+  #### active record store
+  # http://api.rubyonrails.org/classes/ActiveRecord/Store.html
+  ## since settings column is text, we have to use store method
+  store :settings, accessors: [ :weekly_email, :monthly_newsletter], coder: JSON  #JSON/YML etc.
 
-   ###  preferences is json column, so store_accessor used
-   store_accessor :preferences, :start_location
+  ###  preferences is json column, so store_accessor used
+  ## bonus of using Postgresql 
+  store_accessor :preferences, :start_location, :tag
 
+  after_create :init_profile
+
+  def init_profile
+    self.tag = FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample
+    self.save
+  # self.build_profile.save(validate: false)
+  end
   #  typed_store :settings, coder: JSON do |s|
   #   s.string :weekly_email, default: true
   #   s.string :monthly_newsletter, default: true
@@ -96,7 +104,7 @@ class User < ApplicationRecord
      "User [][][][]]  #{id}"
    end
    def display_name
-     " ubo-ola #{id}"
+     " ubo-ola #{id}" + self.tag.to_s
    end
 
    def mailboxer_email(object)

@@ -22,6 +22,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+
+
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -42,7 +44,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email)
+    
+    params.require(:user)
+    params[:tag] = FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample
+    params.permit(:tag)
+    
   end
 
 end

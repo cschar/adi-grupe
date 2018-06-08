@@ -36,7 +36,13 @@ class StaticPagesController < ApplicationController
       
 
       current_user.settings[:weekly_email] = params[:weekly_email] == 'true'
-      current_user.preferences = { :start_location => params[:start_location] }
+      
+      # replace with some params permit magic
+      if params[:start_location] == "o"
+        current_user.start_location = "o"
+      elsif params[:start_location] == "m"
+        current_user.start_location = "m"
+      end
       current_user.save
 
       redirect_to settings_weird_path

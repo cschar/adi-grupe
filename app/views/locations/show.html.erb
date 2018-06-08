@@ -5,6 +5,10 @@
             data: { locationinfo: @location.to_json(methods: [:my_tostring])
             } do %> <% end %>
 
+<%#= tag.div id: "user-info",
+            data: { start_location: current_user.to_json(methods: [:start_location])
+            } do %> <%# end %>
+
 
 <h2><%= @location.name %> -- <%= @location.ltype %>
   <span class="float-right">location <%= @location.id %></span>

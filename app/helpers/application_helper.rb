@@ -5,17 +5,19 @@ module ApplicationHelper
     component
        .new({context: self}.merge(props))
        .render()
-end
+  end
 
-def m_react_component(component_name, props)
-  tag.div data: { component_name: component_name,
-                  react_props: props.to_json }
+  def m_react_component(component_name, props)
+    tag.div data: { component_name: component_name,
+                    react_props: props.to_json }
 
-end
+  end
 
-# <%= m_react_component('ReactButtonClass', 
-#                       { button_prop_name: 'click me '})
-# <%= m_render_component(Form, {}) %>
+  def name_gen
+    name = FFaker::Color.name  + FFaker::CheesyLingo.sentence.split(" ").sample
+
+    tag.div tag.p(name), id: "tag"
+  end
 
 
 end
